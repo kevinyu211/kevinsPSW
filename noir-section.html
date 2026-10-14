@@ -1,0 +1,71 @@
+  <!-- NOIR HOURS
+       Needs assets/css/noir.css in <head> and assets/js/noir.js before </body>.
+       The city is drawn on the two canvases; the player is built from the <li> items below. -->
+  <section class="section noir" id="noir" aria-labelledby="noir-title">
+    <div class="wrap">
+      <header class="section-head noir-head">
+        <div class="noir-head-main">
+          <p class="kicker mono">Study-with-me channel</p>
+          <h2 id="noir-title" data-split>Noir Hours</h2>
+          <p class="section-sub">Noir jazz for late-night studying and focused work.</p>
+        </div>
+        <div class="noir-head-aside">
+          <p class="noir-note">Lyric-free, slow and smoky. Made with an AI-assisted production workflow.</p>
+          <p class="noir-status"><span class="noir-status-dot" aria-hidden="true"></span>Music is ready. The channel launches soon.</p>
+        </div>
+      </header>
+
+      <div class="noir-stage" data-reveal>
+        <div class="noir-scene" data-noir-scene role="img" aria-label="Illustration: a rainy city street at night. Lit windows, a street lamp and a neon sign reading Noir Hours glow on the wet pavement.">
+          <canvas class="noir-canvas" data-noir-bg aria-hidden="true"></canvas>
+          <canvas class="noir-canvas" data-noir-fx aria-hidden="true"></canvas>
+        </div>
+
+        <div class="noir-player" data-noir-player>
+          <div class="noir-deck">
+            <div class="noir-now">
+              <span class="noir-cover" aria-hidden="true"><img data-noir-art alt="" width="56" height="56" loading="lazy" decoding="async" hidden></span>
+              <div class="noir-now-text">
+                <p class="noir-now-title" data-noir-title>Noir Hours</p>
+                <p class="noir-now-sub" data-noir-sub>Sample</p>
+              </div>
+              <button class="noir-play" type="button" data-noir-play aria-label="Play">
+                <svg class="noir-ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.8v12.4a.8.8 0 0 0 1.2.7l9.9-6.2a.8.8 0 0 0 0-1.4L9.7 5.1a.8.8 0 0 0-1.2.7z"></path></svg>
+                <svg class="noir-ico-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.8" height="14" rx="1"></rect><rect x="13.7" y="5" width="3.8" height="14" rx="1"></rect></svg>
+              </button>
+            </div>
+            <div class="noir-progress">
+              <span class="noir-time" data-noir-cur>0:00</span>
+              <input class="noir-seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Seek" aria-valuetext="0:00" data-noir-seek>
+              <span class="noir-time" data-noir-dur>0:00</span>
+            </div>
+          </div>
+
+          <!-- Tracks. Each <li> is one sample; adding or removing <li> items is all the player needs.
+               data-src and data-title are required. data-art (a square cover image) and
+               data-duration (like "3:12") are optional; the duration is read from the file when left out.
+               Keep the MP3s in assets/audio/ on this same site so the city can react to the music. -->
+          <ol class="noir-tracks" data-noir-tracks aria-label="Samples">
+            <li data-src="assets/audio/rain-soaked-streets.mp3" data-title="Rain-Soaked Streets" data-art="assets/audio/rain-soaked-streets.jpg"></li>
+            <!--
+              TODO(Kevin): to add the next samples, put the files in assets/audio/,
+              rename the titles and move each <li> above this comment.
+            <li data-src="assets/audio/noir-hours-02.mp3" data-title="Smoke and Streetlights"></li>
+            <li data-src="assets/audio/noir-hours-03.mp3" data-title="Last Call at the Blue Lamp"></li>
+            -->
+          </ol>
+
+          <div class="noir-empty">
+            <span class="noir-record" aria-hidden="true"></span>
+            <div>
+              <p class="noir-empty-title">Samples drop here soon.</p>
+              <p class="noir-empty-sub">The first upload is coming to YouTube.</p>
+            </div>
+          </div>
+
+          <p class="noir-sr" aria-live="polite" data-noir-live></p>
+          <audio preload="none" data-noir-audio></audio>
+        </div>
+      </div>
+    </div>
+  </section>

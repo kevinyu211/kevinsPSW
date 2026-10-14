@@ -478,44 +478,80 @@
      How it runs: five steps, pinned on large screens
      ===================================================================== */
   const buildStep = [
+    // 01 · I message Stark, he types for a moment, then splits it into tasks.
+    (v) => {
+      const chat = $('.v-chat', v);
+      const agent = $('.msg-agent', v);
+      return G.timeline({ paused: true, defaults: { ease: 'expo.out' } })
+        .call(() => chat.classList.remove('is-typing'), null, 0.001)
+        .fromTo($('.msg-me', v), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.65 }, 0.1)
+        .call(() => chat.classList.add('is-typing'), null, 0.7)
+        .call(() => chat.classList.remove('is-typing'), null, 1.75)
+        .fromTo(agent, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6 }, 1.8)
+        .fromTo($$('.tasks li', v), { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.55, stagger: 0.18 }, 2.1);
+    },
+    // 02 · The Big Three check what each business is running, then call each task.
     (v) => {
       const kp = $('.idea-killed p', v);
       return G.timeline({ paused: true, defaults: { ease: 'expo.out' } })
-        .fromTo($('.v-q', v), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6 }, 0.1)
-        .fromTo($$('.idea', v), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.12 }, 0.25)
-        .fromTo($('.stamp-kill', v), { opacity: 0, scale: 2.2, rotate: -24 }, { opacity: 1, scale: 1, rotate: -8, duration: 0.5, ease: 'back.out(2.4)' }, 1.0)
-        .fromTo(kp, { '--strike': 0 }, { '--strike': 1, duration: 0.45, ease: 'power2.inOut' }, 1.1)
-        .fromTo($('.stamp-build', v), { opacity: 0, scale: 2.2, rotate: 16 }, { opacity: 1, scale: 1, rotate: -5, duration: 0.5, ease: 'back.out(2.4)' }, 1.6);
+        .fromTo($$('.ledger li', v), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.5, stagger: 0.08 }, 0.1)
+        .fromTo($$('.tick', v), { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.2, ease: 'back.out(3)' }, 0.55)
+        .fromTo($$('.idea', v), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.12 }, 1.25)
+        .fromTo($$('.stamp-build', v), { opacity: 0, scale: 2.2, rotate: 16 }, { opacity: 1, scale: 1, rotate: -5, duration: 0.5, stagger: 0.35, ease: 'back.out(2.4)' }, 1.85)
+        .fromTo($('.stamp-kill', v), { opacity: 0, scale: 2.2, rotate: -24 }, { opacity: 1, scale: 1, rotate: -8, duration: 0.5, ease: 'back.out(2.4)' }, 2.65)
+        .fromTo(kp, { '--strike': 0 }, { '--strike': 1, duration: 0.45, ease: 'power2.inOut' }, 2.75);
     },
-    (v) => G.timeline({ paused: true, defaults: { ease: 'expo.out' } })
-      .fromTo($('.route-task', v), { opacity: 0, y: -14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.6 }, 0.1)
-      .fromTo($$('.route-owner', v), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.65, stagger: 0.16 }, 0.55)
-      .fromTo($$('.route-owner li', v), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.45, stagger: 0.07 }, 0.95),
-    (v) => G.timeline({ paused: true })
-      .fromTo($$('.cl', v), { clipPath: 'inset(0 100% 0 0)' },
-        { clipPath: 'inset(0 0% 0 0)', duration: 0.4, ease: 'steps(16)', stagger: 0.15 }, 0.1),
+    // 03 · Each task lands in its project channel, and the manager briefs the agents one by one.
     (v) => {
-      const sts = $$('.st', v);
-      const set = (el, s) => { el.dataset.s = s; el.textContent = s; };
-      const tl = G.timeline({ paused: true })
-        .call(() => sts.forEach((s) => set(s, 'queued')), null, 0.001)
-        .fromTo($('.crew-kevin', v), { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(2)' }, 0)
-        .fromTo($$('.crew li', v), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: 'expo.out' }, 0.1);
-      sts.forEach((s, k) => {
-        tl.call(() => set(s, 'running'), null, 0.55 + k * 0.15);
-        tl.call(() => set(s, 'done'), null, 1.35 + k * 0.18 + (k % 3) * 0.12);
-      });
+      const rooms = $$('.room', v);
+      const crew = $$('.room-crew span', v);
+      const tl = G.timeline({ paused: true, defaults: { ease: 'expo.out' } })
+        .call(() => crew.forEach((c) => c.classList.remove('is-on')), null, 0.001)
+        .fromTo(rooms, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.08 }, 0.05)
+        .fromTo($$('.room-task', v), { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.3 }, 0.6);
+      rooms.forEach((r, k) => $$('.room-crew span', r).forEach((c, j) => {
+        tl.call(() => c.classList.add('is-on'), null, 1.1 + k * 0.3 + j * 0.16);
+      }));
       return tl;
     },
+    // 04 · Code moves from spec to merge while the video cut comes together in CapCut.
     (v) => {
-      const gates = $$('.gate', v);
-      const tl = G.timeline({ paused: true })
-        .call(() => gates.forEach((g) => { g.classList.remove('is-ok'); $('.gate-state', g).textContent = 'Waiting for Kevin'; }), null, 0.001)
-        .fromTo(gates, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.1, ease: 'expo.out' }, 0);
+      const sts = $$('.pipe .st', v);
+      const cutSt = $('.lift-head .st', v);
+      const set = (el, s) => { el.dataset.s = s; el.textContent = s; };
+      const tl = G.timeline({ paused: true, defaults: { ease: 'expo.out' } })
+        .call(() => [...sts, cutSt].forEach((s) => set(s, 'queued')), null, 0.001)
+        .fromTo($$('.lift', v), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.15 }, 0.05)
+        .fromTo($$('.cut-clip', v), { opacity: 0, x: 18 }, { opacity: 1, x: 0, duration: 0.5, stagger: 0.14 }, 0.75)
+        .fromTo($('.cut-play', v), { left: '0%' }, { left: '100%', duration: 2.3, ease: 'none' }, 1.55);
+      sts.forEach((s, k) => {
+        tl.call(() => set(s, 'running'), null, 0.45 + k * 0.6);
+        tl.call(() => set(s, 'done'), null, 0.95 + k * 0.6);
+      });
+      tl.call(() => set(cutSt, 'running'), null, 0.75).call(() => set(cutSt, 'done'), null, 3.9);
+      return tl;
+    },
+    // 05 · I flip the two switches for scenes and cover, the data-driven rest runs, and the report comes back.
+    (v) => {
+      const gates = $$('.gate:not(.gate-auto)', v);
+      const auto = $('.gate-auto .st', v);
+      const report = $('.msg-report', v);
+      const set = (el, s) => { el.dataset.s = s; el.textContent = s; };
+      const tl = G.timeline({ paused: true, defaults: { ease: 'expo.out' } })
+        .call(() => {
+          gates.forEach((g) => { g.classList.remove('is-ok'); $('.gate-state', g).textContent = 'Waiting for Kevin'; });
+          set(auto, 'queued');
+          report.classList.remove('is-seen');
+        }, null, 0.001)
+        .fromTo($$('.gate', v), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.1 }, 0.05)
+        .fromTo(report, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6 }, 2.9)
+        .call(() => set(auto, 'running'), null, 1.95)
+        .call(() => set(auto, 'done'), null, 2.75)
+        .call(() => report.classList.add('is-seen'), null, 3.7);
       gates.forEach((g, k) => tl.call(() => {
         g.classList.add('is-ok');
         $('.gate-state', g).textContent = 'Approved by Kevin';
-      }, null, 1.1 + k * 0.6));
+      }, null, 0.95 + k * 0.6));
       return tl;
     },
   ];

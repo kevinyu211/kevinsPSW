@@ -718,8 +718,57 @@ mark.fab::after {
   box-shadow: var(--shadow-2);
 }
 .v-note { font-size: 0.8125rem; color: var(--muted); }
-.v-q { font: 500 1.35rem/1.25 var(--f-display); letter-spacing: -0.01em; }
+.code-head { display: flex; justify-content: space-between; gap: 12px; font-size: 0.6875rem; color: var(--muted); letter-spacing: 0.06em; }
+
+/* 01 · A Grok Bot chat with Stark */
+.v-chat > * { grid-column: 1; }
+.v-chat > .code-head { grid-row: 1; }
+.v-chat > .msg-me { grid-row: 2; }
+.v-chat > .msg-agent, .v-chat > .msg-typing { grid-row: 3; }
+.msg { display: grid; gap: 6px; max-width: 86%; padding: 12px 14px; border-radius: 14px; }
+.msg p { font-size: 0.9375rem; line-height: 1.5; text-wrap: pretty; }
+.msg-who { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.005em; }
+.msg-me { justify-self: end; background: var(--human-soft); border-bottom-right-radius: 4px; }
+.msg-me .msg-who { color: var(--human); }
+.msg-agent { justify-self: start; gap: 8px; background: var(--paper); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+.msg-agent .msg-who { color: var(--accent); }
+.msg-typing {
+  justify-self: start; align-self: start; display: inline-flex; gap: 4px;
+  padding: 14px 16px; border-radius: 14px 14px 14px 4px; background: var(--paper); border: 1px solid var(--line);
+  opacity: 0; transition: opacity 0.3s var(--ease-out);
+}
+.msg-typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-line); }
+.v-chat.is-typing .msg-typing { opacity: 1; }
+.v-chat.is-typing .msg-typing i { animation: typing 1s ease-in-out infinite; }
+.v-chat.is-typing .msg-typing i:nth-child(2) { animation-delay: 0.15s; }
+.v-chat.is-typing .msg-typing i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.55; } 30% { transform: translateY(-3px); opacity: 1; } }
+.tasks { display: grid; gap: 6px; margin-top: 2px; }
+.tasks li {
+  display: grid; grid-template-columns: 20px minmax(0, 1fr); align-items: baseline;
+  padding: 8px 10px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line);
+  font-size: 0.875rem; font-weight: 500; line-height: 1.35;
+}
+.task-n { font-size: 0.75rem; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }
+
+/* 02 · The Big Three channel checks the data, then calls each task */
+.v-decide { gap: 10px; }
+.ledger { display: grid; gap: 6px; margin-block: 2px 6px; }
+.ledger-k { font-size: 0.6875rem; color: var(--muted); }
+.ledger ul { border-top: 1px solid var(--line); }
+.ledger li {
+  display: grid; grid-template-columns: 84px minmax(0, 1fr) 14px; gap: 10px; align-items: center;
+  padding: 7px 2px; border-bottom: 1px solid var(--line); font-size: 0.8125rem; line-height: 1.35;
+}
+.ledger b { font-weight: 600; }
+.ledger li span { color: var(--ink-2); }
+.tick { position: relative; width: 14px; height: 14px; }
+.tick::before {
+  content: ""; position: absolute; left: 2px; top: 2px; width: 9px; height: 5px;
+  border-left: 1.6px solid var(--accent); border-bottom: 1.6px solid var(--accent); transform: rotate(-45deg);
+}
 .idea { position: relative; display: grid; gap: 4px; padding: 14px 16px; border-radius: 12px; border: 1px dashed var(--line-2); background: var(--paper); }
+.v-decide .idea { gap: 2px; padding: 10px 14px; }
 .idea-k { font-size: 0.625rem; letter-spacing: 0.005em; color: var(--muted); }
 .idea p { position: relative; width: fit-content; max-width: calc(100% - 92px); font-weight: 500; line-height: 1.4; }
 .idea-killed p { color: var(--muted); }
@@ -733,25 +782,30 @@ mark.fab::after {
 .stamp-kill { color: var(--human); }
 .stamp-build { color: var(--live); transform: rotate(-5deg); }
 
-.code-head { display: flex; justify-content: space-between; font-size: 0.6875rem; color: var(--muted); letter-spacing: 0.06em; }
-.code { margin: 0; padding: 16px 18px; border-radius: 12px; background: var(--paper-2); overflow-x: auto; font: 0.8125rem/1.75 var(--f-mono); color: var(--ink-2); }
-.code code { font: inherit; display: block; }
-.cl { display: block; width: max-content; white-space: pre; min-height: 1.75em; }
-.c-k { color: var(--accent); }
-.c-t { color: var(--ink); font-weight: 600; }
-.c-g { color: var(--human); font-weight: 600; }
-
-.crew-head { display: flex; align-items: center; gap: 10px; }
+/* 03 · Project channels, each with one manager who briefs the agents */
 .crew-kevin { padding: 5px 10px; border-radius: 999px; background: var(--human); color: #fff; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em; }
-.crew-manager { background: var(--accent); }
-.crew-sub { font-size: 0.6875rem; color: var(--muted); letter-spacing: 0.005em; }
-.crew { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-.crew li {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: 8px;
-  padding: 10px 12px; border-radius: 10px; background: var(--paper); border: 1px solid var(--line);
+.crew-manager { background: var(--accent); color: var(--surface); }
+.rooms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.room {
+  display: grid; grid-template-rows: auto 1fr auto; gap: 8px;
+  padding: 12px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line);
 }
-.crew b { font-size: 0.875rem; font-weight: 600; color: var(--accent); }
-.crew span { grid-column: 1; font-size: 0.75rem; color: var(--muted); line-height: 1.35; }
+.room-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.room-head b { font-size: 0.875rem; font-weight: 600; }
+.room-head .crew-kevin { padding: 3px 9px; font-size: 0.6875rem; letter-spacing: 0.02em; }
+.room-task {
+  align-self: start; padding: 8px 10px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line);
+  font-size: 0.8125rem; font-weight: 500; line-height: 1.4;
+}
+.room-crew { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 0.75rem; color: var(--muted); }
+.room-crew span { display: inline-flex; align-items: center; gap: 6px; transition: color 0.3s; }
+.room-crew span::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--line-2);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.room-crew span.is-on { color: var(--ink-2); }
+.room-crew span.is-on::before { background: var(--accent); border-color: var(--accent); }
+
 .st {
   grid-column: 2; grid-row: 1 / span 2; align-self: center;
   font-style: normal; font-size: 0.5625rem; letter-spacing: 0.005em;
@@ -761,9 +815,50 @@ mark.fab::after {
 .st[data-s="running"] { background: var(--progress-soft); color: var(--progress); }
 .st[data-s="done"] { background: var(--live-soft); color: var(--live); }
 
+/* 04 · Claude Code and Codex: a code lane and a CapCut timeline */
+.v-lift { gap: 12px; }
+.lift { display: grid; gap: 10px; padding: 14px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line); }
+.lift-head { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.lift-head b { font: 500 1.15rem/1.1 var(--f-display); letter-spacing: -0.01em; }
+.lift-head span { font-size: 0.75rem; color: var(--muted); min-width: 0; }
+.lift-head .st { margin-left: auto; align-self: center; }
+.pipe { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.pipe li {
+  position: relative; display: grid; gap: 2px; justify-items: start; align-content: start;
+  padding: 9px 10px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line);
+}
+.pipe li + li::before { content: ""; position: absolute; left: -8px; top: 50%; width: 7px; height: 1.5px; background: var(--accent-line); }
+.pipe b { font-size: 0.8125rem; font-weight: 600; }
+.pipe span { font-size: 0.6875rem; line-height: 1.3; color: var(--muted); }
+.pipe .st { grid-column: auto; grid-row: auto; margin-top: 5px; }
+.cut { position: relative; display: grid; gap: 4px; padding-top: 12px; }
+.cut-ruler {
+  position: absolute; left: 0; right: 0; top: 0; height: 7px;
+  background:
+    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 25%) 0 0 / 100% 7px no-repeat,
+    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 5%) 0 100% / 100% 3px no-repeat;
+}
+.cut-track { display: flex; gap: 3px; height: 34px; }
+.cut-clip {
+  flex: var(--g) 1 0; min-width: 0; border-radius: 5px;
+  background: var(--accent-soft) repeating-linear-gradient(90deg, transparent 0 15px, var(--accent-line) 15px 16px);
+  border: 1px solid var(--accent-line);
+}
+.cut-clip:nth-child(even) { background-color: var(--paper-2); }
+.cut-audio {
+  height: 14px; border-radius: 4px; border: 1px solid var(--line);
+  background: var(--paper-2) repeating-linear-gradient(90deg, var(--line-2) 0 2px, transparent 2px 5px) 0 50% / 100% 6px no-repeat;
+}
+.cut-play { position: absolute; top: 0; bottom: -3px; left: 100%; width: 1.5px; margin-left: -1.5px; background: var(--ink); }
+.cut-play::before { content: ""; position: absolute; top: -3px; left: 50%; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 2px 2px 50% 50%; background: var(--ink); }
+.cut-note { font-size: 0.75rem; color: var(--muted); }
+
+/* 05 · My two approvals per book; the rest follows the data and reports back */
+.v-ship { gap: 10px; }
+.v-ship .code-head { margin-bottom: 2px; }
 .gate {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; gap: 6px 14px; align-items: center;
-  padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--paper);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; gap: 4px 14px; align-items: center;
+  padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--paper);
   transition: border-color 0.45s var(--ease-out);
 }
 .gate-text { display: grid; gap: 2px; min-width: 0; }
@@ -776,25 +871,13 @@ mark.fab::after {
 .gate.is-ok .switch { background: var(--human); }
 .gate.is-ok .switch i { transform: translateX(17px); }
 .gate.is-ok .gate-state { color: var(--human); }
-
-.v-route { gap: 16px; }
-.route-task {
-  display: grid; gap: 4px; justify-items: center; text-align: center;
-  padding: 14px 16px; border-radius: 12px; background: var(--human-soft); border: 1px solid color-mix(in srgb, var(--human) 35%, transparent);
-}
-.route-k { font-size: 0.75rem; color: var(--human); font-weight: 600; }
-.route-task b { font: 500 1.25rem/1.2 var(--f-display); }
-.route-split { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding-top: 22px; }
-.route-split::before {
-  content: ""; position: absolute; top: 0; left: 25%; right: 25%; height: 22px;
-  border: 1.5px solid var(--accent-line); border-bottom: 0; border-radius: 12px 12px 0 0;
-}
-.route-split::after { content: ""; position: absolute; top: -8px; left: 50%; width: 1.5px; height: 8px; background: var(--accent-line); }
-.route-owner { display: grid; gap: 8px; align-content: start; padding: 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--paper); }
-.route-who { font: 500 1.3rem/1 var(--f-display); color: var(--accent); }
-.route-role { font-size: 0.8125rem; color: var(--muted); }
-.route-owner ul { display: grid; gap: 6px; }
-.route-owner li { font-size: 0.875rem; padding: 6px 10px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line); }
+.gate-auto { grid-template-rows: auto; border-style: dashed; border-color: var(--line-2); }
+.gate-auto .st { grid-row: auto; }
+.v-ship .msg-report { max-width: none; justify-self: stretch; margin-top: 4px; }
+.seen { justify-self: end; display: inline-flex; align-items: center; gap: 7px; font-size: 0.6875rem; color: var(--muted); transition: color 0.4s; }
+.seen::before { content: ""; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--line-2); transition: background-color 0.4s, border-color 0.4s; }
+.msg-report.is-seen .seen { color: var(--human); }
+.msg-report.is-seen .seen::before { background: var(--human); border-color: var(--human); }
 
 /* ---------- How I build ---------- */
 .loop { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 4vw, 56px); }
@@ -998,13 +1081,17 @@ mark.fab::after {
   .player-list { grid-template-columns: minmax(0, 1fr); }
   .filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; border-radius: 18px; }
   .filter { justify-content: space-between; }
-  .crew { grid-template-columns: minmax(0, 1fr); }
   .idea p { max-width: calc(100% - 84px); }
 }
 @media (max-width: 420px) {
   .shelf-books { gap: 3px; padding: 0 6px; height: 220px; }
   .btn-lg { --btn-h: 54px; padding-inline: 22px; }
   .rw-row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .msg { max-width: 94%; }
+  .ledger li { grid-template-columns: 72px minmax(0, 1fr) 14px; gap: 8px; }
+  .rooms { grid-template-columns: minmax(0, 1fr); }
+  .pipe { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pipe li:nth-child(3)::before { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

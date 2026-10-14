@@ -208,29 +208,29 @@
     if (!svg) return { build() {}, intro() {}, start() {} };
 
     // Structure from the Company OS page: owner → Big Three → one manager per room → crew.
-    const KEVIN = { id: 'kevin', name: 'Kevin (me)', role: 'I set the goals and approve anything that publishes, spends money or needs a 2FA code.' };
+    const KEVIN = { id: 'kevin', name: 'Kevin (me)', role: 'I set the goals, send my asks through Grok Bot, and approve anything that publishes, spends money or needs a 2FA code.' };
     const COLS = [
       { label: 'Leadership', cls: 'org-big', nodes: [
-        { id: 'stark', name: 'Stark', role: 'Chief of staff. Breaks down my asks, routes them, keeps the scoreboard and checks the work against my goals.' },
-        { id: 'tony', name: 'Tony', role: 'CTO. Owns the stack, the repos and ship quality.' },
-        { id: 'sadie', name: 'Sadie', role: 'CMO. Owns growth that can turn into money or an audience.' },
+        { id: 'stark', name: 'Stark', role: 'Chief of staff. Maps my asks to a goal, routes them, keeps the scoreboard and checks the work before anything ships.' },
+        { id: 'tony', name: 'Tony', role: 'CTO. Owns the stack, the repos, ship quality and AI strategy.' },
+        { id: 'sadie', name: 'Sadie', role: 'CMO. Owns growth, runs the Marketing room and gives the final stamp on book listings.' },
       ] },
       { label: 'Project rooms', cls: 'org-lane', nodes: [
-        { id: 'hirvo', name: 'Hirvo', role: 'The job-search startup. Steven manages the room, reporting to Tony on product and Sadie on growth.' },
-        { id: 'dev', name: 'Dev + hackathons', short: 'Dev', role: 'Builds and time-boxed hackathons. Steven manages the room, reporting to Tony.' },
-        { id: 'kdp', name: 'KDP books', role: 'The coloring-book pipeline, from research to publish. Steven manages it, with Sadie on listings.' },
-        { id: 'mkt', name: 'Marketing', role: 'Content and growth across channels. Sadie runs this room herself.' },
+        { id: 'hirvo', name: 'Hirvo · James', short: 'Hirvo', role: 'The job-search startup. James manages the room, and the work runs on fixing the rewrite, then selling it.' },
+        { id: 'dev', name: 'Dev · Steven', short: 'Dev', role: 'Builds and time-boxed hackathons. Steven, my AI product manager, turns problems into small, owned pieces.' },
+        { id: 'kdp', name: 'KDP · Tim', short: 'KDP', role: 'The coloring-book pipeline. Tim has run it since September: keywords, the daily create pack and page-by-page checks.' },
+        { id: 'mkt', name: 'Marketing · Sadie', short: 'Marketing', role: 'Growth that turns into money or an audience. Sadie runs this room herself.' },
       ] },
       { label: 'Crew', cls: 'org-crew', nodes: [
-        { id: 'alan', name: 'Alan', role: 'Crew in the Hirvo room.' },
-        { id: 'bob', name: 'Bob', role: 'Builder. Works on Bookflow tooling and dev projects.' },
-        { id: 'cindy', name: 'Cindy', role: 'Research. Finds niches and sorts keywords into keep and skip.' },
-        { id: 'tim', name: 'Tim', role: 'Keywords. Pulls reverse-ASIN and longtail data from SellerSprite.' },
-        { id: 'alex', name: 'Alex', role: 'Ads. Reads Amazon Ads campaigns and recommends hold or change.' },
-        { id: 'jennifer', name: 'Jennifer', role: 'Art. Makes art packs and A+ content.' },
-        { id: 'justin', name: 'Justin', role: 'Crew in the Marketing room.' },
-        { id: 'kylie', name: 'Kylie', role: 'Crew in the Marketing room.' },
-        { id: 'blake', name: 'Blake', role: 'Crew in the Marketing room.' },
+        { id: 'alan', name: 'Alan', role: 'Career agent. Tailors resumes, finds well-matched US roles, flags visa sponsorship and logs it all to tune Hirvo.' },
+        { id: 'bob', name: 'Bob', role: 'Bob the Builder. Ships code through Cursor cloud agents and fills in the Bookflow metadata for each book.' },
+        { id: 'cindy', name: 'Cindy', role: 'Researcher. Market and niche research, keep-or-skip keyword calls, and grading Hirvo rewrites like a recruiter would.' },
+        { id: 'alex', name: 'Alex', role: 'Ads analyst. Reads Amazon Ads results and recommends hold or change.' },
+        { id: 'jennifer', name: 'Jennifer', role: 'Visuals. Covers, A+ pages and page-by-page interior checks.' },
+        { id: 'blake', name: 'Blake', role: 'English growth writer. LinkedIn, Reddit, X, landing copy and book listings.' },
+        { id: 'kylie', name: 'Kylie', role: 'AI influencers. Plans and researches content for TikTok and Instagram.' },
+        { id: 'justin', name: 'Justin', role: 'Chinese social writer. AI and build-in-public posts for Xiaohongshu.' },
+        { id: 'andrew', name: 'Andrew', role: 'News desk. Sends me a daily AI news digest in English and Chinese.' },
       ] },
     ];
     const LINKS = [
@@ -240,10 +240,10 @@
       ['sadie', 'hirvo'], ['sadie', 'kdp'], ['sadie', 'mkt'],
       ['hirvo', 'alan'], ['hirvo', 'bob'], ['hirvo', 'cindy'],
       ['dev', 'bob'], ['dev', 'cindy'],
-      ['kdp', 'bob'], ['kdp', 'cindy'], ['kdp', 'tim'], ['kdp', 'alex'], ['kdp', 'jennifer'],
-      ['mkt', 'cindy'], ['mkt', 'jennifer'], ['mkt', 'justin'], ['mkt', 'kylie'], ['mkt', 'blake'],
+      ['kdp', 'bob'], ['kdp', 'cindy'], ['kdp', 'alex'], ['kdp', 'jennifer'], ['kdp', 'blake'],
+      ['mkt', 'cindy'], ['mkt', 'jennifer'], ['mkt', 'blake'], ['mkt', 'kylie'], ['mkt', 'justin'], ['mkt', 'andrew'],
     ];
-    const TOUR = ['stark', 'tony', 'sadie', 'hirvo', 'dev', 'kdp', 'mkt', 'cindy', 'tim', 'jennifer', 'alex', 'bob', 'kevin'];
+    const TOUR = ['stark', 'tony', 'sadie', 'hirvo', 'dev', 'kdp', 'mkt', 'cindy', 'bob', 'jennifer', 'alex', 'blake', 'alan', 'kylie', 'andrew', 'kevin'];
     const SPREAD = [[190, 450], [130, 510], [74, 566]];
     const KY = 320;
 
@@ -263,7 +263,7 @@
 
     const layoutFor = (isCompact) => (isCompact
       ? { W: 400, kx: 22, kr: 19, x: [94, 204, 338], w: [64, 106, 70], ph: 28, fs: 12 }
-      : { W: 520, kx: 30, kr: 24, x: [124, 268, 444], w: [80, 124, 92], ph: 30, fs: 12.5 });
+      : { W: 520, kx: 30, kr: 24, x: [122, 266, 446], w: [78, 132, 88], ph: 30, fs: 12.5 });
 
     const curve = (x1, y1, x2, y2) => {
       const dx = (x2 - x1) * 0.55;

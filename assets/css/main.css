@@ -401,6 +401,8 @@ h2 {
 .org-node rect { fill: var(--surface); stroke: var(--line-2); stroke-width: 1; transition: fill 0.45s var(--ease-out), stroke 0.45s var(--ease-out); }
 .org-node text { fill: var(--ink); font: 500 12.5px var(--f-body); pointer-events: none; transition: fill 0.45s; }
 .org-big text { font-weight: 600; }
+.org-node text.org-title { font: 600 9.5px var(--f-body); letter-spacing: 0.08em; fill: var(--muted); }
+.org-node.is-hot text.org-title { fill: var(--accent); }
 .org-kevin { cursor: pointer; }
 .org-node.is-hot rect { fill: var(--accent-soft); stroke: var(--accent); }
 .org-node.is-hot text { fill: var(--accent); }

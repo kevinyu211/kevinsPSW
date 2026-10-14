@@ -211,9 +211,9 @@
     const KEVIN = { id: 'kevin', name: 'Kevin (me)', role: 'I set the goals, send my asks through Grok Bot, and approve anything that publishes, spends money or needs a 2FA code.' };
     const COLS = [
       { label: 'Leadership', cls: 'org-big', nodes: [
-        { id: 'stark', name: 'Stark', role: 'Chief of staff. Maps my asks to a goal, routes them, keeps the scoreboard and checks the work before anything ships.' },
-        { id: 'tony', name: 'Tony', role: 'CTO. Owns the stack, the repos, ship quality and AI strategy.' },
-        { id: 'sadie', name: 'Sadie', role: 'CMO. Owns growth, runs the Marketing room and gives the final stamp on book listings.' },
+        { id: 'stark', name: 'Stark', title: 'COO', role: 'COO and chief of staff. Maps my asks to a goal, routes them, keeps the scoreboard and checks the work before anything ships.' },
+        { id: 'tony', name: 'Tony', title: 'CTO', role: 'CTO. Owns the stack, the repos, ship quality and AI strategy.' },
+        { id: 'sadie', name: 'Sadie', title: 'CMO', role: 'CMO. Owns growth, runs the Marketing room and gives the final stamp on book listings.' },
       ] },
       { label: 'Project rooms', cls: 'org-lane', nodes: [
         { id: 'hirvo', name: 'Hirvo · James', short: 'Hirvo', role: 'The job-search startup. James manages the room, and the work runs on fixing the rewrite, then selling it.' },
@@ -304,9 +304,13 @@
           const y = a + (j * (b - a)) / (col.nodes.length - 1);
           const outer = svgEl('g', { transform: `translate(${L.x[ci]},${y})` }, gNodes);
           const g = svgEl('g', { class: `org-node ${col.cls}` }, outer);
-          svgEl('rect', { x: -L.w[ci] / 2, y: -L.ph / 2, width: L.w[ci], height: L.ph, rx: L.ph / 2 }, g);
-          svgEl('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central', y: 0.5, style: `font-size:${L.fs}px` }, g)
+          const h = n.title ? L.ph + 14 : L.ph;
+          svgEl('rect', { x: -L.w[ci] / 2, y: -h / 2, width: L.w[ci], height: h, rx: Math.min(h, L.ph) / 2 + 2 }, g);
+          svgEl('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central', y: n.title ? -6 : 0.5, style: `font-size:${L.fs}px` }, g)
             .textContent = compact && n.short ? n.short : n.name;
+          if (n.title) {
+            svgEl('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central', y: 9, class: 'org-title' }, g).textContent = n.title;
+          }
           nodes[n.id] = { g, x: L.x[ci], y, w: L.w[ci], col: ci, info: n };
         });
       });

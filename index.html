@@ -314,7 +314,7 @@
               <li><b>Reference</b> pull</li>
               <li><b>Claude</b> shot list</li>
               <li><b>Higgsfield</b> shots</li>
-              <li><b>Edit</b> cut</li>
+              <li><b>CapCut</b> edit</li>
               <li class="human"><b>Kevin</b> publishes</li>
             </ol>
             <p class="links">
@@ -518,7 +518,7 @@
         <header class="section-head">
           <p class="kicker">My AI team</p>
           <h2 id="how-title" data-split>How a one-person company actually runs.</h2>
-          <p class="section-sub how-sub">I run it like a small company. Grok Bot agents fill the roles, and Notion is our shared memory.</p>
+          <p class="section-sub how-sub">I talk to one agent in Grok Bot. The team turns that into finished work, and the results come back to me.</p>
         </header>
 
         <div class="how-grid">
@@ -529,15 +529,27 @@
                 <div class="how-copy">
                   <span class="how-num">01</span>
                   <div class="how-text">
-                    <h3>I ask. Stark routes it.</h3>
-                    <div class="how-body"><div><p>I message my Grok Bot, and Stark, my COO and chief of staff, checks the ask against my goals: sell Hirvo once the rewrite is right, keep the book pipeline running, or finish a build I've committed to. Anything else gets parked.</p></div></div>
+                    <h3>I tell Stark.</h3>
+                    <div class="how-body"><div><p>I message Stark, my COO agent, in Grok Bot with whatever I have. Stark breaks it into clear tasks and brings them to the Big Three.</p></div></div>
                   </div>
                 </div>
                 <div class="how-visual">
-                  <div class="v v-kill">
-                    <p class="v-q">Does it serve one of my goals?</p>
-                    <div class="idea idea-killed"><span class="idea-k">Request</span><p>A random weekend app</p><span class="stamp stamp-kill">Parked</span></div>
-                    <div class="idea idea-built"><span class="idea-k">Request</span><p>Eval sets for Hirvo's rewrite</p><span class="stamp stamp-build">Go</span></div>
+                  <div class="v v-chat">
+                    <div class="code-head"><span>Grok Bot · Stark</span><span>Example</span></div>
+                    <div class="msg msg-me">
+                      <span class="msg-who">Me</span>
+                      <p>Let's get Cozy Christmas out. Hirvo's rewrite needs eval sets. Also, I have an idea for a weekend app.</p>
+                    </div>
+                    <div class="msg msg-agent">
+                      <span class="msg-who">Stark · COO</span>
+                      <p>Got it. Three tasks for the Big Three.</p>
+                      <ol class="tasks">
+                        <li><span class="task-n">1</span>Publish Cozy Christmas</li>
+                        <li><span class="task-n">2</span>Eval sets for Hirvo's rewrite</li>
+                        <li><span class="task-n">3</span>A weekend app</li>
+                      </ol>
+                    </div>
+                    <span class="msg-typing" aria-hidden="true"><i></i><i></i><i></i></span>
                   </div>
                 </div>
               </li>
@@ -546,17 +558,25 @@
                 <div class="how-copy">
                   <span class="how-num">02</span>
                   <div class="how-text">
-                    <h3>The right lead owns it.</h3>
-                    <div class="how-body"><div><p>Tony, my CTO agent, owns anything we build. Sadie, my CMO agent, owns growth that can turn into money or an audience. A new book needs both.</p></div></div>
+                    <h3>The Big Three decide.</h3>
+                    <div class="how-body"><div><p>Tasks land in the Big Three channel. Stark, Tony (CTO) and Sadie (CMO) keep notes there and in Notion on what each business is running. They research, decide, and park work that serves no current goal.</p></div></div>
                   </div>
                 </div>
                 <div class="how-visual">
-                  <div class="v v-route">
-                    <div class="route-task"><span class="route-k">New request</span><b>Publish Cozy Christmas</b></div>
-                    <div class="route-split">
-                      <div class="route-owner"><span class="route-who">Tony</span><span class="route-role">CTO · Build</span><ul><li>Manuscript</li><li>Cover files</li><li>Upload to KDP</li></ul></div>
-                      <div class="route-owner is-growth"><span class="route-who">Sadie</span><span class="route-role">CMO · Growth</span><ul><li>Listing copy</li><li>Keywords</li><li>Ads plan</li></ul></div>
+                  <div class="v v-decide">
+                    <div class="code-head"><span>#big-three · Stark, Tony, Sadie</span><span>Example</span></div>
+                    <div class="ledger">
+                      <p class="ledger-k">What each business is running, from Notion</p>
+                      <ul>
+                        <li><b>Hirvo</b><span>Get the rewrite right, then sell</span><i class="tick" aria-hidden="true"></i></li>
+                        <li><b>KDP</b><span>Keep the book pipeline running</span><i class="tick" aria-hidden="true"></i></li>
+                        <li><b>Dev</b><span>Finish the builds I've committed to</span><i class="tick" aria-hidden="true"></i></li>
+                        <li><b>Marketing</b><span>Growth that brings money or an audience</span><i class="tick" aria-hidden="true"></i></li>
+                      </ul>
                     </div>
+                    <div class="idea idea-built"><span class="idea-k">Task 1 · to KDP and Marketing</span><p>Publish Cozy Christmas</p><span class="stamp stamp-build">Go</span></div>
+                    <div class="idea idea-built"><span class="idea-k">Task 2 · to Hirvo and Dev</span><p>Eval sets for Hirvo's rewrite</p><span class="stamp stamp-build">Go</span></div>
+                    <div class="idea idea-killed"><span class="idea-k">Task 3 · serves no current goal</span><p>A weekend app</p><span class="stamp stamp-kill">Parked</span></div>
                   </div>
                 </div>
               </li>
@@ -565,14 +585,36 @@
                 <div class="how-copy">
                   <span class="how-num">03</span>
                   <div class="how-text">
-                    <h3>A room manager scopes it.</h3>
-                    <div class="how-body"><div><p>Every project room has one manager. James runs Hirvo, Tim runs KDP, Steven runs dev and Sadie runs marketing. The manager cuts the work into a brief with clear checks. For code, I write the spec myself and hand it to Claude Code and Codex.</p></div></div>
+                    <h3>Managers brief their rooms.</h3>
+                    <div class="how-body"><div><p>Each project has its own channel and one manager. James runs Hirvo, Tim runs KDP, Steven runs dev and Sadie runs marketing. The manager preps every agent, so each one knows what to do.</p></div></div>
                   </div>
                 </div>
                 <div class="how-visual">
-                  <div class="v v-spec">
-                    <div class="code-head"><span>Spec</span><span>Example</span></div>
-<pre class="code"><code><span class="cl"><span class="c-k">interface</span> <span class="c-t">RewriteRequest</span> {</span><span class="cl">  resume: <span class="c-t">Resume</span></span><span class="cl">  target: <span class="c-t">JobPosting</span></span><span class="cl">}</span><span class="cl"> </span><span class="cl"><span class="c-g">Scenario:</span> rewrite never invents experience</span><span class="cl">  <span class="c-g">Given</span> a resume with no AWS experience</span><span class="cl">  <span class="c-g">When</span>  it is tailored to a cloud role</span><span class="cl">  <span class="c-g">Then</span>  no bullet mentions AWS</span><span class="cl">  <span class="c-g">And</span>   every claim traces to the source</span></code></pre>
+                  <div class="v v-rooms">
+                    <div class="code-head"><span>Project channels</span><span>Example</span></div>
+                    <ul class="rooms">
+                      <li class="room">
+                        <p class="room-head"><b>#hirvo</b><span class="crew-kevin crew-manager">James</span></p>
+                        <p class="room-task">Write eval sets for the rewrite</p>
+                        <p class="room-crew"><span class="is-on">Cindy</span><span class="is-on">Alan</span></p>
+                      </li>
+                      <li class="room">
+                        <p class="room-head"><b>#dev</b><span class="crew-kevin crew-manager">Steven</span></p>
+                        <p class="room-task">Cut the eval runner into small specs</p>
+                        <p class="room-crew"><span class="is-on">Bob</span><span class="is-on">Cindy</span></p>
+                      </li>
+                      <li class="room">
+                        <p class="room-head"><b>#kdp</b><span class="crew-kevin crew-manager">Tim</span></p>
+                        <p class="room-task">Research Cozy Christmas and build it in Bookflow</p>
+                        <p class="room-crew"><span class="is-on">Cindy</span><span class="is-on">Jennifer</span><span class="is-on">Bob</span></p>
+                      </li>
+                      <li class="room">
+                        <p class="room-head"><b>#marketing</b><span class="crew-kevin crew-manager">Sadie</span></p>
+                        <p class="room-task">Cozy Christmas listing copy</p>
+                        <p class="room-crew"><span class="is-on">Blake</span></p>
+                      </li>
+                    </ul>
+                    <p class="v-note">Each dot fills in once that agent has its brief.</p>
                   </div>
                 </div>
               </li>
@@ -581,23 +623,34 @@
                 <div class="how-copy">
                   <span class="how-num">04</span>
                   <div class="how-text">
-                    <h3>The crew does the work.</h3>
-                    <div class="how-body"><div><p>For a new book, Tim pulls the keywords, Cindy decides what to keep, Blake and Sadie write the listing, Bob fills in the metadata and Jennifer makes the cover. It all lands in Notion, so nothing lives only in my head.</p></div></div>
+                    <h3>Claude Code and Codex build it.</h3>
+                    <div class="how-body"><div><p>The hard coding goes to Claude Code and Codex, which are connected to the team. They edit the videos too, with CapCut.</p></div></div>
                   </div>
                 </div>
                 <div class="how-visual">
-                  <div class="v v-crew">
-                    <div class="crew-head"><span class="crew-kevin crew-manager">Tim</span><span class="crew-sub">runs the KDP room</span></div>
-                    <ul class="crew">
-                      <li><b>Tim</b><span>Reverse-ASIN keywords</span><i class="st" data-s="done">done</i></li>
-                      <li><b>Cindy</b><span>Keep or skip, top 3</span><i class="st" data-s="done">done</i></li>
-                      <li><b>Blake</b><span>Listing copy</span><i class="st" data-s="done">done</i></li>
-                      <li><b>Sadie</b><span>Final listing stamp</span><i class="st" data-s="done">done</i></li>
-                      <li><b>Bob</b><span>Bookflow metadata</span><i class="st" data-s="done">done</i></li>
-                      <li><b>Jennifer</b><span>Cover, A+, page checks</span><i class="st" data-s="done">done</i></li>
-                      <li><b>Tony</b><span>Bookflow tech</span><i class="st" data-s="done">done</i></li>
-                      <li><b>Alex</b><span>Ads, after my OK</span><i class="st" data-s="done">done</i></li>
-                    </ul>
+                  <div class="v v-lift">
+                    <div class="code-head"><span>Claude Code · Codex</span><span>Example</span></div>
+                    <div class="lift">
+                      <p class="lift-head"><b>Code</b><span>Hirvo eval runner</span></p>
+                      <ol class="pipe">
+                        <li><b>Spec</b><span>from #dev</span><i class="st" data-s="done">done</i></li>
+                        <li><b>Build</b><span>Claude Code</span><i class="st" data-s="done">done</i></li>
+                        <li><b>Review</b><span>Codex</span><i class="st" data-s="done">done</i></li>
+                        <li><b>Merge</b><span>into main</span><i class="st" data-s="done">done</i></li>
+                      </ol>
+                    </div>
+                    <div class="lift">
+                      <p class="lift-head"><b>Video</b><span>YouAreExtinct film in CapCut</span><i class="st" data-s="done">done</i></p>
+                      <div class="cut" aria-hidden="true">
+                        <span class="cut-ruler"></span>
+                        <div class="cut-track">
+                          <i class="cut-clip" style="--g:5"></i><i class="cut-clip" style="--g:3"></i><i class="cut-clip" style="--g:6"></i><i class="cut-clip" style="--g:2.5"></i><i class="cut-clip" style="--g:4"></i>
+                        </div>
+                        <span class="cut-audio"></span>
+                        <span class="cut-play"></span>
+                      </div>
+                      <p class="cut-note">Shots come from Higgsfield through MCP.</p>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -606,16 +659,21 @@
                 <div class="how-copy">
                   <span class="how-num">05</span>
                   <div class="how-text">
-                    <h3>It gets checked. I sign off.</h3>
-                    <div class="how-body"><div><p>The Big Three, Stark (COO), Tony (CTO) and Sadie (CMO), check the result against the goals. Publishing, pricing, ad spend and 2FA logins always wait for me. Agents never publish.</p></div></div>
+                    <h3>I approve the scenes and cover.</h3>
+                    <div class="how-body"><div><p>Every book's scenes and cover come to me. The rest follows the data. Agents upload the book to KDP, set up the ads and report results back to Notion and the Big Three channel.</p></div></div>
                   </div>
                 </div>
                 <div class="how-visual">
-                  <div class="v v-gates">
-                    <div class="gate is-ok"><div class="gate-text"><b>Publish and price on KDP</b><span>proposed by Tim</span></div><span class="switch" aria-hidden="true"><i></i></span><span class="gate-state">Approved by Kevin</span></div>
-                    <div class="gate is-ok"><div class="gate-text"><b>Start Exact ads</b><span>recommended by Alex</span></div><span class="switch" aria-hidden="true"><i></i></span><span class="gate-state">Approved by Kevin</span></div>
-                    <div class="gate is-ok"><div class="gate-text"><b>2FA sign-in</b><span>requested by Tim</span></div><span class="switch" aria-hidden="true"><i></i></span><span class="gate-state">Approved by Kevin</span></div>
-                    <p class="v-note">Agents can't publish or spend on their own.</p>
+                  <div class="v v-ship">
+                    <div class="code-head"><span>#kdp · Cozy Christmas</span><span>Example</span></div>
+                    <div class="gate is-ok"><div class="gate-text"><b>Book scenes</b><span>made in Bookflow</span></div><span class="switch" aria-hidden="true"><i></i></span><span class="gate-state">Approved by Kevin</span></div>
+                    <div class="gate is-ok"><div class="gate-text"><b>Book cover</b><span>made in Bookflow</span></div><span class="switch" aria-hidden="true"><i></i></span><span class="gate-state">Approved by Kevin</span></div>
+                    <div class="gate gate-auto"><div class="gate-text"><b>Keywords, price, upload and ads</b><span>follow the data</span></div><i class="st" data-s="done">done</i></div>
+                    <div class="msg msg-agent msg-report is-seen">
+                      <span class="msg-who">Tim · in #big-three</span>
+                      <p>Cozy Christmas is uploaded and its ads are set up. Results are in Notion.</p>
+                      <span class="seen">Seen by Kevin</span>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -646,7 +704,7 @@
           <h3>Claude</h3>
           <div class="loop-tracks">
             <div class="loop-track"><b>App dev</b><span>Claude Code and Codex turn the spec into working code.</span></div>
-            <div class="loop-track"><b>Video</b><span>Claude drives Higgsfield through MCP, from shot list to finished shots.</span></div>
+            <div class="loop-track"><b>Video</b><span>Shots come from Higgsfield through MCP. Claude Code and Codex edit them together in CapCut.</span></div>
           </div>
         </li>
         <li class="loop-step">
@@ -728,7 +786,7 @@
           <div class="lane-detail" id="lane-aigc"><div class="lane-in">
             <dl>
               <div><dt class="mono">Who it's for</dt><dd>Brands that want short AI-shot ads without hiring a full crew.</dd></div>
-              <div><dt class="mono">How it runs</dt><dd>Download a reference, have Claude write a shot-by-shot playbook, make the shots with Higgsfield through MCP, edit, then deliver to Drive. YouAreExtinct is the portfolio.</dd></div>
+              <div><dt class="mono">How it runs</dt><dd>Download a reference, have Claude write a shot-by-shot playbook, make the shots with Higgsfield through MCP, edit them with Claude Code or Codex in CapCut, then deliver to Drive. YouAreExtinct is the portfolio.</dd></div>
               <div><dt class="mono">Where it stands</dt><dd>First paying lead in progress.</dd></div>
             </dl>
           </div></div>
@@ -876,7 +934,7 @@
         </article>
         <article class="stack-card" data-spot>
           <h3>Media and compute</h3>
-          <ul class="chips"><li>ComfyUI</li><li>DGX Spark</li><li>Tailscale</li><li>MiniMax TTS</li><li>Higgsfield Soul 2.0</li></ul>
+          <ul class="chips"><li>ComfyUI</li><li>DGX Spark</li><li>Tailscale</li><li>MiniMax TTS</li><li>Higgsfield Soul 2.0</li><li>CapCut</li></ul>
           <p>ComfyUI runs on a DGX Spark that I reach over Tailscale.</p>
         </article>
         <article class="stack-card" data-spot>

@@ -21,6 +21,8 @@ python3 -m http.server 8000
 
 ## Deploy
 
+Live at https://kevinpeiyuanyu.com (Vercel, deployed from `main`). The canonical URL, share image (`assets/og-image.png`), `robots.txt` and `sitemap.xml` all point at that domain.
+
 Any static host works.
 
 - **GitHub Pages:** Settings → Pages → Deploy from a branch → `main` / root.

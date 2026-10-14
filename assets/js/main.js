@@ -217,7 +217,7 @@
       ] },
       { label: 'Project rooms', cls: 'org-lane', nodes: [
         { id: 'hirvo', name: 'Hirvo · James', short: 'Hirvo', role: 'The job-search startup. James manages the room, and the work runs on fixing the rewrite, then selling it.' },
-        { id: 'dev', name: 'Dev · Steven', short: 'Dev', role: 'Builds and time-boxed hackathons. Steven, my AI product manager, turns problems into small, owned pieces.' },
+        { id: 'dev', name: 'Dev · Steven', short: 'Dev', role: 'Builds and time-boxed hackathons. Steven, my AI product manager, breaks problems into small pieces, and I build them with Claude Code and Codex.' },
         { id: 'kdp', name: 'KDP · Tim', short: 'KDP', role: 'The coloring-book pipeline. Tim has run it since September: keywords, the daily create pack and page-by-page checks.' },
         { id: 'mkt', name: 'Marketing · Sadie', short: 'Marketing', role: 'Growth that turns into money or an audience. Sadie runs this room herself.' },
       ] },

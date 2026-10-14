@@ -154,12 +154,12 @@
         <p>I work in English and Mandarin, between Canada, the US, China and Hong Kong.</p>
       </div>
       <ol class="timeline" data-reveal-group>
-        <li><span class="tl-when">High school</span><span class="tl-what">Graduated from Shanghai American School.</span></li>
+        <li><span class="tl-when">2024</span><span class="tl-what">Graduated from Shanghai American School.</span></li>
         <li><span class="tl-when">Mid-2024</span><span class="tl-what">Wrote my first line of code.</span></li>
         <li><span class="tl-when">Nov 2025</span><span class="tl-what">Snuggle Christmas Crew went live on Amazon.</span></li>
         <li><span class="tl-when">2026</span><span class="tl-what">Became co-founder and CTO of Hirvo, and built healthcare demos at AIx Origin in Hong Kong, 复客松 and Fudan.</span></li>
         <li><span class="tl-when">Sep 2026</span><span class="tl-what">Set my company's goals: get Hirvo's rewrite right and start selling, and keep the book pipeline running.</span></li>
-        <li class="is-now"><span class="tl-when">Now</span><span class="tl-what">On a gap year, building full time.</span></li>
+        <li class="is-now"><span class="tl-when">Now</span><span class="tl-what">On a gap year, building full time and learning evals, fine-tuning and local AI.</span></li>
       </ol>
     </div>
   </section>
@@ -181,7 +181,7 @@
             <h3 class="work-title">Hirvo</h3>
             <p class="work-sub">Job search for international students that knows which employers sponsor visas, and rewrites resumes without inventing anything.</p>
             <ul class="ticks">
-              <li>Built solo in Next.js, TypeScript, Supabase and the Anthropic API.</li>
+              <li>Built solo with Claude Code and Codex, in Next.js, TypeScript, Supabase and the Anthropic API.</li>
               <li>Anti-fabrication resume engine with a three-layer ATS risk model.</li>
               <li>Five PRD versions and an engineering handoff pack before the build.</li>
               <li>Set up the GitHub org and branch protection, then onboarded engineers.</li>
@@ -264,13 +264,13 @@
             <h3 class="work-title">YouAreExtinct</h3>
             <p class="work-sub">Cinematic AI stories about extinct animals. The channel is live, and it doubles as my portfolio for brand video work.</p>
             <ul class="ticks">
-              <li>Each film starts from a reference, then Claude writes a shot-by-shot playbook.</li>
+              <li>Each film starts from a reference. Claude writes a shot-by-shot playbook, then drives Higgsfield through MCP to make the shots.</li>
               <li>The same pipeline makes AI ads for brands, without a production crew.</li>
             </ul>
             <ol class="flow flow-start mono" aria-label="How a film gets made">
               <li><b>Reference</b> pull</li>
               <li><b>Claude</b> shot list</li>
-              <li><b>AI</b> video</li>
+              <li><b>Higgsfield</b> shots</li>
               <li><b>Edit</b> cut</li>
               <li class="human"><b>Kevin</b> publishes</li>
             </ol>
@@ -325,7 +325,7 @@
             <div class="work-text">
               <div class="work-meta"><span class="status status-done">Hackathon</span><span class="mono role">AIx Origin · Vital</span></div>
               <h3 class="work-title">對藥</h3>
-              <p class="work-sub">A medication check built solo at Cyberport. It photographs discharge sheets and medicine boxes, matches drugs by active ingredient with a deterministic rules engine, and reads the result aloud in Cantonese.</p>
+              <p class="work-sub">A medication check I built solo at Cyberport with Claude Code. It photographs discharge sheets and medicine boxes, matches drugs by active ingredient with a deterministic rules engine, and reads the result aloud in Cantonese.</p>
             </div>
           </article>
 
@@ -538,6 +538,37 @@
     </div>
   </section>
 
+  <!-- HOW I BUILD -->
+  <section class="section build" id="build" aria-labelledby="build-title">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="kicker">How I build</p>
+        <h2 id="build-title" data-split>Plan in Notion. Build in Claude.</h2>
+        <p class="section-sub">The agent team keeps the company running. The building itself is me, a plan, and Claude.</p>
+      </header>
+      <ol class="loop" data-reveal-group>
+        <li class="loop-step">
+          <span class="loop-k">1 · Plan</span>
+          <h3>Notion</h3>
+          <p>Plans, specs and briefs live in Notion, right next to the agent team's scoreboards. Every build starts as a page there.</p>
+        </li>
+        <li class="loop-step loop-claude">
+          <span class="loop-k">2 · Build</span>
+          <h3>Claude</h3>
+          <div class="loop-tracks">
+            <div class="loop-track"><b>App dev</b><span>Claude Code and Codex turn the spec into working code.</span></div>
+            <div class="loop-track"><b>Video</b><span>Claude drives Higgsfield through MCP, from shot list to finished shots.</span></div>
+          </div>
+        </li>
+        <li class="loop-step">
+          <span class="loop-k">3 · Ship</span>
+          <h3>Out the door</h3>
+          <p>Web apps go live on Vercel, films go to YouTube and books go to Amazon. Then it's back to the plan.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
   <!-- STATEMENT -->
   <section class="statement" aria-label="What I believe about building">
     <div class="wrap">
@@ -608,7 +639,7 @@
           <div class="lane-detail" id="lane-aigc"><div class="lane-in">
             <dl>
               <div><dt class="mono">Who it's for</dt><dd>Brands that want short AI-shot ads without hiring a full crew.</dd></div>
-              <div><dt class="mono">How it runs</dt><dd>Download a reference, have Claude write a shot-by-shot playbook, edit, then deliver to Drive. YouAreExtinct is the portfolio.</dd></div>
+              <div><dt class="mono">How it runs</dt><dd>Download a reference, have Claude write a shot-by-shot playbook, make the shots with Higgsfield through MCP, edit, then deliver to Drive. YouAreExtinct is the portfolio.</dd></div>
               <div><dt class="mono">Where it stands</dt><dd>First paying lead in progress.</dd></div>
             </dl>
           </div></div>
@@ -728,7 +759,7 @@
             <dl>
               <div><dt class="mono">AIx Origin · Vital</dt><dd>對藥, a medication check for patients and carers: same drug with two names, and leftover boxes turned into a card for the pharmacist.</dd></div>
               <div><dt class="mono">复客松 · 华润三九杯</dt><dd>An AI healthcare build for elder medication confirmation. Finished in September 2026.</dd></div>
-              <div><dt class="mono">Fudan</dt><dd>Received a recognition certificate. I entered team events solo and still shipped working demos.</dd></div>
+              <div><dt class="mono">Fudan</dt><dd>Received a recognition certificate. I entered team events solo and still shipped working demos, built with Claude Code and Codex.</dd></div>
             </dl>
           </div></div>
         </li>
@@ -751,8 +782,8 @@
         </article>
         <article class="stack-card" data-spot>
           <h3>AI in the loop</h3>
-          <ul class="chips"><li>Claude Code</li><li>Codex</li><li>Cursor</li><li>Custom Claude skills</li><li>Anthropic API</li><li>Grok Bot agents</li></ul>
-          <p>Agents work inside every lane, with Notion scoreboards and handoffs.</p>
+          <ul class="chips"><li>Claude Code</li><li>Codex</li><li>Higgsfield MCP</li><li>Notion</li><li>Custom Claude skills</li><li>Anthropic API</li><li>Grok Bot agents</li><li>Cursor</li></ul>
+          <p>I plan in Notion and build in Claude. Agents work inside every lane, with Notion scoreboards and handoffs.</p>
         </article>
         <article class="stack-card" data-spot>
           <h3>Media and compute</h3>
@@ -773,6 +804,44 @@
           <h3>Range</h3>
           <ul class="chips"><li>Biomedical engineering</li><li>Statistics</li><li>Healthcare AI</li><li>English</li><li>Mandarin</li></ul>
           <p>Working across Canada, the US, China and Hong Kong.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEARNING -->
+  <section class="section learning" id="learning" aria-labelledby="learning-title">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="kicker">Learning now</p>
+        <h2 id="learning-title" data-split>What I'm getting better at.</h2>
+        <p class="section-sub">The gap year is for building, and for going deeper on the parts of AI I want to work in.</p>
+      </header>
+      <div class="learn-grid" data-reveal-group>
+        <article class="learn-card" data-spot>
+          <div class="learn-art learn-evals" aria-hidden="true">
+            <span class="ev-row"><i></i><b class="ev-pass"></b></span>
+            <span class="ev-row"><i></i><b class="ev-pass"></b></span>
+            <span class="ev-row"><i></i><b class="ev-fail"></b></span>
+            <span class="ev-row"><i></i><b class="ev-pass"></b></span>
+            <span class="ev-row"><i></i><b class="ev-pass"></b></span>
+          </div>
+          <h3>Evaluation sets and tasks</h3>
+          <p>How to design eval tasks and build datasets that catch real failures, then score them the same way every time. Hirvo's rewrite engine is my test bed: every retune starts from an eval set.</p>
+        </article>
+        <article class="learn-card" data-spot>
+          <div class="learn-art learn-tune" aria-hidden="true">
+            <svg viewBox="0 0 200 90"><path class="tune-grid" d="M10 80H190M10 55H190M10 30H190"></path><path class="tune-curve" pathLength="100" d="M12 14 C40 18 52 52 80 60 S130 72 188 74"></path><circle class="tune-dot" r="4" cx="188" cy="74"></circle></svg>
+          </div>
+          <h3>Fine-tuning LLMs</h3>
+          <p>When fine-tuning beats a better prompt, how to prepare training data, and how to tell whether a tuned model actually got better.</p>
+        </article>
+        <article class="learn-card" data-spot>
+          <div class="learn-art learn-local" aria-hidden="true">
+            <svg viewBox="0 0 200 90"><path class="chip-trace" d="M20 25H70M20 45H70M20 65H70M130 25H180M130 45H180M130 65H180"></path><path class="chip-pulse" pathLength="100" d="M20 25H70M130 45H180M20 65H70"></path><rect class="chip-body" x="70" y="12" width="60" height="66" rx="8"></rect><rect class="chip-core" x="86" y="28" width="28" height="34" rx="4"></rect></svg>
+          </div>
+          <h3>Local AI</h3>
+          <p>Running and serving models on my own hardware. My image pipeline already runs in ComfyUI on a DGX Spark that I reach over Tailscale.</p>
         </article>
       </div>
     </div>

@@ -647,6 +647,36 @@ mark.fab::after {
 .pl-text span { font-size: 0.6875rem; color: var(--muted); letter-spacing: 0.04em; }
 .flow-start { justify-content: flex-start; }
 
+/* AI influencers */
+.types { display: grid; gap: 14px; }
+.type { display: grid; gap: 4px; padding-left: 16px; border-left: 2px solid var(--line-2); }
+.type dt { font: 500 1.25rem/1.2 var(--f-display); letter-spacing: -0.01em; }
+.type dd { margin: 0; font-size: var(--t-small); line-height: 1.55; color: var(--ink-2); }
+.type-funny { border-left-color: var(--progress); }
+.type-classic { border-left-color: var(--accent); }
+.clips { display: flex; justify-content: center; gap: clamp(14px, 2vw, 24px); width: 100%; }
+.clip { margin: 0; display: grid; gap: 12px; width: min(100%, 248px); }
+.clip-frame {
+  position: relative; aspect-ratio: 9 / 16; overflow: hidden;
+  border: 6px solid var(--film-bg); border-radius: 26px; background: var(--film-bg);
+  box-shadow: var(--shadow-2);
+}
+.clip-video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
+.clip-sound {
+  position: absolute; right: 10px; bottom: 10px; width: 38px; height: 38px;
+  display: grid; place-items: center; border: 0; border-radius: 50%; cursor: pointer;
+  background: rgba(17, 17, 19, 0.55); color: #fff;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  transition: background-color 0.3s var(--ease-out), transform 0.4s var(--ease-out);
+}
+.clip-sound:hover { background: rgba(17, 17, 19, 0.75); transform: scale(1.06); }
+.clip-sound svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.clip-sound .i-on, .clip-sound[aria-pressed="true"] .i-off { display: none; }
+.clip-sound[aria-pressed="true"] .i-on { display: block; }
+.clip figcaption { display: grid; gap: 2px; text-align: center; }
+.clip figcaption b { font-size: 0.9375rem; font-weight: 600; }
+.clip figcaption span { font-size: 0.8125rem; color: var(--muted); }
+
 /* UHOME isometric */
 .iso { position: relative; width: 100%; max-width: 420px; }
 .iso-svg { display: block; width: 100%; height: auto; overflow: visible; }

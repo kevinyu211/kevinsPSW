@@ -819,6 +819,20 @@
     upgradeThumb(yt.dataset.yt);
   })();
 
+  // AI influencer clips: muted loops that only play on screen, with a sound toggle.
+  $$('[data-clip]').forEach((video) => {
+    const btn = video.parentElement.querySelector('.clip-sound');
+    if (reduce) video.controls = true;
+    else whenVisible(video, () => { video.play().catch(() => {}); }, () => video.pause(), 0.4);
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      video.muted = !video.muted;
+      btn.setAttribute('aria-pressed', String(!video.muted));
+      btn.setAttribute('aria-label', video.muted ? 'Turn sound on' : 'Turn sound off');
+      if (video.paused) video.play().catch(() => {});
+    });
+  });
+
   // UHOME: an isometric block that goes from wireframe model to lit render.
   (function iso() {
     const root = $('[data-anim="iso"]');

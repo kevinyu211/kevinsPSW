@@ -1,0 +1,179 @@
+/* Contact band: a short sign-off with Kevin's number, LinkedIn and a WeChat card.
+   Every color, font, radius and easing comes from the tokens in main.css, so the band follows the theme.
+   Load after main.css. */
+
+/* ---------- Layout ---------- */
+.contact-in {
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(36px, 5vw, 56px);
+  align-items: start;
+}
+.contact-head { display: grid; gap: 22px; align-content: start; }
+.contact-ways {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(196px, 16vw, 236px);
+  gap: 16px;
+  align-items: center;
+}
+.contact-list { display: grid; gap: 16px; container-type: inline-size; }
+
+/* Wide screens: the greeting on the left, the ways to reach Kevin on the right */
+@media (min-width: 1100px) {
+  .contact-in {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    grid-template-areas: "head ways" "note ways";
+    gap: 32px clamp(48px, 6vw, 96px);
+  }
+  .contact-head { grid-area: head; }
+  .contact-ways { grid-area: ways; }
+  .contact-note { grid-area: note; align-self: end; }
+}
+
+/* ---------- Greeting ---------- */
+.contact-title {
+  max-width: none;
+  font-size: clamp(3.25rem, 8.5vw, 6.75rem);
+  line-height: 0.95;
+}
+.contact-lede {
+  max-width: 36ch;
+  font-size: var(--t-lede);
+  line-height: 1.55;
+  color: var(--band-ink);
+  text-wrap: pretty;
+}
+.contact-nowrap { white-space: nowrap; }
+.contact-note { font-size: var(--t-small); text-wrap: pretty; }
+
+/* ---------- Cards ---------- */
+.contact-card {
+  display: grid; gap: 14px; align-content: start; justify-items: start;
+  padding: clamp(20px, 2.2vw, 28px);
+  border-radius: var(--r-lg);
+  background: var(--band-2);
+  border: 1px solid var(--band-2);
+  border-color: color-mix(in srgb, var(--band-ink) 9%, transparent);
+}
+.contact-label {
+  font: 500 var(--t-small)/1.4 var(--f-body);
+  color: var(--band-muted);
+}
+.contact-number {
+  margin-top: -4px;
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(1.45rem, 1rem + 1.9vw, 2.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+  color: var(--band-ink);
+  -webkit-user-select: all;
+  user-select: all;
+}
+/* iOS turns plain numbers into links; keep it looking like the rest of the card */
+.contact-number a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; }
+
+.contact-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.contact-chip {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5em;
+  min-height: 44px; padding: 0 18px 0 15px;
+  border-radius: 999px;
+  border: 1px solid var(--band-muted);
+  border-color: color-mix(in srgb, var(--band-ink) 26%, transparent);
+  background: transparent;
+  color: var(--band-ink);
+  font: 500 0.9375rem/1 var(--f-body);
+  text-decoration: none; white-space: nowrap; cursor: pointer;
+  transition: background-color 0.35s var(--ease-out), color 0.35s var(--ease-out), border-color 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+}
+.contact-chip:hover {
+  background: color-mix(in srgb, var(--band-ink) 10%, transparent);
+  border-color: color-mix(in srgb, var(--band-ink) 45%, transparent);
+}
+.contact-chip:active { transform: scale(0.97); }
+.contact-chip svg {
+  width: 16px; height: 16px; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* Copy button: "Copy" -> "Copied" (or a keyboard hint when the clipboard is blocked) */
+.contact-copy { min-width: 7.5em; }
+.contact-copy .i-check { display: none; }
+.contact-copy[data-state="copied"] {
+  background: var(--band-ink); border-color: var(--band-ink); color: var(--band);
+}
+.contact-copy[data-state="copied"] .i-copy { display: none; }
+.contact-copy[data-state="copied"] .i-check { display: block; }
+.contact-copy[data-state="selected"] { border-color: var(--band-ink); }
+
+.contact-linkedin .btn { max-width: 100%; }
+.contact-x .contact-chip { padding-inline: 18px; }
+
+/* Wide cards (tablets) put the action beside the text instead of below it */
+@container (min-width: 640px) {
+  .contact-card { grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 24px; }
+  .contact-phone { grid-template-areas: "label actions" "number actions"; row-gap: 6px; }
+  .contact-phone .contact-label { grid-area: label; }
+  .contact-phone .contact-number { grid-area: number; margin-top: 0; }
+  .contact-phone .contact-actions { grid-area: actions; }
+}
+
+/* ---------- WeChat card: a white tile in both themes so the code always scans ---------- */
+.contact-qr {
+  display: grid; gap: 12px; justify-items: center;
+  margin: 0;
+  padding: 12px 12px 18px;
+  border-radius: var(--r-lg);
+  background: #fff;
+  color: var(--band);
+  box-shadow: var(--shadow-2);
+  transform: rotate(2deg);
+  transition: transform 0.7s var(--ease-out);
+}
+.contact-qr:hover { transform: rotate(0deg); }
+.contact-qr-img { display: block; width: 100%; height: auto; aspect-ratio: 1; }
+.contact-qr-cap { display: grid; gap: 4px; text-align: center; }
+.contact-qr-title { font: 600 0.9375rem/1.3 var(--f-body); }
+.contact-qr-hint { display: none; font-size: 0.8125rem; line-height: 1.45; opacity: 0.72; text-wrap: pretty; }
+
+/* ---------- Focus and helpers ---------- */
+.contact-in :focus-visible { outline: 2px solid var(--band-ink); outline-offset: 3px; }
+.contact-in .btn:focus-visible { outline-offset: 4px; }
+.contact-sr {
+  position: absolute !important;
+  width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%);
+  white-space: nowrap; border: 0;
+}
+
+/* ---------- Phones: number and LinkedIn first, the code after with a hint ---------- */
+@media (max-width: 640px) {
+  .contact-ways { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .contact-list { gap: 14px; }
+  .contact-actions { width: 100%; }
+  .contact-actions > * { flex: 1 1 0; }
+  .contact-linkedin .btn { width: 100%; }
+  .contact-qr {
+    grid-template-columns: clamp(112px, 34vw, 148px) minmax(0, 1fr);
+    align-items: center; justify-items: start; gap: 16px;
+    padding: 10px 18px 10px 10px;
+    transform: none;
+  }
+  .contact-qr:hover { transform: none; }
+  .contact-qr-cap { text-align: left; gap: 6px; }
+  .contact-qr-hint { display: block; }
+}
+@media (max-width: 360px) {
+  .contact-card { padding: 18px; }
+  .contact-linkedin .btn {
+    height: auto; min-height: var(--btn-h); padding: 12px 16px;
+    font-size: 0.95rem; line-height: 1.2; white-space: normal; text-align: center;
+  }
+}
+
+/* Reduced motion: the card sits straight and nothing moves on hover or press */
+@media (prefers-reduced-motion: reduce) {
+  .contact-qr, .contact-qr:hover, .contact-chip:active { transform: none; }
+  .contact-qr, .contact-chip { transition: none; }
+}

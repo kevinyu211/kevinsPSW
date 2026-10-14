@@ -709,18 +709,42 @@
       .to([draftRow, checkRow, finalRow], { opacity: 0, y: -6, duration: 0.5, ease: 'power2.in', stagger: 0.05 }, 7.6);
   });
 
-  // KDP shelf: browse the spines, react to hover.
+  // KDP shelf: browse the spines, pull out the real cover wherever Amazon has one.
   (function shelf() {
     const root = $('[data-anim="shelf"]');
     if (!root) return;
     const books = $$('.book', root);
     const cur = $('.shelf-current', root);
-    const show = (b) => { cur.textContent = `${b.textContent} · ${b.dataset.note}`; };
+    const pop = $('.shelf-cover', root);
+    const popImg = pop && $('img', pop);
+    const covers = new Map();
+    books.forEach((b) => {
+      if (!b.dataset.asin) return;
+      const img = new Image();
+      img.referrerPolicy = 'no-referrer';
+      // Amazon answers a missing cover with a 1px placeholder, so only keep real images.
+      img.onload = () => { if (img.naturalWidth > 60) covers.set(b, img.src); };
+      img.src = `https://images-na.ssl-images-amazon.com/images/P/${b.dataset.asin}.01.LZZZZZZZ.jpg`;
+    });
+    const hideCover = () => { if (pop) pop.classList.remove('is-on'); };
+    const show = (b) => {
+      cur.textContent = `${b.textContent.trim()} · ${b.dataset.note}${b.dataset.asin ? ' ↗' : ''}`;
+      const src = covers.get(b);
+      if (!pop || !src) { hideCover(); return; }
+      if (popImg.src !== src) popImg.src = src;
+      const r = root.getBoundingClientRect();
+      const br = b.getBoundingClientRect();
+      const w = pop.offsetWidth || 150;
+      const x = Math.max(0, Math.min(r.width - w, br.left - r.left + br.width / 2 - w / 2));
+      pop.style.setProperty('--cx', `${Math.round(x)}px`);
+      pop.classList.add('is-on');
+    };
     let hovering = false;
     books.forEach((b) => {
       b.addEventListener('pointerenter', () => { hovering = true; books.forEach((x) => x.classList.remove('is-lift')); show(b); });
-      b.addEventListener('pointerleave', () => { hovering = false; });
-      b.addEventListener('focus', () => { books.forEach((x) => x.classList.remove('is-lift')); show(b); });
+      b.addEventListener('pointerleave', () => { hovering = false; hideCover(); });
+      b.addEventListener('focusin', () => { books.forEach((x) => x.classList.remove('is-lift')); show(b); });
+      b.addEventListener('focusout', hideCover);
     });
     if (!motion) return;
     G.fromTo(books, { y: 44, opacity: 0.5 }, {
@@ -730,107 +754,96 @@
     let i = 0;
     let t = null;
     const step = () => {
+      let wait = 1700;
       if (!hovering && !root.contains(document.activeElement)) {
         books.forEach((x) => x.classList.remove('is-lift'));
         const b = books[i % books.length];
         b.classList.add('is-lift');
         show(b);
+        if (covers.has(b)) wait = 2800;
         i += 1;
       }
-      t = setTimeout(step, 1700);
+      t = setTimeout(step, wait);
     };
     whenVisible(root, () => { if (!t) step(); }, () => {
       clearTimeout(t);
       t = null;
+      hideCover();
       books.forEach((x) => x.classList.remove('is-lift'));
     }, 0.4);
   })();
 
-  sequence($('.flow'), $$('.flow li'), 950);
+  $$('.flow').forEach((f) => sequence(f, $$('li', f), 950));
   sequence($('[data-anim="rx"]'), $$('[data-anim="rx"] .rx-step'), [1500, 1700, 2600]);
 
-  // YouAreExtinct: a generated tundra at dawn, a herd crossing, a slow push-in.
-  (function film() {
-    const root = $('[data-anim="film"]');
-    const svg = root && $('.film-scene', root);
-    if (!svg) return;
-    let seed = 11;
-    const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
-    const W = 320;
-    const H = 200;
-    const defs = svgEl('defs', null, svg);
-    const sky = svgEl('linearGradient', { id: 'yae-sky', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
-    [['0', '--film-sky-top'], ['0.55', '--film-sky-mid'], ['0.8', '--film-sky-low']].forEach(([o, v]) => {
-      svgEl('stop', { offset: o, style: `stop-color: var(${v})` }, sky);
+  // YouAreExtinct: real YouTube thumbnails, played inline on click.
+  (function player() {
+    const root = $('[data-player]');
+    if (!root) return;
+    const yt = $('.yt', root);
+    const link = $('.yt-link', yt);
+    const thumb = $('.yt-thumb', yt);
+    const label = $('.yt-title', yt);
+    const items = $$('.pl-item', root);
+    let warmed = false;
+    const warm = () => {
+      if (warmed) return;
+      warmed = true;
+      ['https://www.youtube-nocookie.com', 'https://www.google.com'].forEach((href) => {
+        const l = document.createElement('link');
+        l.rel = 'preconnect';
+        l.href = href;
+        document.head.appendChild(l);
+      });
+    };
+    // Upgrade to the HD thumbnail when the video has one; YouTube serves a 120px stand-in when it doesn't.
+    const upgradeThumb = (id) => {
+      const hd = new Image();
+      hd.referrerPolicy = 'no-referrer';
+      hd.onload = () => { if (hd.naturalWidth > 120 && yt.dataset.yt === id) thumb.src = hd.src; };
+      hd.src = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+    };
+    const play = () => {
+      const f = document.createElement('iframe');
+      f.src = `https://www.youtube-nocookie.com/embed/${yt.dataset.yt}?autoplay=1&rel=0&playsinline=1`;
+      f.title = `${label.textContent} · YouAreExtinct`;
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      f.allowFullscreen = true;
+      f.referrerPolicy = 'strict-origin-when-cross-origin';
+      $$('iframe', yt).forEach((old) => old.remove());
+      link.hidden = true;
+      yt.appendChild(f);
+      f.focus();
+    };
+    const select = (btn) => {
+      const id = btn.dataset.yt;
+      items.forEach((b) => {
+        const on = b === btn;
+        b.classList.toggle('is-on', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
+      const playing = link.hidden;
+      if (yt.dataset.yt === id) { if (!playing) play(); return; }
+      yt.dataset.yt = id;
+      link.href = `https://youtu.be/${id}`;
+      link.setAttribute('aria-label', `Play ${btn.dataset.title}`);
+      label.textContent = btn.dataset.title;
+      if (playing) { play(); return; }
+      thumb.classList.add('is-swapping');
+      setTimeout(() => {
+        thumb.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+        upgradeThumb(id);
+        thumb.classList.remove('is-swapping');
+      }, motion ? 240 : 0);
+    };
+    yt.addEventListener('pointerenter', warm);
+    link.addEventListener('focus', warm);
+    link.addEventListener('click', (e) => { e.preventDefault(); warm(); play(); });
+    items.forEach((b) => {
+      b.addEventListener('pointerenter', warm);
+      b.addEventListener('click', () => { warm(); select(b); });
     });
-    const glow = svgEl('radialGradient', { id: 'yae-glow' }, defs);
-    svgEl('stop', { offset: 0, style: 'stop-color: var(--film-sun); stop-opacity: .85' }, glow);
-    svgEl('stop', { offset: 1, style: 'stop-color: var(--film-sun); stop-opacity: 0' }, glow);
-    const sym = svgEl('symbol', { id: 'yae-mammoth', viewBox: '0 0 46 34' }, defs);
-    const mg = svgEl('g', { style: 'fill: var(--film-herd)' }, sym);
-    svgEl('ellipse', { cx: 19, cy: 16, rx: 14, ry: 10 }, mg);
-    svgEl('circle', { cx: 13, cy: 10, r: 8.5 }, mg);
-    svgEl('circle', { cx: 32, cy: 12, r: 7 }, mg);
-    [7, 13, 22, 27].forEach((x) => svgEl('rect', { x, y: 20, width: 5, height: 13, rx: 2 }, mg));
-    svgEl('path', { d: 'M37 14 C41 18 40 25 37 30', style: 'fill:none; stroke: var(--film-herd); stroke-width: 3.4; stroke-linecap: round' }, sym);
-    svgEl('path', { d: 'M35 18 C40 23 45 21 45 16', style: 'fill:none; stroke: var(--film-snow); stroke-width: 1.6; stroke-linecap: round' }, sym);
-
-    const cam = svgEl('g', null, svg);
-    svgEl('rect', { width: W, height: H, fill: 'url(#yae-sky)' }, cam);
-    svgEl('circle', { cx: 214, cy: 116, r: 52, fill: 'url(#yae-glow)' }, cam);
-    svgEl('circle', { cx: 214, cy: 116, r: 11, style: 'fill: var(--film-sun)' }, cam);
-    const ridge = (base, amp, freq, color) => {
-      const ph = rnd() * 10;
-      const ph2 = rnd() * 10;
-      let d = `M0,${H} L0,${base}`;
-      for (let x = 0; x <= W; x += 8) {
-        const y = base - Math.sin(x * freq + ph) * amp - Math.sin(x * freq * 2.3 + ph2) * amp * 0.45;
-        d += ` L${x},${y.toFixed(1)}`;
-      }
-      return svgEl('path', { d: `${d} L${W},${H} Z`, style: `fill: var(${color})` }, cam);
-    };
-    ridge(122, 12, 0.026, '--film-r1');
-    ridge(138, 8, 0.034, '--film-r2');
-    ridge(152, 5, 0.03, '--film-r3');
-    ridge(166, 2.5, 0.05, '--film-snow');
-    const herd = svgEl('g', null, cam);
-    const beasts = [[0, 136, 44, 33], [44, 150, 24, 18], [64, 139, 40, 30]].map(([x, y, w, h]) => svgEl('use', { href: '#yae-mammoth', x, y, width: w, height: h }, herd));
-    const flakes = svgEl('g', { style: 'fill: var(--film-snow)' }, svg);
-    const flakeEls = Array.from({ length: 28 }, () => svgEl('circle', {
-      cx: (rnd() * W).toFixed(1), cy: (rnd() * H).toFixed(1), r: (0.4 + rnd() * 0.9).toFixed(2), opacity: (0.3 + rnd() * 0.5).toFixed(2),
-    }, flakes));
-
-    if (!motion) return;
-    const tweens = [
-      G.fromTo(herd, { x: -130 }, { x: 340, duration: 40, ease: 'none', repeat: -1 }).progress(0.52),
-      G.to(cam, { scale: 1.1, svgOrigin: '200 150', duration: 12, ease: 'sine.inOut', yoyo: true, repeat: -1 }),
-      ...beasts.map((b, k) => G.to(b, { y: '-=1.2', duration: 0.45 + k * 0.07, ease: 'sine.inOut', yoyo: true, repeat: -1 })),
-      ...flakeEls.map((f) => {
-        const dur = 6 + rnd() * 7;
-        return G.fromTo(f, { attr: { cy: -6 } }, { attr: { cy: H + 6 }, x: `+=${(rnd() * 16 - 4).toFixed(1)}`, duration: dur, ease: 'none', repeat: -1 }).progress(rnd());
-      }),
-    ];
-    tweens.forEach((t) => t.pause());
-    const tc = $('.tc', root);
-    let frames = 12 * 24 + 8;
-    let acc = 0;
-    const two = (v) => String(v).padStart(2, '0');
-    const tickFn = (time, dt) => {
-      acc += dt;
-      while (acc >= 1000 / 24) {
-        acc -= 1000 / 24;
-        frames += 1;
-        tc.textContent = `00:${two(Math.floor(frames / 1440) % 60)}:${two(Math.floor(frames / 24) % 60)}:${two(frames % 24)}`;
-      }
-    };
-    let running = false;
-    whenVisible(root, () => {
-      tweens.forEach((t) => t.resume());
-      if (!running) { G.ticker.add(tickFn); running = true; }
-    }, () => {
-      tweens.forEach((t) => t.pause());
-      if (running) { G.ticker.remove(tickFn); running = false; }
-    }, 0.15);
+    upgradeThumb(yt.dataset.yt);
   })();
 
   // UHOME: an isometric block that goes from wireframe model to lit render.

@@ -26,6 +26,8 @@ Any static host works.
 
 ## Editing content
 
-All copy lives in `index.html`. Lanes are the `<li class="lane">` rows: set `data-status` to `live`, `progress` or `done` and update the counts on the filter buttons. The hero diagram's agents and lanes are the `AGENTS` and `LANES` arrays near the top of `assets/js/main.js`.
+All copy lives in `index.html`. Lanes are the `<li class="lane">` rows: set `data-status` to `live`, `progress` or `done` and update the counts on the filter buttons. To link a book on the KDP shelf, give its spine a `data-asin` and wrap the title in an Amazon link, like the Cozy Thanksgiving spine. The cover pops out automatically when Amazon has one. The YouTube films are the `.pl-item` buttons: set `data-yt` to the video ID.
+
+The hero diagram's agents and lanes are the `AGENTS` and `LANES` arrays near the top of `assets/js/main.js`.
 
 Motion respects `prefers-reduced-motion`, and every animated element rests in its finished state in the HTML, so the page reads correctly even before the scripts run.

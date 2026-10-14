@@ -118,7 +118,7 @@
       <header class="section-head">
         <p class="kicker mono">Selected work</p>
         <h2 id="work-title" data-split>What I've shipped, with the how left in.</h2>
-        <p class="section-sub">Five projects across SaaS, publishing, healthcare and video. Each one shows the system behind it.</p>
+        <p class="section-sub">Five projects across SaaS, publishing, video and healthcare. Each one shows the system behind it.</p>
       </header>
 
       <div class="work-list">
@@ -164,27 +164,32 @@
           <div class="work-text">
             <div class="work-meta"><span class="status status-live">Live on Amazon</span><span class="mono role">Publisher &amp; toolmaker</span></div>
             <h3 class="work-title">Bookflow + Amazon KDP</h3>
-            <p class="work-sub">A small publishing house: nine coloring books on Amazon, a team to run it, and my own tools for making the books.</p>
+            <p class="work-sub">A small publishing house behind the Snuggle Crew coloring books: nine titles on Amazon, a team to run it, and my own tools for making them.</p>
             <ul class="ticks">
               <li>Built an LLM coloring-book generator, then Bookflow to go from create to metadata.</li>
               <li>Ran a 30-books-in-30-days sprint.</li>
               <li>Run a multi-person publishing team.</li>
               <li>Agents handle keyword research and read Amazon Ads campaigns. I approve every publish and every dollar of ad spend.</li>
             </ul>
-            <a class="link-arrow" href="https://bookflowai.site" target="_blank" rel="noopener">bookflowai.site <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
+            <p class="links">
+              <a class="link-arrow" href="https://www.amazon.com/dp/B0HLZFVW8N" target="_blank" rel="noopener">Cozy Thanksgiving on Amazon <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
+              <a class="link-arrow" href="https://www.amazon.com/dp/B0G2B6ZCH4" target="_blank" rel="noopener">Snuggle Christmas Crew on Amazon <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
+              <a class="link-arrow" href="https://bookflowai.site" target="_blank" rel="noopener">bookflowai.site <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
+            </p>
           </div>
           <div class="work-visual">
             <div class="shelf" data-anim="shelf">
+              <figure class="shelf-cover" aria-hidden="true"><img alt="" decoding="async" referrerpolicy="no-referrer"></figure>
               <ul class="shelf-books" aria-label="Nine coloring books live on Amazon">
                 <li class="book" tabindex="0" style="--h:88%;--w:46px;--c:var(--book-1);--t:var(--book-ink-light)" data-note="Live on Amazon"><span>Ocean Crew</span></li>
                 <li class="book" tabindex="0" style="--h:96%;--w:52px;--c:var(--book-2);--t:var(--book-ink-light)" data-note="Live on Amazon"><span>50 States</span></li>
                 <li class="book" tabindex="0" style="--h:82%;--w:42px;--c:var(--book-3);--t:var(--book-ink-dark)" data-note="Live on Amazon"><span>Cat Crew</span></li>
                 <li class="book" tabindex="0" style="--h:90%;--w:44px;--c:var(--book-4);--t:var(--book-ink-dark)" data-note="Live on Amazon"><span>Mother's Day</span></li>
                 <li class="book" tabindex="0" style="--h:85%;--w:48px;--c:var(--book-5);--t:var(--book-ink-dark)" data-note="Live on Amazon"><span>Pumpkin Pals</span></li>
-                <li class="book" tabindex="0" style="--h:100%;--w:54px;--c:var(--book-6);--t:var(--book-ink-light)" data-note="Live on Amazon"><span>Snuggle Christmas Crew</span></li>
+                <li class="book has-link" style="--h:100%;--w:54px;--c:var(--book-6);--t:var(--book-ink-light)" data-note="Live on Amazon" data-asin="B0G2B6ZCH4"><a href="https://www.amazon.com/dp/B0G2B6ZCH4" target="_blank" rel="noopener" aria-label="Snuggle Christmas Crew on Amazon"><span>Snuggle Christmas Crew</span></a></li>
                 <li class="book" tabindex="0" style="--h:94%;--w:50px;--c:var(--book-7);--t:var(--book-ink-light)" data-note="Paperback, September 2026"><span>Journey to Europe</span></li>
                 <li class="book" tabindex="0" style="--h:84%;--w:44px;--c:var(--book-8);--t:var(--book-ink-dark)" data-note="Live on Amazon"><span>Farm Friends</span></li>
-                <li class="book" tabindex="0" style="--h:91%;--w:48px;--c:var(--book-9);--t:var(--book-ink-light)" data-note="Live on Amazon"><span>Cozy Thanksgiving</span></li>
+                <li class="book has-link" style="--h:91%;--w:48px;--c:var(--book-9);--t:var(--book-ink-light)" data-note="Live on Amazon, October 2026" data-asin="B0HLZFVW8N"><a href="https://www.amazon.com/dp/B0HLZFVW8N" target="_blank" rel="noopener" aria-label="Cozy Thanksgiving on Amazon"><span>Cozy Thanksgiving</span></a></li>
               </ul>
               <div class="shelf-board" aria-hidden="true"></div>
               <p class="shelf-readout mono"><span class="shelf-count">9 titles live</span><span class="shelf-current">Hover a spine</span></p>
@@ -200,7 +205,52 @@
           </div>
         </article>
 
-        <div class="work-trio">
+        <!-- YouAreExtinct -->
+        <article class="work-card work-feature" id="work-yae" data-spot data-reveal>
+          <div class="work-text">
+            <div class="work-meta"><span class="status status-live">Live on YouTube</span><span class="mono role">Made solo with AI</span></div>
+            <h3 class="work-title">YouAreExtinct</h3>
+            <p class="work-sub">Cinematic AI stories about extinct animals. The channel is live, and it doubles as my portfolio for brand video work.</p>
+            <ul class="ticks">
+              <li>Each film starts from a reference, then Claude writes a shot-by-shot playbook.</li>
+              <li>The same pipeline makes AI ads for brands, without a production crew.</li>
+            </ul>
+            <ol class="flow flow-start mono" aria-label="How a film gets made">
+              <li><b>Reference</b> pull</li>
+              <li><b>Claude</b> shot list</li>
+              <li><b>AI</b> video</li>
+              <li><b>Edit</b> cut</li>
+              <li class="human"><b>Kevin</b> publishes</li>
+            </ol>
+            <p class="links">
+              <a class="link-arrow" href="https://www.youtube.com/@YouAreExtinct" target="_blank" rel="noopener">Watch the channel <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
+            </p>
+          </div>
+          <div class="work-visual">
+            <div class="player" data-player>
+              <div class="yt" data-yt="MLlSEwQhaVY">
+                <a class="yt-link" href="https://youtu.be/MLlSEwQhaVY" target="_blank" rel="noopener" aria-label="Play Mammoth film">
+                <img class="yt-thumb" src="https://i.ytimg.com/vi/MLlSEwQhaVY/hqdefault.jpg" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+                <span class="yt-shade" aria-hidden="true"></span>
+                <span class="yt-play" aria-hidden="true"><svg viewBox="0 0 68 48"><path class="yt-play-bg" d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55C3.97 2.33 2.27 4.81 1.48 7.74.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"></path><path class="yt-play-arrow" d="M45 24 27 14v20"></path></svg></span>
+                <span class="yt-label mono" aria-hidden="true"><i></i><span class="yt-title">Mammoth film</span></span>
+                </a>
+              </div>
+              <div class="player-list" role="group" aria-label="Choose a film">
+                <button class="pl-item is-on" type="button" data-yt="MLlSEwQhaVY" data-title="Mammoth film" aria-pressed="true">
+                  <span class="pl-thumb"><img src="https://i.ytimg.com/vi/MLlSEwQhaVY/mqdefault.jpg" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"></span>
+                  <span class="pl-text"><b>Mammoth film</b><span class="mono">YouAreExtinct</span></span>
+                </button>
+                <button class="pl-item" type="button" data-yt="pXjGjmX3PgM" data-title="Story sample" aria-pressed="false">
+                  <span class="pl-thumb"><img src="https://i.ytimg.com/vi/pXjGjmX3PgM/mqdefault.jpg" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"></span>
+                  <span class="pl-text"><b>Story sample</b><span class="mono">YouAreExtinct</span></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div class="work-pair">
           <!-- Dui Yao -->
           <article class="work-card work-compact" id="work-duiyao" data-spot data-reveal>
             <div class="work-visual">
@@ -224,28 +274,6 @@
               <div class="work-meta"><span class="status status-done">Hackathon</span><span class="mono role">AIx Origin · Vital</span></div>
               <h3 class="work-title">對藥</h3>
               <p class="work-sub">A medication check built solo at Cyberport. It photographs discharge sheets and medicine boxes, matches drugs by active ingredient with a deterministic rules engine, and reads the result aloud in Cantonese.</p>
-            </div>
-          </article>
-
-          <!-- YouAreExtinct -->
-          <article class="work-card work-compact" id="work-yae" data-spot data-reveal>
-            <div class="work-visual">
-              <div class="film" data-anim="film">
-                <svg class="film-scene" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
-                <div class="film-ui mono" aria-hidden="true"><span class="rec"><i></i>REC</span><span class="tc">00:00:12:08</span></div>
-                <p class="film-shot mono" aria-hidden="true">SHOT 01 · WIDE · dawn on the tundra · slow push-in</p>
-              </div>
-              <p class="visual-note mono">Shot-list format</p>
-            </div>
-            <div class="work-text">
-              <div class="work-meta"><span class="status status-live">Live on YouTube</span></div>
-              <h3 class="work-title">YouAreExtinct</h3>
-              <p class="work-sub">Cinematic AI stories about extinct animals. Every film starts as a Claude shot-by-shot playbook, and the channel doubles as my portfolio for brand video work.</p>
-              <p class="links">
-                <a class="link-arrow" href="https://www.youtube.com/@YouAreExtinct" target="_blank" rel="noopener">Channel <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
-                <a class="link-arrow" href="https://youtu.be/MLlSEwQhaVY" target="_blank" rel="noopener">Mammoth film <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
-                <a class="link-arrow" href="https://youtu.be/pXjGjmX3PgM" target="_blank" rel="noopener">Story sample <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
-              </p>
             </div>
           </article>
 
@@ -448,7 +476,7 @@
             <dl>
               <div><dt class="mono">Who it's for</dt><dd>Buyers of cozy, seasonal and wholesome coloring books. On the seller side, the pain is slow creation, keyword research, ads ops and art throughput.</dd></div>
               <div><dt class="mono">How it runs</dt><dd>Cindy and Tim run niche and keyword research, Jennifer makes art packs, Bob builds Bookflow tooling and Alex reads ad campaigns. A Notion hub is the source of truth. I hold the gates: publish, 2FA and ad spend.</dd></div>
-              <div><dt class="mono">Where it stands</dt><dd>Nine books live. Journey to Europe came out in paperback in September 2026. Now shifting from volume to quality and wholesome story IP. <a href="https://bookflowai.site" target="_blank" rel="noopener">bookflowai.site</a></dd></div>
+              <div><dt class="mono">Where it stands</dt><dd>Nine books live, most recently Cozy Thanksgiving in October 2026. Now shifting from volume to quality and wholesome story IP. <a href="https://bookflowai.site" target="_blank" rel="noopener">bookflowai.site</a></dd></div>
             </dl>
           </div></div>
         </li>

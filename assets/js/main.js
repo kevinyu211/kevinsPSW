@@ -846,6 +846,24 @@
     });
   });
 
+  // Ariana: her photos crossfade while the card is on screen; the dots pick one.
+  $$('[data-gallery]').forEach((g) => {
+    const imgs = $$('img', g);
+    const dots = $$('.clip-dots button', g);
+    if (imgs.length < 2) return;
+    let i = 0;
+    let t = null;
+    const show = (n) => {
+      i = (n + imgs.length) % imgs.length;
+      imgs.forEach((im, k) => im.classList.toggle('is-on', k === i));
+      dots.forEach((d, k) => d.setAttribute('aria-pressed', String(k === i)));
+    };
+    const stop = () => { clearInterval(t); t = null; };
+    const run = () => { if (!reduce && !t) t = setInterval(() => show(i + 1), 3800); };
+    dots.forEach((d, k) => d.addEventListener('click', () => { stop(); show(k); run(); }));
+    whenVisible(g, run, stop, 0.4);
+  });
+
   // UHOME: an isometric block that goes from wireframe model to lit render.
   (function iso() {
     const root = $('[data-anim="iso"]');

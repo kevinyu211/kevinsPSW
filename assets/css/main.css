@@ -705,6 +705,23 @@ mark.fab::after {
 .clip-sound svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .clip-sound .i-on, .clip-sound[aria-pressed="true"] .i-off { display: none; }
 .clip-sound[aria-pressed="true"] .i-on { display: block; }
+.clip-gallery .clip-video { position: absolute; inset: 0; opacity: 0; transition: opacity 0.9s var(--ease-out); }
+.clip-gallery .clip-video.is-on { opacity: 1; }
+.clip-dots {
+  position: absolute; left: 50%; top: 10px; transform: translateX(-50%);
+  display: flex; padding: 0 4px; border-radius: 999px; background: rgba(17, 17, 19, 0.45);
+}
+.clip-dots button {
+  appearance: none; width: 22px; height: 24px; padding: 0; border: 0; background: none; cursor: pointer;
+  display: grid; place-items: center;
+}
+.clip-dots button::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  transition: background-color 0.3s, transform 0.3s var(--ease-out);
+}
+.clip-dots button[aria-pressed="true"]::before { background: #fff; transform: scale(1.15); }
+.clip-dots button:focus-visible { outline: 2px solid #fff; outline-offset: -4px; border-radius: 50%; }
 .clip figcaption { display: grid; gap: 2px; text-align: center; }
 .clip figcaption b { font-size: 0.9375rem; font-weight: 600; }
 .clip figcaption span { font-size: 0.8125rem; color: var(--muted); }

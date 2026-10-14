@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agents are now an API · Daily AI No. 16</title>
+<meta name="description" content="Safety reports and agent plumbing moved faster than the weekend news cycle.">
+<link rel="canonical" href="https://kevinpeiyuanyu.com/newsletter/2026-09-12/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Kevin Yu">
+<meta property="og:url" content="https://kevinpeiyuanyu.com/newsletter/2026-09-12/">
+<meta property="og:title" content="Agents are now an API · Daily AI No. 16">
+<meta property="og:description" content="Safety reports and agent plumbing moved faster than the weekend news cycle.">
+<meta property="og:image" content="https://kevinpeiyuanyu.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F4F4F1">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/newsletter.css">
+<script>
+  (function () {
+    var d = document.documentElement;
+    try { var t = localStorage.getItem('ky-theme'); if (t === 'dark' || t === 'light') d.setAttribute('data-theme', t); } catch (e) {}
+    var l = null;
+    try { l = new URLSearchParams(location.search).get('lang') || localStorage.getItem('ky-nl-lang'); } catch (e) {}
+    if (l === 'zh') d.setAttribute('data-nl-lang', 'zh');
+  })();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Agents are now an API", "datePublished": "2026-09-12", "inLanguage": ["en", "zh-Hans"], "author": {"@type": "Person", "name": "Kevin Yu", "url": "https://kevinpeiyuanyu.com/"}, "isPartOf": {"@type": "Periodical", "name": "Daily AI", "url": "https://kevinpeiyuanyu.com/newsletter/"}, "url": "https://kevinpeiyuanyu.com/newsletter/2026-09-12/", "description": "Safety reports and agent plumbing moved faster than the weekend news cycle."}</script>
+</head>
+<body class="nl-page">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../" aria-label="Kevin Yu, home">
+      <span class="brand-mark" aria-hidden="true"><i></i></span>
+      <span class="brand-name">Kevin Yu</span>
+    </a>
+    <nav class="nl-nav" aria-label="Site">
+      <a href="../../">Home</a>
+      <a href="../../newsletter/" aria-current="true">Newsletter</a>
+      <a href="../../#work">Work</a>
+      <a href="../../#contact">Contact</a>
+    </nav>
+    <div class="bar-actions"><button class="icon-btn theme-toggle" type="button" aria-label="Switch color theme"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><mask id="moon-mask"><rect width="24" height="24" fill="#fff"></rect><circle class="moon-bite" cx="25" cy="1" r="6" fill="#000"></circle></mask></defs><circle class="sun-core" cx="12" cy="12" r="5" mask="url(#moon-mask)"></circle><g class="sun-rays"><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"></path></g></svg></button></div>
+  </div>
+  <div class="progress" aria-hidden="true"><span></span></div>
+</header>
+<main id="main">
+  <article class="wrap nl-article">
+    <div class="nl-head-top">
+      <p class="nl-crumbs"><a href="../">Daily AI</a><span aria-hidden="true">/</span><span><span data-pane="en">No. 16</span><span data-pane="zh" lang="zh-Hans">第 16 期</span></span></p>
+      <div class="lang-toggle" role="group" aria-label="Language"><button type="button" data-lang-btn="en" aria-pressed="true">English</button><button type="button" data-lang-btn="zh" aria-pressed="false" lang="zh-Hans">中文</button></div>
+    </div>
+    <div data-pane="en"><header class="nl-head">
+        <div class="nl-head-top"><p class="nl-meta"><time datetime="2026-09-12">Saturday, September 12, 2026</time><span class="sep">·</span><span class="topic">Agents</span><span class="sep">·</span><span>2 min read</span></p></div>
+        <h1 class="nl-h1">Agents are now an API</h1>
+        <p class="nl-dek">Safety reports and agent plumbing moved faster than the weekend news cycle.</p>
+      </header>
+      <section class="nl-story">
+        <span class="nl-story-n">01</span>
+        <div><h2>Anthropic’s threat report: AI is already running parts of the kill chain</h2><p>Anthropic’s September 2026 threat intel covers Dec 2025–Aug 2026 misuse across cyber ops, influence campaigns, surveillance, fraud, bio, weapons, and distillation. The through-line: actors used Haiku/Sonnet/Opus as orchestrators (recon, phishing, malware rebuild loops), not just chat helpers — and Anthropic says it disrupted the campaigns and shared intel with partners.</p><p class="nl-sources"><b>Sources</b><a href="https://www.anthropic.com/threat-intelligence-report-september-2026" target="_blank" rel="noopener">Anthropic · Sept 2026</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">02</span>
+        <div><h2>OpenAI ships Agents API (public beta)</h2><p>OpenAI put the Codex-style harness behind a public Agents API on Sept 10 — managed sessions, tool use, subagents, plus hosted or bring-your-own sandboxes. No separate Agents API fee; you pay for tokens, tools, and (if you use them) hosted sandbox containers.</p><p class="nl-sources"><b>Sources</b><a href="https://openai.com/index/introducing-the-agents-api/" target="_blank" rel="noopener">OpenAI · Sept 10, 2026</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">03</span>
+        <div><h2>ChatGPT for Financial Services goes live</h2><p>OpenAI launched a finance-flavored ChatGPT for banks and investment firms, built with Morgan Stanley and Evercore and wired to licensed data from S&amp;P Capital IQ, LSEG, PitchBook, Moody’s, and more. TNW flags the missing EU data-residency / DORA detail that European buyers will still have to negotiate.</p><p class="nl-sources"><b>Sources</b><a href="https://thenextweb.com/news/openai-chatgpt-financial-services-dora-data-residency" target="_blank" rel="noopener">The Next Web · Sept 11, 2026</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">04</span>
+        <div><h2>Washington pressure rises; OpenAI flips toward mandatory rules</h2><p>After Anthropic researcher Jacob Coxon resigned warning labs are racing irresponsibly — with Evan Hubinger backing him — more US lawmakers are pushing new AI rules. Same window: OpenAI’s Chris Lehane urged Congress to pass compulsory frontier safety laws before December, a clear shift off “voluntary commitments only.”</p><p class="nl-sources"><b>Sources</b><a href="https://www.japantimes.co.jp/business/2026/09/11/us-ai-rules-anthropic-safety/" target="_blank" rel="noopener">The Japan Times · Sept 11, 2026</a><a href="https://english.mathrubhumi.com/news/world/us-lawmakers-target-openai-over-safety-fears-tech-giant-changes-stand-backs-tougher-safeguards-d1s4g0rz" target="_blank" rel="noopener">Mathrubhumi · Sept 11, 2026</a></p></div>
+      </section>
+      <p class="nl-credit">Every morning Andrew, the news-desk agent on my team, files this brief on what changed in AI. Every story links to its sources. <a href="../../#how">How my AI team works</a></p></div><div data-pane="zh" lang="zh-Hans"><header class="nl-head">
+        <div class="nl-head-top"><p class="nl-meta"><time datetime="2026-09-12">2026年9月12日 · 星期六</time><span class="sep">·</span><span class="topic">智能体</span><span class="sep">·</span><span>2 分钟读完</span></p></div>
+        <h1 class="nl-h1">OpenAI把Codex套件开放了，安全监管也在升温</h1>
+        <p class="nl-dek">周末最值得盯的，不是又一个模型名字，而是：智能体开始「可产品化交付」，安全与监管也同时升温。</p>
+      </header>
+      <section class="nl-story">
+        <span class="nl-story-n">01</span>
+        <div><h2>Anthropic 威胁情报：AI 已在帮黑客跑流程</h2><p>Anthropic 发布 2026 年 9 月威胁情报报告，覆盖 2025 年 12 月到 2026 年 8 月、七类滥用场景（网络攻击、舆论操控、监控、诈骗、生物、武器、蒸馏等）。重点不是「AI 会写恶意代码」，而是威胁方把 Claude 当成编排器：侦察、钓鱼、改马、并行代理一起上；Anthropic 称已打断并与合作方共享情报。</p><p class="nl-sources"><b>来源</b><a href="https://www.anthropic.com/threat-intelligence-report-september-2026" target="_blank" rel="noopener">Anthropic · 2026年9月</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">02</span>
+        <div><h2>OpenAI Agents API 公测：Codex 那套 harness 对外开放</h2><p>9 月 10 日，OpenAI 把驱动 Codex 的 harness 做成 Agents API 公测：管会话、工具调用、子代理，还能选官方托管沙箱或自带环境。没有单独的 Agents API 附加费，按 token、工具，以及（若用）托管沙箱计费。</p><p class="nl-sources"><b>来源</b><a href="https://openai.com/index/introducing-the-agents-api/" target="_blank" rel="noopener">OpenAI · 2026年9月10日</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">03</span>
+        <div><h2>ChatGPT 金融版上线：模型 + 行情数据一起卖</h2><p>OpenAI 推出面向银行与投行的 ChatGPT for Financial Services，和摩根士丹利、Evercore 一起打磨，并接入 S&amp;P Capital IQ、LSEG、PitchBook、Moody's 等授权数据。欧洲买家还会追问数据驻留和 DORA——TNW 指出官宣里几乎没写清楚。</p><p class="nl-sources"><b>来源</b><a href="https://thenextweb.com/news/openai-chatgpt-financial-services-dora-data-residency" target="_blank" rel="noopener">The Next Web · 2026年9月11日</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">04</span>
+        <div><h2>美国监管升温，OpenAI 转向「要强制规则」</h2><p>Anthropic 研究员 Jacob Coxon 辞职并警告实验室在不负责任地竞速，Evan Hubinger 公开附和后，更多国会议员呼吁新规。同一时段，OpenAI 全球事务负责人 Chris Lehane 呼吁国会在 12 月休会前通过强制性前沿安全立法——等于从「自愿承诺够了」翻盘。</p><p class="nl-sources"><b>来源</b><a href="https://www.japantimes.co.jp/business/2026/09/11/us-ai-rules-anthropic-safety/" target="_blank" rel="noopener">The Japan Times · 2026年9月11日</a><a href="https://english.mathrubhumi.com/news/world/us-lawmakers-target-openai-over-safety-fears-tech-giant-changes-stand-backs-tougher-safeguards-d1s4g0rz" target="_blank" rel="noopener">Mathrubhumi · 2026年9月11日</a></p></div>
+      </section>
+      <p class="nl-credit">每天早上，我团队里负责新闻的智能体 Andrew 整理当天 AI 圈的变化，每条都附原始来源。 <a href="../../#how">看看我的 AI 团队怎么运作</a></p></div>
+    <nav class="nl-pager" aria-label="More issues"><a class="prev" href="../2026-09-11/"><span><svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg><span data-pane="en">Previous issue</span><span data-pane="zh" lang="zh-Hans">上一期</span> · <span data-pane="en">No. 15</span><span data-pane="zh" lang="zh-Hans">第 15 期</span></span><b data-pane="en">GPT-6 Astra can drive your screen</b><b data-pane="zh" lang="zh-Hans">会点屏幕的模型来了，加州也给陪伴聊天机器人上了紧箍咒</b></a><a class="next" href="../2026-09-13/"><span><span data-pane="en">Next issue</span><span data-pane="zh" lang="zh-Hans">下一期</span> · <span data-pane="en">No. 17</span><span data-pane="zh" lang="zh-Hans">第 17 期</span><svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></span><b data-pane="en">The CEOs finally said "slow down" out loud</b><b data-pane="zh" lang="zh-Hans">Amodei喊慢下来，Altman也点头了</b></a></nav>
+    <p class="nl-back"><a class="btn btn-line btn-sm" href="../"><span data-pane="en">All issues</span><span data-pane="zh" lang="zh-Hans">全部期数</span></a></p>
+  </article>
+</main>
+<footer class="nl-foot">
+  <div class="wrap foot site-footer">
+    <span>Daily AI · Kevin Yu · 余佩远</span>
+    <a href="../../newsletter/">All issues</a>
+    <a href="../../">kevinpeiyuanyu.com</a>
+  </div>
+</footer>
+<script src="../../assets/js/newsletter.js" defer></script>
+</body>
+</html>

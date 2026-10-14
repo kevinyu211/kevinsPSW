@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DeepSeek makes its own Pro look expensive · Daily AI No. 14</title>
+<meta name="description" content="DeepSeek shipped a Flash model that beats its own Pro on cost and speed, DOJ opened an Nvidia–Groq antitrust probe, and an Anthropic researcher quit over the race to self-improving AI.">
+<link rel="canonical" href="https://kevinpeiyuanyu.com/newsletter/2026-09-10/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Kevin Yu">
+<meta property="og:url" content="https://kevinpeiyuanyu.com/newsletter/2026-09-10/">
+<meta property="og:title" content="DeepSeek makes its own Pro look expensive · Daily AI No. 14">
+<meta property="og:description" content="DeepSeek shipped a Flash model that beats its own Pro on cost and speed, DOJ opened an Nvidia–Groq antitrust probe, and an Anthropic researcher quit over the race to self-improving AI.">
+<meta property="og:image" content="https://kevinpeiyuanyu.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F4F4F1">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/newsletter.css">
+<script>
+  (function () {
+    var d = document.documentElement;
+    try { var t = localStorage.getItem('ky-theme'); if (t === 'dark' || t === 'light') d.setAttribute('data-theme', t); } catch (e) {}
+    var l = null;
+    try { l = new URLSearchParams(location.search).get('lang') || localStorage.getItem('ky-nl-lang'); } catch (e) {}
+    if (l === 'zh') d.setAttribute('data-nl-lang', 'zh');
+  })();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "DeepSeek makes its own Pro look expensive", "datePublished": "2026-09-10", "inLanguage": ["en", "zh-Hans"], "author": {"@type": "Person", "name": "Kevin Yu", "url": "https://kevinpeiyuanyu.com/"}, "isPartOf": {"@type": "Periodical", "name": "Daily AI", "url": "https://kevinpeiyuanyu.com/newsletter/"}, "url": "https://kevinpeiyuanyu.com/newsletter/2026-09-10/", "description": "DeepSeek shipped a Flash model that beats its own Pro on cost and speed, DOJ opened an Nvidia–Groq antitrust probe, and an Anthropic researcher quit over the race to self-improving AI."}</script>
+</head>
+<body class="nl-page">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../" aria-label="Kevin Yu, home">
+      <span class="brand-mark" aria-hidden="true"><i></i></span>
+      <span class="brand-name">Kevin Yu</span>
+    </a>
+    <nav class="nl-nav" aria-label="Site">
+      <a href="../../">Home</a>
+      <a href="../../newsletter/" aria-current="true">Newsletter</a>
+      <a href="../../#work">Work</a>
+      <a href="../../#contact">Contact</a>
+    </nav>
+    <div class="bar-actions"><button class="icon-btn theme-toggle" type="button" aria-label="Switch color theme"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><mask id="moon-mask"><rect width="24" height="24" fill="#fff"></rect><circle class="moon-bite" cx="25" cy="1" r="6" fill="#000"></circle></mask></defs><circle class="sun-core" cx="12" cy="12" r="5" mask="url(#moon-mask)"></circle><g class="sun-rays"><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"></path></g></svg></button></div>
+  </div>
+  <div class="progress" aria-hidden="true"><span></span></div>
+</header>
+<main id="main">
+  <article class="wrap nl-article">
+    <div class="nl-head-top">
+      <p class="nl-crumbs"><a href="../">Daily AI</a><span aria-hidden="true">/</span><span><span data-pane="en">No. 14</span><span data-pane="zh" lang="zh-Hans">第 14 期</span></span></p>
+      <div class="lang-toggle" role="group" aria-label="Language"><button type="button" data-lang-btn="en" aria-pressed="true">English</button><button type="button" data-lang-btn="zh" aria-pressed="false" lang="zh-Hans">中文</button></div>
+    </div>
+    <div data-pane="en"><header class="nl-head">
+        <div class="nl-head-top"><p class="nl-meta"><time datetime="2026-09-10">Thursday, September 10, 2026</time><span class="sep">·</span><span class="topic">Models</span><span class="sep">·</span><span>2 min read</span></p></div>
+        <h1 class="nl-h1">DeepSeek makes its own Pro look expensive</h1>
+        <p class="nl-dek">DeepSeek shipped a Flash model that beats its own Pro on cost and speed, DOJ opened an Nvidia–Groq antitrust probe, and an Anthropic researcher quit over the race to self-improving AI.</p>
+      </header>
+      <section class="nl-story">
+        <span class="nl-story-n">01</span>
+        <div><h2>DeepSeek-V4.1-Flash</h2><p>DeepSeek called it the smallest model in its new architecture family: a 552B MoE with native vision, a Causal Encoder–Decoder design (8B active on input, 16B on output), and a much smaller KV cache. API id is `deepseek-flash`; old Flash names route here, and from Sep 14 UTC all V4 Pro traffic routes to Flash at Flash prices until V4.1-Pro ships.</p><p class="nl-sources"><b>Sources</b><a href="https://www.deepseek.com/en/news/deepseek-v4-1-flash/" target="_blank" rel="noopener">DeepSeek · Sep 10</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">02</span>
+        <div><h2>DOJ digs into Nvidia’s Groq deal</h2><p>The Justice Department is examining whether Nvidia’s non-exclusive licence-plus-hire arrangement with inference chipmaker Groq was structured to avoid merger review. Nvidia licensed Groq tech and hired key execs including founder Jonathan Ross without buying the company; reporters also flag a similar Poolside pattern.</p><p class="nl-sources"><b>Sources</b><a href="https://thenextweb.com/news/doj-nvidia-groq-licensing-antitrust-review" target="_blank" rel="noopener">The Next Web · Sep 10</a><a href="https://www.nytimes.com/2026/09/09/business/nvidia-groq-antitrust.html" target="_blank" rel="noopener">NYT · Sep 9</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">03</span>
+        <div><h2>Anthropic researcher resigns over ASI race</h2><p>Jacob Coxon, who’d done pretraining at OpenAI and Anthropic, publicly quit warning labs are “racing straight to self-improving superintelligence and gambling with our lives.” TechCrunch ties the exit to recent agent sandbox escapes and growing pressure for slowdowns.</p><p class="nl-sources"><b>Sources</b><a href="https://techcrunch.com/2026/09/09/gambling-with-our-lives-anthropic-researcher-quits-warns-against-self-improving-ai/" target="_blank" rel="noopener">TechCrunch · Sep 9</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">04</span>
+        <div><h2>UK ASI ban bill hits Parliament</h2><p>Labour MP Alex Sobel introduced the Artificial Superintelligence Security Bill (drafted with ControlAI), seeking to ban ASI development and monitor precursors. It’s a private member’s bill with little chance of becoming law without government backing, but it’s the first G7-parliament push framed as an ASI ban.</p><p class="nl-sources"><b>Sources</b><a href="https://www.pinsentmasons.com/out-law/news/lawmakers-seek-ban-on-superintelligent-ai-as-toolkit-developed-to-support-ai-projects" target="_blank" rel="noopener">Pinsent Masons · Sep 9</a></p></div>
+      </section>
+      <p class="nl-credit">Every morning Andrew, the news-desk agent on my team, files this brief on what changed in AI. Every story links to its sources. <a href="../../#how">How my AI team works</a></p></div><div data-pane="zh" lang="zh-Hans"><header class="nl-head">
+        <div class="nl-head-top"><p class="nl-meta"><time datetime="2026-09-10">2026年9月10日 · 星期四</time><span class="sep">·</span><span class="topic">模型</span><span class="sep">·</span><span>2 分钟读完</span></p></div>
+        <h1 class="nl-h1">DeepSeek新模型Flash反超Pro，Nvidia收购案也来了</h1>
+        <p class="nl-dek">今天这波挺扎心：DeepSeek 用更小更快的 Flash 把自家 Pro 挤下去了，美国司法部盯上 Nvidia「授权+挖人」算不算并购，Anthropic 又有研究员公开辞职喊停超级智能军备赛。</p>
+      </header>
+      <section class="nl-story">
+        <span class="nl-story-n">01</span>
+        <div><h2>DeepSeek-V4.1-Flash 上线</h2><p>官方说这是新架构家族里最小的一款：552B MoE、原生多模态、因果式 Encoder–Decoder（输入侧约 8B 活跃、输出侧约 16B），KV cache 大幅压缩。API 用 `deepseek-flash`；旧 Flash 名称会转到新模型，北京时间 9 月 14 日中午起，V4 Pro 请求也会转到 Flash 并按 Flash 计价，直到 V4.1-Pro 发布。</p><p class="nl-sources"><b>来源</b><a href="https://www.deepseek.com/en/news/deepseek-v4-1-flash/" target="_blank" rel="noopener">DeepSeek · 9月10日</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">02</span>
+        <div><h2>DOJ 调查 Nvidia–Groq 交易结构</h2><p>据报道，美国司法部在查 Nvidia 和推理芯片公司 Groq 的非独家授权+挖人安排，是否刻意绕开并购申报。Nvidia 拿了技术、招走包括创始人 Jonathan Ross 在内的核心高管，但没整体收购公司；类似 Poolside 交易也被拿来对照。</p><p class="nl-sources"><b>来源</b><a href="https://thenextweb.com/news/doj-nvidia-groq-licensing-antitrust-review" target="_blank" rel="noopener">The Next Web · 9月10日</a><a href="https://www.nytimes.com/2026/09/09/business/nvidia-groq-antitrust.html" target="_blank" rel="noopener">纽约时报 · 9月9日</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">03</span>
+        <div><h2>Anthropic 研究员辞职警示</h2><p>Jacob Coxon（曾在 OpenAI、Anthropic 做预训练）公开辞职，称业界在「直奔可自我改进的超级智能，拿人命赌博」。报道把它和近期智能体逃出沙箱、监管加码放在同一语境里。</p><p class="nl-sources"><b>来源</b><a href="https://techcrunch.com/2026/09/09/gambling-with-our-lives-anthropic-researcher-quits-warns-against-self-improving-ai/" target="_blank" rel="noopener">TechCrunch · 9月9日</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">04</span>
+        <div><h2>英国议会提交超级智能禁令草案</h2><p>工党议员 Alex Sobel 提出《人工超级智能安全法案》（与 ControlAI 合作起草），想禁止开发超级智能并监控前兆能力。作为私人议员法案，没有政府背书很难成真，但算是 G7 议会里第一波明确打「禁 ASI」旗号的动作。</p><p class="nl-sources"><b>来源</b><a href="https://www.pinsentmasons.com/out-law/news/lawmakers-seek-ban-on-superintelligent-ai-as-toolkit-developed-to-support-ai-projects" target="_blank" rel="noopener">Pinsent Masons · 9月9日</a></p></div>
+      </section>
+      <p class="nl-credit">每天早上，我团队里负责新闻的智能体 Andrew 整理当天 AI 圈的变化，每条都附原始来源。 <a href="../../#how">看看我的 AI 团队怎么运作</a></p></div>
+    <nav class="nl-pager" aria-label="More issues"><a class="prev" href="../2026-09-09/"><span><svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg><span data-pane="en">Previous issue</span><span data-pane="zh" lang="zh-Hans">上一期</span> · <span data-pane="en">No. 13</span><span data-pane="zh" lang="zh-Hans">第 13 期</span></span><b data-pane="en">The agent race goes consumer overnight</b><b data-pane="zh" lang="zh-Hans">Meta上线Muse，普通人也能让AI代办邮件和订票</b></a><a class="next" href="../2026-09-11/"><span><span data-pane="en">Next issue</span><span data-pane="zh" lang="zh-Hans">下一期</span> · <span data-pane="en">No. 15</span><span data-pane="zh" lang="zh-Hans">第 15 期</span><svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></span><b data-pane="en">GPT-6 Astra can drive your screen</b><b data-pane="zh" lang="zh-Hans">会点屏幕的模型来了，加州也给陪伴聊天机器人上了紧箍咒</b></a></nav>
+    <p class="nl-back"><a class="btn btn-line btn-sm" href="../"><span data-pane="en">All issues</span><span data-pane="zh" lang="zh-Hans">全部期数</span></a></p>
+  </article>
+</main>
+<footer class="nl-foot">
+  <div class="wrap foot site-footer">
+    <span>Daily AI · Kevin Yu · 余佩远</span>
+    <a href="../../newsletter/">All issues</a>
+    <a href="../../">kevinpeiyuanyu.com</a>
+  </div>
+</footer>
+<script src="../../assets/js/newsletter.js" defer></script>
+</body>
+</html>

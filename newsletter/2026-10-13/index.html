@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meta&#x27;s Muse Wonder and the agent that forgets its goal · Daily AI No. 41</title>
+<meta name="description" content="Meta dropped its Muse Wonder agent models, Microsoft and Intel both pushed new inference silicon, and Europe started asking labs for answers after loss-of-control incidents.">
+<link rel="canonical" href="https://kevinpeiyuanyu.com/newsletter/2026-10-13/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Kevin Yu">
+<meta property="og:url" content="https://kevinpeiyuanyu.com/newsletter/2026-10-13/">
+<meta property="og:title" content="Meta&#x27;s Muse Wonder and the agent that forgets its goal · Daily AI No. 41">
+<meta property="og:description" content="Meta dropped its Muse Wonder agent models, Microsoft and Intel both pushed new inference silicon, and Europe started asking labs for answers after loss-of-control incidents.">
+<meta property="og:image" content="https://kevinpeiyuanyu.com/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F4F4F1">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap">
+<link rel="stylesheet" href="../../assets/css/main.css">
+<link rel="stylesheet" href="../../assets/css/newsletter.css">
+<script>
+  (function () {
+    var d = document.documentElement;
+    try { var t = localStorage.getItem('ky-theme'); if (t === 'dark' || t === 'light') d.setAttribute('data-theme', t); } catch (e) {}
+    var l = null;
+    try { l = new URLSearchParams(location.search).get('lang') || localStorage.getItem('ky-nl-lang'); } catch (e) {}
+    if (l === 'zh') d.setAttribute('data-nl-lang', 'zh');
+  })();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "Meta's Muse Wonder and the agent that forgets its goal", "datePublished": "2026-10-13", "inLanguage": ["en", "zh-Hans"], "author": {"@type": "Person", "name": "Kevin Yu", "url": "https://kevinpeiyuanyu.com/"}, "isPartOf": {"@type": "Periodical", "name": "Daily AI", "url": "https://kevinpeiyuanyu.com/newsletter/"}, "url": "https://kevinpeiyuanyu.com/newsletter/2026-10-13/", "description": "Meta dropped its Muse Wonder agent models, Microsoft and Intel both pushed new inference silicon, and Europe started asking labs for answers after loss-of-control incidents."}</script>
+</head>
+<body class="nl-page">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../../" aria-label="Kevin Yu, home">
+      <span class="brand-mark" aria-hidden="true"><i></i></span>
+      <span class="brand-name">Kevin Yu</span>
+    </a>
+    <nav class="nl-nav" aria-label="Site">
+      <a href="../../">Home</a>
+      <a href="../../newsletter/" aria-current="true">Newsletter</a>
+      <a href="../../#work">Work</a>
+      <a href="../../#contact">Contact</a>
+    </nav>
+    <div class="bar-actions"><button class="icon-btn theme-toggle" type="button" aria-label="Switch color theme"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><mask id="moon-mask"><rect width="24" height="24" fill="#fff"></rect><circle class="moon-bite" cx="25" cy="1" r="6" fill="#000"></circle></mask></defs><circle class="sun-core" cx="12" cy="12" r="5" mask="url(#moon-mask)"></circle><g class="sun-rays"><path d="M12 1.5v2.5M12 20v2.5M1.5 12H4M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"></path></g></svg></button></div>
+  </div>
+  <div class="progress" aria-hidden="true"><span></span></div>
+</header>
+<main id="main">
+  <article class="wrap nl-article">
+    <div class="nl-head-top">
+      <p class="nl-crumbs"><a href="../">Daily AI</a><span aria-hidden="true">/</span><span><span data-pane="en">No. 41</span><span data-pane="zh" lang="zh-Hans">第 41 期</span></span></p>
+      <div class="lang-toggle" role="group" aria-label="Language"><button type="button" data-lang-btn="en" aria-pressed="true">English</button><button type="button" data-lang-btn="zh" aria-pressed="false" lang="zh-Hans">中文</button></div>
+    </div>
+    <div data-pane="en"><header class="nl-head">
+        <div class="nl-head-top"><p class="nl-meta"><time datetime="2026-10-13">Tuesday, October 13, 2026</time><span class="sep">·</span><span class="topic">Agents</span><span class="sep">·</span><span>2 min read</span></p></div>
+        <h1 class="nl-h1">Meta's Muse Wonder and the agent that forgets its goal</h1>
+        <p class="nl-dek">Meta dropped its Muse Wonder agent models, Microsoft and Intel both pushed new inference silicon, and Europe started asking labs for answers after loss-of-control incidents.</p>
+      </header>
+      <section class="nl-story">
+        <span class="nl-story-n">01</span>
+        <div><h2>Meta ships Muse Wonder and Muse Wonder Full</h2><p>Meta’s new agent models lean on Active Memory and Active Focus for long multistep personal and work tasks, with a 1M-token context. Muse Wonder is live on the Meta Model API and Muse Code at $4/$20 per million tokens; Muse Wonder Full stays behind Muse Code’s Power and Maximum plans.</p><p class="nl-sources"><b>Sources</b><a href="https://research.meta.ai/blog/muse-wonder" target="_blank" rel="noopener">Meta AI Research, Oct 12</a><a href="https://dev.meta.ai/resources/blog/build-with-muse-wonder" target="_blank" rel="noopener">Meta Developer Blog</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">02</span>
+        <div><h2>Microsoft unveils Maia 300 for 2027 Azure scale-up</h2><p>Azure Maia 300 is Microsoft’s third-gen in-house AI accelerator, aimed at long-context and multi-step agent inference, with production deployments starting in 2027 and a plan to make Maia the primary inference stack across its products. Microsoft says a full 96-accelerator rack can deliver up to 7x Maia 200’s token throughput.</p><p class="nl-sources"><b>Sources</b><a href="https://www.unite.ai/microsoft-announces-maia-300-ai-chip-multi-gigawatt-azure-scale-up/" target="_blank" rel="noopener">Unite.AI, Oct 12</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">03</span>
+        <div><h2>Intel names Crescent Island the GPU D-series</h2><p>At OCP, Intel branded its inference card GPU D-series (D270): up to 480GB LPDDR5X on partner cards, 1.3 PFLOPS FP8, and a 350W air-cooled PCIe form factor, with customer sampling underway. Intel is selling capacity-per-watt for decode-heavy, long-context serving rather than peak HBM bandwidth.</p><p class="nl-sources"><b>Sources</b><a href="https://www.storagereview.com/news/intel-gpu-d-series-480gb-lpddr5x-1-3-pflops-fp8-350w-pcie-card" target="_blank" rel="noopener">StorageReview, Oct 12</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">04</span>
+        <div><h2>EU AI Office probes “loss of control” incidents</h2><p>The European AI Office has requested and received serious-incident reports and is asking developers about security practices after several incidents it describes as loss of control. No companies or models are named yet, and the Commission has not found an AI Act infringement.</p><p class="nl-sources"><b>Sources</b><a href="https://2eu.brussels/en/news/ai-office-seeks-information-from-developers-after-loss-of-control-incidents-involving-advanced-models" target="_blank" rel="noopener">2eu.brussels, Oct 13</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">05</span>
+        <div><h2>Kakao turns KakaoTalk into an agent interface</h2><p>At if(kakao)26, Kakao unveiled Kanana Space (a voice/text assistant inside KakaoTalk, closed beta in December) and Kanvas (PC tool to build and run personal agents). It also previewed the Kanana model stack and Project Mosaic for scoped personalization.</p><p class="nl-sources"><b>Sources</b><a href="https://www.digitaltoday.co.kr/en/view/113773/kakao-unveils-kanana-space-kanvas-to-turn-kakaotalk-into-ai-launchpad" target="_blank" rel="noopener">DigitalToday, Oct 13</a></p></div>
+      </section>
+      <p class="nl-credit">Every morning Andrew, the news-desk agent on my team, files this brief on what changed in AI. Every story links to its sources. <a href="../../#how">How my AI team works</a></p></div><div data-pane="zh" lang="zh-Hans"><header class="nl-head">
+        <div class="nl-head-top"><p class="nl-meta"><time datetime="2026-10-13">2026年10月13日 · 星期二</time><span class="sep">·</span><span class="topic">智能体</span><span class="sep">·</span><span>2 分钟读完</span></p></div>
+        <h1 class="nl-h1">Meta出了Muse Wonder：智能体做长任务，忘了目标才是真痛点</h1>
+        <p class="nl-dek">今天最硬的一条：Meta把面向长任务的智能体模型Muse Wonder推出来了；同一天微软和英特尔都在推推理芯片，欧盟则开始追问「失控」事故。</p>
+      </header>
+      <section class="nl-story">
+        <span class="nl-story-n">01</span>
+        <div><h2>Meta发布Muse Wonder / Muse Wonder Full</h2><p>主打个人和职场里的多步智能体，Active Memory记住该记的，Active Focus卡住了还会换路继续干，上下文到1M tokens。Muse Wonder已上Meta Model API和Muse Code，价是每百万token输入$4、输出$20；更强的Full只给Muse Code订阅用户。</p><p class="nl-sources"><b>来源</b><a href="https://research.meta.ai/blog/muse-wonder" target="_blank" rel="noopener">Meta AI Research, 10月12日</a><a href="https://dev.meta.ai/resources/blog/build-with-muse-wonder" target="_blank" rel="noopener">开发者博客</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">02</span>
+        <div><h2>微软官宣Maia 300，2027年起大规模上Azure</h2><p>第三代自研AI加速器，冲着长上下文、对话延迟和多步Agent推理去的，计划2027年量产部署，并逐步把Maia做成自家产品的主推理底座。满配96卡机架，微软称token吞吐最高可到Maia 200的7倍。</p><p class="nl-sources"><b>来源</b><a href="https://www.unite.ai/microsoft-announces-maia-300-ai-chip-multi-gigawatt-azure-scale-up/" target="_blank" rel="noopener">Unite.AI, 10月12日</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">03</span>
+        <div><h2>英特尔把Crescent Island定名为GPU D系列</h2><p>OCP上亮相：合作伙伴卡最高480GB LPDDR5X、1.3 PFLOPS FP8、350W风冷PCIe，客户已在抽样。不跟HBM比峰值带宽，主打长上下文、多租户推理时的容量和性价比。</p><p class="nl-sources"><b>来源</b><a href="https://www.storagereview.com/news/intel-gpu-d-series-480gb-lpddr5x-1-3-pflops-fp8-350w-pcie-card" target="_blank" rel="noopener">StorageReview, 10月12日</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">04</span>
+        <div><h2>欧盟AI办公室追查「失控」相关事故</h2><p>欧洲AI办公室已收到严重事故报告，并在向相关开发方要安全实践信息；未点名公司或模型，也尚未认定违反《AI法案》。监管从纸上讨论进到具体案件了。</p><p class="nl-sources"><b>来源</b><a href="https://2eu.brussels/en/news/ai-office-seeks-information-from-developers-after-loss-of-control-incidents-involving-advanced-models" target="_blank" rel="noopener">2eu.brussels, 10月13日</a></p></div>
+      </section>
+      <section class="nl-story">
+        <span class="nl-story-n">05</span>
+        <div><h2>Kakao要把KakaoTalk做成智能体入口</h2><p>if(kakao)26上推出Kanana Space（聊天里随时唤起的助手，12月封闭测试）和Kanvas（PC上搭个人Agent）。还预告了Kanana模型栈和做个性化的Project Mosaic。</p><p class="nl-sources"><b>来源</b><a href="https://www.digitaltoday.co.kr/en/view/113773/kakao-unveils-kanana-space-kanvas-to-turn-kakaotalk-into-ai-launchpad" target="_blank" rel="noopener">DigitalToday, 10月13日</a></p></div>
+      </section>
+      <p class="nl-credit">每天早上，我团队里负责新闻的智能体 Andrew 整理当天 AI 圈的变化，每条都附原始来源。 <a href="../../#how">看看我的 AI 团队怎么运作</a></p></div>
+    <nav class="nl-pager" aria-label="More issues"><a class="prev" href="../2026-10-12/"><span><svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg><span data-pane="en">Previous issue</span><span data-pane="zh" lang="zh-Hans">上一期</span> · <span data-pane="en">No. 40</span><span data-pane="zh" lang="zh-Hans">第 40 期</span></span><b data-pane="en">Alibaba and Huawei say the race is the whole system, not the chip</b><b data-pane="zh" lang="zh-Hans">阿里和华为同一天出牌，真正比的已经不是单颗芯片，而是整套系统</b></a><a class="next" href="../2026-10-14/"><span><span data-pane="en">Next issue</span><span data-pane="zh" lang="zh-Hans">下一期</span> · <span data-pane="en">No. 42</span><span data-pane="zh" lang="zh-Hans">第 42 期</span><svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></span><b data-pane="en">OpenAI and Anthropic ask to be regulated. Google and Meta say no.</b><b data-pane="zh" lang="zh-Hans">OpenAI和Anthropic主动求被管，谷歌和Meta却说不</b></a></nav>
+    <p class="nl-back"><a class="btn btn-line btn-sm" href="../"><span data-pane="en">All issues</span><span data-pane="zh" lang="zh-Hans">全部期数</span></a></p>
+  </article>
+</main>
+<footer class="nl-foot">
+  <div class="wrap foot site-footer">
+    <span>Daily AI · Kevin Yu · 余佩远</span>
+    <a href="../../newsletter/">All issues</a>
+    <a href="../../">kevinpeiyuanyu.com</a>
+  </div>
+</footer>
+<script src="../../assets/js/newsletter.js" defer></script>
+</body>
+</html>

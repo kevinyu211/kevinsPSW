@@ -197,157 +197,128 @@
   };
 
   /* =====================================================================
-     AI team chart: Kevin → Big Three → project rooms → crew
+     Company map: me → Stark → #big-three → project channels → connected tools
      ===================================================================== */
   const org = (() => {
-    const svg = $('.org-svg');
-    const fig = $('.org');
+    const root = $('[data-sys]');
+    if (!root) return { intro() {}, start() {} };
+    const svg = $('.sys-wires', root);
     const cap = $('.org-caption');
     const capName = $('.org-cap-name');
     const capText = $('.org-cap-text');
-    if (!svg) return { build() {}, intro() {}, start() {} };
+    const narrow = window.matchMedia('(max-width: 860px)');
 
-    // Structure from the Company OS page: owner → Big Three → one manager per room → crew.
-    const KEVIN = { id: 'kevin', name: 'Kevin (me)', role: 'I set the goals, send my asks through Grok Bot, and approve anything that publishes, spends money or needs a 2FA code.' };
-    const COLS = [
-      { label: 'Leadership', cls: 'org-big', nodes: [
-        { id: 'stark', name: 'Stark', title: 'COO', role: 'COO and chief of staff. Maps my asks to a goal, routes them, keeps the scoreboard and checks the work before anything ships.' },
-        { id: 'tony', name: 'Tony', title: 'CTO', role: 'CTO. Owns the stack, the repos, ship quality and AI strategy.' },
-        { id: 'sadie', name: 'Sadie', title: 'CMO', role: 'CMO. Owns growth, runs the Marketing room and gives the final stamp on book listings.' },
-      ] },
-      { label: 'Project rooms', cls: 'org-lane', nodes: [
-        { id: 'hirvo', name: 'Hirvo · James', short: 'Hirvo', role: 'The job-search startup. James manages the room, and the work runs on fixing the rewrite, then selling it.' },
-        { id: 'dev', name: 'Dev · Steven', short: 'Dev', role: 'Builds and time-boxed hackathons. Steven, my AI product manager, breaks problems into small pieces, and I build them with Claude Code and Codex.' },
-        { id: 'kdp', name: 'KDP · Tim', short: 'KDP', role: 'The coloring-book pipeline. Tim has run it since September: keywords, the daily create pack and page-by-page checks.' },
-        { id: 'mkt', name: 'Marketing · Sadie', short: 'Marketing', role: 'Growth that turns into money or an audience. Sadie runs this room herself.' },
-      ] },
-      { label: 'Crew', cls: 'org-crew', nodes: [
-        { id: 'alan', name: 'Alan', role: 'Career agent. Tailors resumes, finds well-matched US roles, flags visa sponsorship and logs it all to tune Hirvo.' },
-        { id: 'bob', name: 'Bob', role: 'Bob the Builder. Ships code through Cursor cloud agents and fills in the Bookflow metadata for each book.' },
-        { id: 'cindy', name: 'Cindy', role: 'Researcher. Market and niche research, keep-or-skip keyword calls, and grading Hirvo rewrites like a recruiter would.' },
-        { id: 'alex', name: 'Alex', role: 'Ads analyst. Reads Amazon Ads results and recommends hold or change.' },
-        { id: 'jennifer', name: 'Jennifer', role: 'Visuals. Covers, A+ pages and page-by-page interior checks.' },
-        { id: 'blake', name: 'Blake', role: 'English growth writer. LinkedIn, Reddit, X, landing copy and book listings.' },
-        { id: 'kylie', name: 'Kylie', role: 'AI influencers. Plans and researches content for TikTok and Instagram.' },
-        { id: 'justin', name: 'Justin', role: 'Chinese social writer. AI and build-in-public posts for Xiaohongshu.' },
-        { id: 'andrew', name: 'Andrew', role: 'News desk. Sends me a daily AI news digest in English and Chinese.' },
-      ] },
+    const INFO = {
+      kevin: ['Kevin (me)', 'I talk to Stark, approve each book’s scenes and cover, and the team runs the rest on data.'],
+      stark: ['Stark · COO', 'Lives in Grok Bot. Breaks my asks into tasks and brings them to the #big-three channel.'],
+      notion: ['Notion', 'Shared memory. The scoreboards, briefs and results for each business live here, and the Big Three read them before deciding.'],
+      big3: ['#big-three', 'Stark, Tony and Sadie check the data in the channel and in Notion, research, decide what to do and delegate to the right project channel. Work that doesn’t serve a goal gets parked.'],
+      hirvo: ['#hirvo · James', 'James manages Hirvo and preps the crew so Bob, Cindy and Alan know what to do. Claude Code and Codex do the heavy coding.'],
+      dev: ['#dev · Steven', 'Steven breaks problems into small pieces for Bob and Cindy, and Claude Code and Codex write the code.'],
+      mkt: ['#marketing · Sadie', 'Sadie runs growth with Blake, Kylie, Justin, Jennifer and Andrew. Video edits go through Claude Code or Codex and CapCut.'],
+      kdp: ['#kdp · Tim', 'Tim runs the book pipeline. Research and keywords go to Notion, Bookflow builds the KDP package, I approve the scenes and cover, and agents upload and run ads.'],
+      claude: ['Claude Code', 'Connected for the hard coding work, and for video edits that get finished in CapCut.'],
+      codex: ['Codex', 'Also connected for coding and video edits, next to Claude Code.'],
+      bookflow: ['Bookflow', 'My own tool at bookflowai.site. Turns a Notion brief into a full KDP package, ready to upload.'],
+    };
+    const EDGES = [
+      ['kevin', 'stark', 'human'], ['stark', 'big3'], ['notion', 'big3', 'data'],
+      ['big3', 'hirvo'], ['big3', 'dev'], ['big3', 'mkt'], ['big3', 'kdp'],
+      ['hirvo', 'claude', 'tool'], ['hirvo', 'codex', 'tool'],
+      ['dev', 'claude', 'tool'], ['dev', 'codex', 'tool'],
+      ['mkt', 'claude', 'tool'], ['mkt', 'codex', 'tool'],
+      ['kdp', 'bookflow', 'tool'],
     ];
-    const LINKS = [
-      ['kevin', 'stark'], ['kevin', 'tony'], ['kevin', 'sadie'],
-      ['stark', 'hirvo'], ['stark', 'dev'], ['stark', 'kdp'], ['stark', 'mkt'],
-      ['tony', 'hirvo'], ['tony', 'dev'], ['tony', 'kdp'],
-      ['sadie', 'hirvo'], ['sadie', 'kdp'], ['sadie', 'mkt'],
-      ['hirvo', 'alan'], ['hirvo', 'bob'], ['hirvo', 'cindy'],
-      ['dev', 'bob'], ['dev', 'cindy'],
-      ['kdp', 'bob'], ['kdp', 'cindy'], ['kdp', 'alex'], ['kdp', 'jennifer'], ['kdp', 'blake'],
-      ['mkt', 'cindy'], ['mkt', 'jennifer'], ['mkt', 'blake'], ['mkt', 'kylie'], ['mkt', 'justin'], ['mkt', 'andrew'],
-    ];
-    const TOUR = ['stark', 'tony', 'sadie', 'hirvo', 'dev', 'kdp', 'mkt', 'cindy', 'bob', 'jennifer', 'alex', 'blake', 'alan', 'kylie', 'andrew', 'kevin'];
-    const SPREAD = [[190, 450], [130, 510], [74, 566]];
-    const KY = 320;
+    const ROOMS = ['hirvo', 'dev', 'mkt', 'kdp'];
+    const TOUR = ['hirvo', 'kdp', 'dev', 'mkt'];
+    const STEP = 0.55;
 
-    let L = null;
-    let compact = null;
-    let nodes = {};
-    let edges = [];
-    let pulseLayer = null;
-    let built = false;
+    const cols = $$('.sys-col', root);
+    const els = {};
+    const colOf = {};
+    $$('[data-node]', root).forEach((el) => {
+      els[el.dataset.node] = el;
+      colOf[el.dataset.node] = cols.indexOf(el.closest('.sys-col'));
+    });
+    const gWires = svgEl('g', null, svg);
+    const gPulse = svgEl('g', null, svg);
+    const wires = EDGES.map(([a, b, kind]) => ({
+      a, b, kind, path: svgEl('path', { class: `wire${kind ? ` wire-${kind}` : ''}` }, gWires),
+    }));
+
     let running = false;
     let inView = true;
     let paused = false;
-    let tourIdx = 1;
-    let currentId = 'stark';
-    let laterCall = null;
+    let tourIdx = 0;
+    let pending = [];
     let resumeT = null;
 
-    const layoutFor = (isCompact) => (isCompact
-      ? { W: 400, kx: 22, kr: 19, x: [94, 204, 338], w: [64, 106, 70], ph: 28, fs: 12 }
-      : { W: 520, kx: 30, kr: 24, x: [122, 266, 446], w: [78, 132, 88], ph: 30, fs: 12.5 });
-
-    const curve = (x1, y1, x2, y2) => {
-      const dx = (x2 - x1) * 0.55;
-      return `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`;
-    };
-
-    const hold = (e, fn) => {
-      paused = true;
-      clearTimeout(resumeT);
-      if (e.pointerType && e.pointerType !== 'mouse') resumeT = setTimeout(() => { paused = false; }, 6000);
-      fn();
-    };
-    svg.addEventListener('pointerleave', (e) => {
-      if (e.pointerType === 'mouse') { clearTimeout(resumeT); paused = false; }
-    });
-
-    function build(force) {
-      const isCompact = fig.clientWidth < 470;
-      if (built && !force && isCompact === compact) return false;
-      compact = isCompact;
-      L = layoutFor(compact);
-      svg.setAttribute('viewBox', `0 0 ${L.W} 600`);
-      $$(':scope > g', svg).forEach((g) => g.remove());
-
-      const gHead = svgEl('g', null, svg);
-      const gEdges = svgEl('g', null, svg);
-      const gFlow = svgEl('g', null, svg);
-      const gNodes = svgEl('g', null, svg);
-      pulseLayer = svgEl('g', null, svg);
-      nodes = {};
-      edges = [];
-
-      svgEl('text', { x: L.kx, y: 30, 'text-anchor': 'middle', class: 'org-colhead' }, gHead).textContent = 'Me';
-      COLS.forEach((col, ci) => {
-        svgEl('text', { x: L.x[ci], y: 30, 'text-anchor': 'middle', class: 'org-colhead' }, gHead).textContent = col.label;
-        const [a, b] = SPREAD[ci];
-        col.nodes.forEach((n, j) => {
-          const y = a + (j * (b - a)) / (col.nodes.length - 1);
-          const outer = svgEl('g', { transform: `translate(${L.x[ci]},${y})` }, gNodes);
-          const g = svgEl('g', { class: `org-node ${col.cls}` }, outer);
-          const h = n.title ? L.ph + 14 : L.ph;
-          svgEl('rect', { x: -L.w[ci] / 2, y: -h / 2, width: L.w[ci], height: h, rx: Math.min(h, L.ph) / 2 + 2 }, g);
-          svgEl('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central', y: n.title ? -6 : 0.5, style: `font-size:${L.fs}px` }, g)
-            .textContent = compact && n.short ? n.short : n.name;
-          if (n.title) {
-            svgEl('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central', y: 9, class: 'org-title' }, g).textContent = n.title;
-          }
-          nodes[n.id] = { g, x: L.x[ci], y, w: L.w[ci], col: ci, info: n };
-        });
+    // Route each wire from the right edge of one card to the left edge of the next.
+    function layout() {
+      if (narrow.matches) return;
+      const W = root.clientWidth;
+      const H = root.clientHeight;
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      const r = root.getBoundingClientRect();
+      wires.forEach((w) => {
+        const A = els[w.a].getBoundingClientRect();
+        const B = els[w.b].getBoundingClientRect();
+        const x1 = A.right - r.left;
+        const y1 = A.top + A.height / 2 - r.top;
+        const x2 = B.left - r.left;
+        const y2 = B.top + B.height / 2 - r.top;
+        const dx = Math.max(12, (x2 - x1) * 0.5);
+        w.path.setAttribute('d', `M${x1.toFixed(1)},${y1.toFixed(1)} C${(x1 + dx).toFixed(1)},${y1.toFixed(1)} ${(x2 - dx).toFixed(1)},${y2.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`);
       });
-      const kOuter = svgEl('g', { transform: `translate(${L.kx},${KY})` }, gNodes);
-      const k = svgEl('g', { class: 'org-kevin' }, kOuter);
-      svgEl('circle', { r: L.kr, class: 'halo' }, k);
-      svgEl('circle', { r: L.kr, class: 'core' }, k);
-      svgEl('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central', y: 0.5 }, k).textContent = 'Kevin';
-      nodes.kevin = { g: k, x: L.kx, y: KY, w: L.kr * 2, col: -1, info: KEVIN };
-
-      LINKS.forEach(([a, b]) => {
-        const A = nodes[a];
-        const B = nodes[b];
-        const d = curve(A.x + A.w / 2, A.y, B.x - B.w / 2, B.y);
-        edges.push({ a, b, path: svgEl('path', { d, class: `org-edge${a === 'kevin' ? ' from-kevin' : ''}` }, gEdges) });
-        svgEl('path', { d, class: 'org-flow' }, gFlow);
-      });
-
-      Object.values(nodes).forEach(({ g, info }) => {
-        g.addEventListener('pointerenter', (e) => hold(e, () => focus(info.id)));
-        g.addEventListener('click', (e) => hold(e, () => focus(info.id)));
-      });
-      built = true;
-      return true;
     }
 
+    const later = (t, fn) => {
+      if (!motion || !t) { fn(); return; }
+      pending.push(G.delayedCall(t, fn));
+    };
     const clearHot = () => {
-      if (laterCall) { laterCall.kill(); laterCall = null; }
-      $$('.is-hot', svg).forEach((el) => el.classList.remove('is-hot'));
-      svg.classList.add('is-focused');
+      pending.forEach((c) => c.kill());
+      pending = [];
+      $$('.is-hot', root).forEach((el) => el.classList.remove('is-hot'));
+      cols.forEach((c) => c.classList.remove('is-lit'));
+      root.classList.add('is-focused');
+    };
+    const light = (id) => {
+      els[id].classList.add('is-hot');
+      const c = cols[colOf[id]];
+      if (c) c.classList.add('is-lit');
     };
 
-    const setCaption = (info) => {
+    const pulse = (path, human) => {
+      if (!motion || narrow.matches || !path.getTotalLength) return;
+      const len = path.getTotalLength();
+      if (!len) return;
+      const dot = svgEl('circle', { r: human ? 4.2 : 3.4, class: `sys-pulse${human ? ' human' : ''}` }, gPulse);
+      const o = { t: 0 };
+      const at = () => {
+        const p = path.getPointAtLength(o.t * len);
+        dot.setAttribute('cx', p.x);
+        dot.setAttribute('cy', p.y);
+      };
+      at();
+      G.to(o, {
+        t: 1, duration: STEP, ease: 'power2.inOut', onUpdate: at,
+        onComplete: () => G.to(dot, { attr: { r: 10 }, opacity: 0, duration: 0.45, ease: 'power2.out', onComplete: () => dot.remove() }),
+      });
+    };
+    const send = (w) => {
+      if (!w) return;
+      w.path.classList.add('is-hot');
+      pulse(w.path, w.kind === 'human');
+    };
+    const wireOf = (a, b) => wires.find((w) => w.a === a && w.b === b);
+
+    const setCaption = (id) => {
+      const [name, text] = INFO[id];
       const apply = () => {
-        capName.textContent = info.name;
-        capText.textContent = info.role;
-        cap.classList.toggle('is-human', info.id === 'kevin');
+        capName.textContent = name;
+        capText.textContent = text;
+        cap.classList.toggle('is-human', id === 'kevin');
       };
       if (!motion) { apply(); return; }
       G.killTweensOf([capName, capText]);
@@ -360,92 +331,104 @@
       });
     };
 
-    const pulse = (path, human, delay) => {
-      if (!motion || !path) return;
-      const len = path.getTotalLength();
-      const dot = svgEl('circle', { r: human ? 4.2 : 3.4, class: `org-pulse${human ? ' human' : ''}`, opacity: 0 }, pulseLayer);
-      const o = { t: 0 };
-      G.to(o, {
-        t: 1, duration: 0.65, delay, ease: 'power2.inOut',
-        onStart: () => dot.setAttribute('opacity', '1'),
-        onUpdate: () => {
-          const p = path.getPointAtLength(o.t * len);
-          dot.setAttribute('cx', p.x);
-          dot.setAttribute('cy', p.y);
-        },
-        onComplete: () => G.to(dot, { attr: { r: 10, opacity: 0 }, duration: 0.5, ease: 'power2.out', onComplete: () => dot.remove() }),
-      });
-    };
-
-    // Light up a node, the work flowing into it, then the work it hands down.
-    function focus(id) {
-      currentId = id;
-      const n = nodes[id];
+    // Follow one ask all the way down: me → Stark → #big-three → a project channel → its tools.
+    function trace(room) {
       clearHot();
-      n.g.classList.add('is-hot');
-      const inc = edges.filter((e) => e.b === id);
-      const out = edges.filter((e) => e.a === id);
-      inc.forEach((e) => { e.path.classList.add('is-hot'); nodes[e.a].g.classList.add('is-hot'); });
-      out.forEach((e) => e.path.classList.add('is-hot'));
-      const lightOut = () => out.forEach((e) => nodes[e.b].g.classList.add('is-hot'));
-      if (motion && out.length) laterCall = G.delayedCall(inc.length ? 1.15 : 0.65, lightOut); else lightOut();
-      setCaption(n.info);
-      inc.forEach((e, i) => pulse(e.path, e.a === 'kevin', i * 0.05));
-      out.forEach((e, i) => pulse(e.path, id === 'kevin', (inc.length ? 0.55 : 0) + i * 0.06));
+      setCaption(room);
+      const tools = wires.filter((w) => w.a === room);
+      const stages = [
+        () => { light('kevin'); send(wireOf('kevin', 'stark')); },
+        () => { light('stark'); light('notion'); send(wireOf('stark', 'big3')); send(wireOf('notion', 'big3')); },
+        () => { light('big3'); send(wireOf('big3', room)); },
+        () => { light(room); tools.forEach(send); },
+        () => tools.forEach((w) => light(w.b)),
+      ];
+      stages.forEach((fn, i) => later(i * STEP, fn));
+    }
+
+    // Any other card: light it, what feeds it, and what it hands work to.
+    function focusNode(id) {
+      if (ROOMS.includes(id)) { trace(id); return; }
+      clearHot();
+      setCaption(id);
+      light(id);
+      const inc = wires.filter((w) => w.b === id);
+      const out = wires.filter((w) => w.a === id);
+      inc.forEach((w) => { light(w.a); send(w); });
+      later(inc.length ? STEP : 0, () => {
+        out.forEach(send);
+        later(out.length ? STEP : 0, () => out.forEach((w) => light(w.b)));
+      });
     }
 
     const tick = () => {
       if (paused || !inView || document.hidden) return;
-      focus(TOUR[tourIdx]);
+      trace(TOUR[tourIdx]);
       tourIdx = (tourIdx + 1) % TOUR.length;
     };
 
+    const hold = (e, id) => {
+      paused = true;
+      clearTimeout(resumeT);
+      if (e.pointerType && e.pointerType !== 'mouse') resumeT = setTimeout(() => { paused = false; }, 6000);
+      cap.setAttribute('aria-live', 'polite');
+      focusNode(id);
+    };
+    Object.entries(els).forEach(([id, el]) => {
+      el.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hold(e, id); });
+      el.addEventListener('click', (e) => hold(e, id));
+      el.addEventListener('focus', (e) => hold(e, id));
+    });
+    const resume = () => {
+      clearTimeout(resumeT);
+      paused = false;
+      cap.setAttribute('aria-live', 'off');
+    };
+    root.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse' && !root.contains(document.activeElement)) resume(); });
+    root.addEventListener('focusout', (e) => { if (!root.contains(e.relatedTarget)) resume(); });
+
     function start() {
-      build();
+      layout();
       if (running) return;
       running = true;
-      focus('stark');
       tourIdx = 1;
-      if (!reduce) setInterval(tick, 3200);
+      trace(TOUR[0]);
+      if (motion) setInterval(tick, 4200);
     }
 
-    function intro() {
-      build();
+    // Cards fade in column by column while the wires draw between them.
+    function intro(delay = 0) {
+      layout();
       if (!motion) { start(); return; }
-      const paths = edges.map((e) => e.path);
-      const flows = $$('.org-flow', svg);
-      paths.forEach((p) => {
-        const l = p.getTotalLength();
-        p.style.strokeDasharray = `${l}`;
-        p.style.strokeDashoffset = `${l}`;
+      const solid = narrow.matches ? [] : wires.filter((w) => w.kind !== 'data' && w.kind !== 'tool');
+      const dashed = narrow.matches ? [] : wires.filter((w) => w.kind === 'data' || w.kind === 'tool');
+      solid.forEach((w) => {
+        const l = w.path.getTotalLength();
+        w.path.style.strokeDasharray = `${l}`;
+        w.path.style.strokeDashoffset = `${l}`;
       });
-      G.set(flows, { opacity: 0 });
-      const colNodes = (ci) => Object.values(nodes).filter((n) => n.col === ci).map((n) => n.g);
-      const colEdges = (ci) => edges.filter((e) => nodes[e.a].col === ci).map((e) => e.path);
+      G.set(dashed.map((w) => w.path), { opacity: 0 });
       const tl = G.timeline({
+        delay,
         onComplete: () => {
-          paths.forEach((p) => { p.style.strokeDasharray = ''; p.style.strokeDashoffset = ''; });
+          wires.forEach((w) => { w.path.style.strokeDasharray = ''; w.path.style.strokeDashoffset = ''; });
           start();
         },
-      }).fromTo(nodes.kevin.g, { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.9, ease: 'back.out(2)' }, 0);
-      [-1, 0, 1].forEach((ci, k) => {
-        tl.to(colEdges(ci), { strokeDashoffset: 0, duration: 0.8, stagger: 0.025, ease: 'power2.inOut' }, 0.15 + k * 0.38)
-          .fromTo(colNodes(ci + 1), { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.7, stagger: 0.04, ease: 'expo.out' }, 0.42 + k * 0.38);
       });
-      tl.to(flows, { opacity: 0.5, duration: 1.2, ease: 'power1.out' }, 1.7);
+      cols.forEach((col, i) => {
+        tl.fromTo([$('.sys-label', col), ...$$('[data-node]', col)], { opacity: 0 },
+          { opacity: 1, duration: 0.6, stagger: 0.05, ease: 'power2.out', clearProps: 'opacity' }, i * 0.2);
+      });
+      solid.forEach((w) => tl.to(w.path, { strokeDashoffset: 0, duration: 0.6, ease: 'power2.inOut' }, colOf[w.a] * 0.2 + 0.25));
+      dashed.forEach((w) => tl.to(w.path, { opacity: 1, duration: 0.5, ease: 'power1.out', clearProps: 'opacity' }, colOf[w.a] * 0.2 + 0.3));
     }
 
-    whenVisible(svg, () => { inView = true; }, () => { inView = false; }, 0.15);
-    let rT = null;
-    addEventListener('resize', () => {
-      clearTimeout(rT);
-      rT = setTimeout(() => {
-        if (running && build()) focus(currentId);
-      }, 180);
-    });
-
-    build();
-    return { build, intro, start };
+    whenVisible(root, () => { inView = true; }, () => { inView = false; }, 0.15);
+    if ('ResizeObserver' in window) new ResizeObserver(layout).observe(root);
+    else addEventListener('resize', layout);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+    layout();
+    return { intro, start };
   })();
 
   /* ---------- Hero entrance ---------- */
@@ -460,11 +443,11 @@
         .fromTo('.hero .eyebrow', { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9 }, 0)
         .fromTo('.hero-title .line-in', { yPercent: 115, rotate: 3, transformOrigin: '0% 100%' },
           { yPercent: 0, rotate: 0, duration: 1.3, stagger: 0.1 }, 0.08)
-        .fromTo('.hero .lede, .hero .cta-row, .hero .legend', { y: 18, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1, stagger: 0.08 }, 0.5)
-        .fromTo('.org', { y: 40, opacity: 0, scale: 0.97 }, { y: 0, opacity: 1, scale: 1, duration: 1.3, clearProps: 'transform' }, 0.2)
-        .add(() => org.intro(), 0.5)
-        .fromTo('.facts li', { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, stagger: 0.07 }, 0.8);
+        .fromTo('.hero .lede, .hero .cta-row', { y: 18, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, stagger: 0.08 }, 0.4)
+        .fromTo('.org', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.3, clearProps: 'transform' }, 0.45)
+        .fromTo('.facts li', { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, stagger: 0.07 }, 0.9);
+      org.intro(0.75);
     };
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(go);

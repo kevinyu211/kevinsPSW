@@ -101,39 +101,81 @@
 
   <!-- HERO -->
   <section class="hero" id="top" aria-labelledby="hero-title">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow" data-intro><span class="pulse-dot" aria-hidden="true"></span>Biomedical engineering at Purdue · gap year until spring 2027</p>
-        <h1 class="hero-title" id="hero-title">
-          <span class="line"><span class="line-in">Hi, I'm Kevin.</span></span>
-          <span class="line line-sub"><span class="line-in">I run a <em class="human">one-person company</em></span></span>
-          <span class="line line-sub"><span class="line-in">with a team of <em class="agent">AI agents.</em></span></span>
-        </h1>
-        <p class="lede" data-intro>Two years ago I had never written code. Now I'm co-founder and CTO of a job-search startup, I publish children's coloring books on Amazon, I make AI films and late-night jazz, and I build healthcare demos at hackathons. I make the calls, and my AI team does a lot of the work.</p>
-        <div class="cta-row" data-intro>
-          <a class="btn btn-ink" href="#work">See my work <svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></a>
-          <a class="btn btn-line" href="#how">Meet my AI team</a>
+    <div class="wrap">
+      <div class="hero-top">
+        <div class="hero-copy">
+          <p class="eyebrow" data-intro><span class="pulse-dot" aria-hidden="true"></span>Biomedical engineering at Purdue · gap year until spring 2027</p>
+          <h1 class="hero-title" id="hero-title">
+            <span class="line"><span class="line-in">Hi, I'm Kevin.</span></span>
+            <span class="line line-sub"><span class="line-in">I run a <em class="human">one-person company</em></span></span>
+            <span class="line line-sub"><span class="line-in">with a team of <em class="agent">AI agents.</em></span></span>
+          </h1>
         </div>
-        <p class="legend" data-intro><span class="key key-human"></span>Me <span class="key key-agent"></span>My AI team</p>
+        <div class="hero-side">
+          <p class="lede" data-intro>Two years ago I had never written code. Now I'm co-founder and CTO of a job-search startup, I publish children's coloring books on Amazon, I make AI films and late-night jazz, and I build healthcare demos at hackathons. I talk to one agent, and a team of them runs the rest.</p>
+          <div class="cta-row" data-intro>
+            <a class="btn btn-ink" href="#work">See my work <svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></a>
+            <a class="btn btn-line" href="#how">How I work</a>
+          </div>
+        </div>
       </div>
 
-      <figure class="org" data-spot>
+      <figure class="org" aria-labelledby="org-title">
         <div class="org-head">
-          <span>Who does what</span>
-          <span class="org-live"><i></i>Live</span>
+          <span class="org-title" id="org-title">How my AI company runs</span>
+          <span class="org-legend"><span class="key key-human"></span>Me <span class="key key-agent"></span>AI team <span class="key key-tool"></span>Connected tools</span>
         </div>
-        <svg class="org-svg" viewBox="0 0 520 600" role="img" aria-labelledby="org-title org-desc">
-          <title id="org-title">Kevin's AI team</title>
-          <desc id="org-desc">Kevin sets the goals. Three lead agents, Stark (COO), Tony (CTO) and Sadie (CMO), route the work to four project rooms, each with one manager: Hirvo (James), Dev (Steven), KDP books (Tim) and Marketing (Sadie). Crew agents such as Cindy, Bob, Jennifer, Alex and Blake do the work.</desc>
-        </svg>
-        <figcaption class="org-caption">
-          <span class="org-cap-name">Stark</span>
-          <span class="org-cap-text">COO and chief of staff. Maps my asks to a goal, routes them, keeps the scoreboard and checks the work before anything ships.</span>
+        <div class="sys" data-sys>
+          <svg class="sys-wires" aria-hidden="true"></svg>
+          <div class="sys-col">
+            <p class="sys-label">Me</p>
+            <div class="sys-stack">
+              <button class="node node-me" type="button" data-node="kevin"><b>Kevin</b><span>Talks to Stark</span></button>
+            </div>
+          </div>
+          <div class="sys-col">
+            <p class="sys-label">Grok Bot</p>
+            <div class="sys-stack">
+              <button class="node" type="button" data-node="stark"><b>Stark</b><span>COO · breaks asks into tasks</span></button>
+              <button class="node node-data" type="button" data-node="notion"><b>Notion</b><span>What each business runs</span></button>
+            </div>
+          </div>
+          <div class="sys-col">
+            <p class="sys-label">Leadership channel</p>
+            <div class="sys-stack">
+              <button class="chan chan-big" type="button" data-node="big3">
+                <span class="chan-name">#big-three</span>
+                <span class="chan-row"><b>Stark</b>COO</span>
+                <span class="chan-row"><b>Tony</b>CTO</span>
+                <span class="chan-row"><b>Sadie</b>CMO</span>
+                <span class="chan-note">Decide from the data, then delegate</span>
+              </button>
+            </div>
+          </div>
+          <div class="sys-col sys-rooms">
+            <p class="sys-label">Project channels</p>
+            <div class="sys-stack">
+              <button class="chan" type="button" data-node="hirvo"><span class="chan-name">#hirvo</span><span class="chan-mgr">James <i>manager</i></span><span class="chan-crew">Bob, Cindy, Alan</span></button>
+              <button class="chan" type="button" data-node="dev"><span class="chan-name">#dev</span><span class="chan-mgr">Steven <i>manager</i></span><span class="chan-crew">Bob, Cindy</span></button>
+              <button class="chan" type="button" data-node="mkt"><span class="chan-name">#marketing</span><span class="chan-mgr">Sadie <i>manager</i></span><span class="chan-crew">Blake, Kylie, Justin, Jennifer, Andrew</span></button>
+              <button class="chan" type="button" data-node="kdp"><span class="chan-name">#kdp</span><span class="chan-mgr">Tim <i>manager</i></span><span class="chan-crew">Cindy, Jennifer, Blake, Bob, Alex</span></button>
+            </div>
+          </div>
+          <div class="sys-col">
+            <p class="sys-label">Connected tools</p>
+            <div class="sys-stack">
+              <button class="node node-tool" type="button" data-node="claude"><b>Claude Code</b><span>Code and video edits</span></button>
+              <button class="node node-tool" type="button" data-node="codex"><b>Codex</b><span>Code and video edits</span></button>
+              <button class="node node-tool" type="button" data-node="bookflow"><b>Bookflow</b><span>Full KDP packages</span></button>
+            </div>
+          </div>
+        </div>
+        <figcaption class="org-caption" aria-live="off">
+          <span class="org-cap-name">#hirvo · James</span>
+          <span class="org-cap-text">James manages Hirvo and preps the crew so Bob, Cindy and Alan know what to do. Claude Code and Codex do the heavy coding.</span>
         </figcaption>
       </figure>
-    </div>
 
-    <div class="wrap">
       <ul class="facts">
         <li><span class="fact-v">2 yrs</span><span class="fact-l">from my first line of code to shipping real products</span></li>
         <li><span class="fact-v">9</span><span class="fact-l">children's coloring books on Amazon</span></li>

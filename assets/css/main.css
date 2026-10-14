@@ -277,6 +277,13 @@ em { font-style: normal; }
   font: italic 400 1.25rem/1.2 var(--f-display); letter-spacing: 0;
   color: var(--muted);
 }
+.kicker-n {
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 600 0.75rem/1 var(--f-body); font-style: normal; letter-spacing: 0.08em; color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.kicker-n::after { content: ""; width: 22px; height: 1px; background: currentColor; opacity: 0.5; }
+.contact .kicker-n { color: var(--band-muted); }
 h2 {
   font-family: var(--f-display); font-weight: 500;
   font-size: var(--t-h2); line-height: 1.02; letter-spacing: -0.018em;
@@ -356,7 +363,7 @@ h2 {
 .hero-title .line-in { display: inline-block; will-change: transform; }
 .hero-title .line-sub { font-size: 0.5em; line-height: 1.12; letter-spacing: -0.01em; }
 .hero-title .line-sub:first-of-type { margin-top: 0.3em; }
-.hero-title em, .statement-text em, h2 em { font-style: italic; }
+.hero-title em, h2 em { font-style: italic; }
 .lede { font-size: var(--t-lede); line-height: 1.6; color: var(--ink-2); max-width: 56ch; text-wrap: pretty; }
 .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
 
@@ -994,15 +1001,6 @@ mark.fab::after {
 .chip-body { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1.5; }
 .chip-core { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; animation: chip-glow 2.4s ease-in-out infinite; }
 @keyframes chip-glow { 50% { fill: var(--accent-line); } }
-
-/* ---------- Statement ---------- */
-.statement { padding-block: clamp(40px, 8vw, 120px) clamp(80px, 12vw, 180px); }
-.statement-text {
-  font-family: var(--f-display); font-weight: 500;
-  font-size: clamp(2.1rem, 5.6vw, 5rem); line-height: 1.02; letter-spacing: -0.02em;
-  max-width: 17ch; text-wrap: balance;
-}
-.sw { display: inline; }
 
 /* ---------- Lanes ---------- */
 .filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 5px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); width: max-content; max-width: 100%; }

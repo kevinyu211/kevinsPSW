@@ -114,15 +114,14 @@
         if (e.isIntersecting) activeId = e.target.id;
         else if (activeId === e.target.id) activeId = null;
       });
-      activeLink = navLinks.find((a) => a.getAttribute('href') === `#${activeId}`) || null;
+      const key = activeId && (document.getElementById(activeId).dataset.nav || activeId);
+      activeLink = navLinks.find((a) => a.getAttribute('href') === `#${key}`) || null;
       navLinks.forEach((a) => a.classList.toggle('is-active', a === activeLink));
       placeIndicator(activeLink);
     }, { rootMargin: '-45% 0px -54% 0px' });
-    navLinks.forEach((a) => {
-      const s = document.getElementById(a.getAttribute('href').slice(1));
-      if (s) io.observe(s);
-      a.addEventListener('pointerenter', () => placeIndicator(a));
-    });
+    // Sections without their own link light up their chapter's link (data-nav).
+    $$('main > section[id]').forEach((s) => io.observe(s));
+    navLinks.forEach((a) => a.addEventListener('pointerenter', () => placeIndicator(a)));
     $('.nav')?.addEventListener('pointerleave', () => placeIndicator(activeLink));
   }
 
@@ -650,11 +649,6 @@
       G.fromTo(el, { y: 20, opacity: 0.4 }, { y: 0, opacity: 1, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 92%', once: true } });
     });
 
-    const stmt = $('[data-words]');
-    if (stmt) {
-      G.fromTo(splitWords(stmt), { opacity: 0.16 },
-        { opacity: 1, ease: 'none', stagger: 0.12, scrollTrigger: { trigger: stmt, start: 'top 80%', end: 'bottom 45%', scrub: 0.6 } });
-    }
   }
 
   /* ---------- Small loops that run only while visible ---------- */

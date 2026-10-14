@@ -197,7 +197,7 @@
   };
 
   /* =====================================================================
-     Company OS diagram: Kevin → agents and tools → lanes
+     AI team chart: Kevin → Big Three → project rooms → crew
      ===================================================================== */
   const org = (() => {
     const svg = $('.org-svg');
@@ -207,55 +207,78 @@
     const capText = $('.org-cap-text');
     if (!svg) return { build() {}, intro() {}, start() {} };
 
-    const AGENTS = [
-      { name: 'Codex', role: 'Second coding agent on deep product work for Hirvo.', to: ['hirvo'] },
-      { name: 'Claude Code', role: 'Deep repo work: the Hirvo rewrite, Bookflow hardening, sites and 3D builds.', to: ['hirvo', 'uhome', 'hack', 'pindou', 'kdp'] },
-      { name: 'Big Three', role: 'Strategy agents behind story-IP calls and the build-in-public plan.', to: ['x', 'kdp'] },
-      { name: 'Sadie', role: 'Sets story-IP direction for the book line.', to: ['kdp'] },
-      { name: 'Cindy', role: 'Finds niches and sorts keywords into keep and skip.', to: ['kdp'] },
-      { name: 'Tim', role: 'Pulls reverse-ASIN and longtail keywords from SellerSprite.', to: ['kdp'] },
-      { name: 'Jennifer', role: 'Makes art packs and A+ content.', to: ['kdp'] },
-      { name: 'Alex', role: 'Reads Amazon Ads campaigns and recommends hold or change.', to: ['kdp'] },
-      { name: 'Bob', role: 'Builds and maintains the Bookflow tooling.', to: ['kdp'] },
-      { name: 'Video + music', role: 'Reference, Claude shot list, edit, Drive. Plus AI-assisted music production.', to: ['aigc', 'yae', 'noir'] },
-      { name: 'Higgsfield', role: 'Soul 2.0 looks trained for realistic AI influencers.', to: ['influ'] },
+    // Structure from the Company OS page: owner → Big Three → one manager per room → crew.
+    const KEVIN = { id: 'kevin', name: 'Kevin (me)', role: 'I set the goals and approve anything that publishes, spends money or needs a 2FA code.' };
+    const COLS = [
+      { label: 'Leadership', cls: 'org-big', nodes: [
+        { id: 'stark', name: 'Stark', role: 'Chief of staff. Breaks down my asks, routes them, keeps the scoreboard and checks the work against my goals.' },
+        { id: 'tony', name: 'Tony', role: 'CTO. Owns the stack, the repos and ship quality.' },
+        { id: 'sadie', name: 'Sadie', role: 'CMO. Owns growth that can turn into money or an audience.' },
+      ] },
+      { label: 'Project rooms', cls: 'org-lane', nodes: [
+        { id: 'hirvo', name: 'Hirvo', role: 'The job-search startup. Steven manages the room, reporting to Tony on product and Sadie on growth.' },
+        { id: 'dev', name: 'Dev + hackathons', short: 'Dev', role: 'Builds and time-boxed hackathons. Steven manages the room, reporting to Tony.' },
+        { id: 'kdp', name: 'KDP books', role: 'The coloring-book pipeline, from research to publish. Steven manages it, with Sadie on listings.' },
+        { id: 'mkt', name: 'Marketing', role: 'Content and growth across channels. Sadie runs this room herself.' },
+      ] },
+      { label: 'Crew', cls: 'org-crew', nodes: [
+        { id: 'alan', name: 'Alan', role: 'Crew in the Hirvo room.' },
+        { id: 'bob', name: 'Bob', role: 'Builder. Works on Bookflow tooling and dev projects.' },
+        { id: 'cindy', name: 'Cindy', role: 'Research. Finds niches and sorts keywords into keep and skip.' },
+        { id: 'tim', name: 'Tim', role: 'Keywords. Pulls reverse-ASIN and longtail data from SellerSprite.' },
+        { id: 'alex', name: 'Alex', role: 'Ads. Reads Amazon Ads campaigns and recommends hold or change.' },
+        { id: 'jennifer', name: 'Jennifer', role: 'Art. Makes art packs and A+ content.' },
+        { id: 'justin', name: 'Justin', role: 'Crew in the Marketing room.' },
+        { id: 'kylie', name: 'Kylie', role: 'Crew in the Marketing room.' },
+        { id: 'blake', name: 'Blake', role: 'Crew in the Marketing room.' },
+      ] },
     ];
-    const LANES = [
-      { id: 'hirvo', name: 'Hirvo', what: 'Visa-aware job search.' },
-      { id: 'uhome', name: 'UHOME', what: 'Student apartment site and 3D renders.' },
-      { id: 'hack', name: 'Hackathons', what: 'Healthcare AI demos in Hong Kong and Shanghai.' },
-      { id: 'pindou', name: '拼豆 store', what: 'Social and a WeChat mini program for a Shanghai store.' },
-      { id: 'x', name: 'X · in public', what: 'Shipping every lane in public.' },
-      { id: 'kdp', name: 'Bookflow · KDP', what: 'Nine books live on Amazon.' },
-      { id: 'aigc', name: 'AIGC video', what: 'Cinematic AI ads for brands.' },
-      { id: 'yae', name: 'YouAreExtinct', what: 'Story AI films on YouTube.' },
-      { id: 'noir', name: 'Noir Hours', what: 'Noir jazz for focused work.' },
-      { id: 'influ', name: 'AI influencers', what: 'Realistic AI talent across platforms.' },
+    const LINKS = [
+      ['kevin', 'stark'], ['kevin', 'tony'], ['kevin', 'sadie'],
+      ['stark', 'hirvo'], ['stark', 'dev'], ['stark', 'kdp'], ['stark', 'mkt'],
+      ['tony', 'hirvo'], ['tony', 'dev'], ['tony', 'kdp'],
+      ['sadie', 'hirvo'], ['sadie', 'kdp'], ['sadie', 'mkt'],
+      ['hirvo', 'alan'], ['hirvo', 'bob'], ['hirvo', 'cindy'],
+      ['dev', 'bob'], ['dev', 'cindy'],
+      ['kdp', 'bob'], ['kdp', 'cindy'], ['kdp', 'tim'], ['kdp', 'alex'], ['kdp', 'jennifer'],
+      ['mkt', 'cindy'], ['mkt', 'jennifer'], ['mkt', 'justin'], ['mkt', 'kylie'], ['mkt', 'blake'],
     ];
+    const TOUR = ['stark', 'tony', 'sadie', 'hirvo', 'dev', 'kdp', 'mkt', 'cindy', 'tim', 'jennifer', 'alex', 'bob', 'kevin'];
+    const SPREAD = [[190, 450], [130, 510], [74, 566]];
+    const KY = 320;
 
     let L = null;
     let compact = null;
-    let nodes = { agents: [], lanes: {}, kevin: null };
-    let edgesK = [];
-    let edgesA = [];
+    let nodes = {};
+    let edges = [];
     let pulseLayer = null;
     let built = false;
     let running = false;
     let inView = true;
     let paused = false;
-    let idx = 1;
-    let current = { type: 'agent', i: 1 };
-    let laneCall = null;
+    let tourIdx = 1;
+    let currentId = 'stark';
+    let laterCall = null;
     let resumeT = null;
 
     const layoutFor = (isCompact) => (isCompact
-      ? { W: 400, kx: 27, kr: 22, ax: 146, aw: 104, lx: 318, lw: 122, ph: 30, fs: 12.5 }
-      : { W: 520, kx: 40, kr: 27, ax: 198, aw: 112, lx: 434, lw: 144, ph: 30, fs: 12.5 });
+      ? { W: 400, kx: 22, kr: 19, x: [94, 204, 338], w: [64, 106, 70], ph: 28, fs: 12 }
+      : { W: 520, kx: 30, kr: 24, x: [124, 268, 444], w: [80, 124, 92], ph: 30, fs: 12.5 });
 
     const curve = (x1, y1, x2, y2) => {
       const dx = (x2 - x1) * 0.55;
       return `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`;
     };
+
+    const hold = (e, fn) => {
+      paused = true;
+      clearTimeout(resumeT);
+      if (e.pointerType && e.pointerType !== 'mouse') resumeT = setTimeout(() => { paused = false; }, 6000);
+      fn();
+    };
+    svg.addEventListener('pointerleave', (e) => {
+      if (e.pointerType === 'mouse') { clearTimeout(resumeT); paused = false; }
+    });
 
     function build(force) {
       const isCompact = fig.clientWidth < 470;
@@ -270,88 +293,57 @@
       const gFlow = svgEl('g', null, svg);
       const gNodes = svgEl('g', null, svg);
       pulseLayer = svgEl('g', null, svg);
+      nodes = {};
+      edges = [];
 
-      const top = 70;
-      const bot = 572;
-      const ky = (top + bot) / 2;
-      const ay = (i) => top + (i * (bot - top)) / (AGENTS.length - 1);
-      const ly = (j) => top + (j * (bot - top)) / (LANES.length - 1);
-      const laneIndex = {};
-      LANES.forEach((l, j) => { laneIndex[l.id] = j; });
-
-      [['Human', L.kx], ['Agents + tools', L.ax], ['Lanes', L.lx]].forEach(([t, x]) => {
-        svgEl('text', { x, y: 30, 'text-anchor': 'middle', class: 'org-colhead' }, gHead).textContent = t;
-      });
-
-      edgesK = [];
-      edgesA = [];
-      nodes = { agents: [], lanes: {}, kevin: null };
-
-      AGENTS.forEach((a, i) => {
-        const y = ay(i);
-        const d = curve(L.kx + L.kr, ky, L.ax - L.aw / 2, y);
-        edgesK.push(svgEl('path', { d, class: 'org-edge from-kevin' }, gEdges));
-        svgEl('path', { d, class: 'org-flow' }, gFlow);
-        const map = {};
-        a.to.forEach((id) => {
-          const d2 = curve(L.ax + L.aw / 2, y, L.lx - L.lw / 2, ly(laneIndex[id]));
-          map[id] = svgEl('path', { d: d2, class: 'org-edge' }, gEdges);
-          svgEl('path', { d: d2, class: 'org-flow' }, gFlow);
+      svgEl('text', { x: L.kx, y: 30, 'text-anchor': 'middle', class: 'org-colhead' }, gHead).textContent = 'Me';
+      COLS.forEach((col, ci) => {
+        svgEl('text', { x: L.x[ci], y: 30, 'text-anchor': 'middle', class: 'org-colhead' }, gHead).textContent = col.label;
+        const [a, b] = SPREAD[ci];
+        col.nodes.forEach((n, j) => {
+          const y = a + (j * (b - a)) / (col.nodes.length - 1);
+          const outer = svgEl('g', { transform: `translate(${L.x[ci]},${y})` }, gNodes);
+          const g = svgEl('g', { class: `org-node ${col.cls}` }, outer);
+          svgEl('rect', { x: -L.w[ci] / 2, y: -L.ph / 2, width: L.w[ci], height: L.ph, rx: L.ph / 2 }, g);
+          svgEl('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central', y: 0.5, style: `font-size:${L.fs}px` }, g)
+            .textContent = compact && n.short ? n.short : n.name;
+          nodes[n.id] = { g, x: L.x[ci], y, w: L.w[ci], col: ci, info: n };
         });
-        edgesA.push(map);
       });
-
-      const pill = (cx, cy, w, label, cls) => {
-        const outer = svgEl('g', { transform: `translate(${cx},${cy})` }, gNodes);
-        const g = svgEl('g', { class: `org-node ${cls}` }, outer);
-        svgEl('rect', { x: -w / 2, y: -L.ph / 2, width: w, height: L.ph, rx: L.ph / 2 }, g);
-        svgEl('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central', y: 0.5, style: `font-size:${L.fs}px` }, g).textContent = label;
-        return g;
-      };
-      AGENTS.forEach((a, i) => {
-        const g = pill(L.ax, ay(i), L.aw, a.name, 'org-agent');
-        g.addEventListener('pointerenter', (e) => hold(e, () => focusAgent(i)));
-        g.addEventListener('click', (e) => hold(e, () => focusAgent(i)));
-        nodes.agents.push(g);
-      });
-      LANES.forEach((l, j) => {
-        const g = pill(L.lx, ly(j), L.lw, l.name, 'org-lane');
-        g.addEventListener('pointerenter', (e) => hold(e, () => focusLane(l.id)));
-        g.addEventListener('click', (e) => hold(e, () => focusLane(l.id)));
-        nodes.lanes[l.id] = g;
-      });
-      const kOuter = svgEl('g', { transform: `translate(${L.kx},${ky})` }, gNodes);
+      const kOuter = svgEl('g', { transform: `translate(${L.kx},${KY})` }, gNodes);
       const k = svgEl('g', { class: 'org-kevin' }, kOuter);
       svgEl('circle', { r: L.kr, class: 'halo' }, k);
       svgEl('circle', { r: L.kr, class: 'core' }, k);
       svgEl('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central', y: 0.5 }, k).textContent = 'Kevin';
-      nodes.kevin = k;
+      nodes.kevin = { g: k, x: L.kx, y: KY, w: L.kr * 2, col: -1, info: KEVIN };
 
+      LINKS.forEach(([a, b]) => {
+        const A = nodes[a];
+        const B = nodes[b];
+        const d = curve(A.x + A.w / 2, A.y, B.x - B.w / 2, B.y);
+        edges.push({ a, b, path: svgEl('path', { d, class: `org-edge${a === 'kevin' ? ' from-kevin' : ''}` }, gEdges) });
+        svgEl('path', { d, class: 'org-flow' }, gFlow);
+      });
+
+      Object.values(nodes).forEach(({ g, info }) => {
+        g.addEventListener('pointerenter', (e) => hold(e, () => focus(info.id)));
+        g.addEventListener('click', (e) => hold(e, () => focus(info.id)));
+      });
       built = true;
       return true;
     }
 
-    const hold = (e, fn) => {
-      paused = true;
-      clearTimeout(resumeT);
-      if (e.pointerType && e.pointerType !== 'mouse') resumeT = setTimeout(() => { paused = false; }, 6000);
-      fn();
-    };
-    svg.addEventListener('pointerleave', (e) => {
-      if (e.pointerType === 'mouse') { clearTimeout(resumeT); paused = false; }
-    });
-
     const clearHot = () => {
-      if (laneCall) { laneCall.kill(); laneCall = null; }
+      if (laterCall) { laterCall.kill(); laterCall = null; }
       $$('.is-hot', svg).forEach((el) => el.classList.remove('is-hot'));
       svg.classList.add('is-focused');
     };
 
-    const setCaption = (name, text, isLane) => {
+    const setCaption = (info) => {
       const apply = () => {
-        capName.textContent = name;
-        capText.textContent = text;
-        cap.classList.toggle('is-lane', !!isLane);
+        capName.textContent = info.name;
+        capText.textContent = info.role;
+        cap.classList.toggle('is-human', info.id === 'kevin');
       };
       if (!motion) { apply(); return; }
       G.killTweensOf([capName, capText]);
@@ -370,7 +362,7 @@
       const dot = svgEl('circle', { r: human ? 4.2 : 3.4, class: `org-pulse${human ? ' human' : ''}`, opacity: 0 }, pulseLayer);
       const o = { t: 0 };
       G.to(o, {
-        t: 1, duration: human ? 0.6 : 0.75, delay, ease: 'power2.inOut',
+        t: 1, duration: 0.65, delay, ease: 'power2.inOut',
         onStart: () => dot.setAttribute('opacity', '1'),
         onUpdate: () => {
           const p = path.getPointAtLength(o.t * len);
@@ -381,77 +373,62 @@
       });
     };
 
-    function focusAgent(i) {
-      current = { type: 'agent', i };
-      const a = AGENTS[i];
+    // Light up a node, the work flowing into it, then the work it hands down.
+    function focus(id) {
+      currentId = id;
+      const n = nodes[id];
       clearHot();
-      nodes.agents[i].classList.add('is-hot');
-      edgesK[i].classList.add('is-hot');
-      const ids = Object.keys(edgesA[i]);
-      ids.forEach((id) => edgesA[i][id].classList.add('is-hot'));
-      const lightLanes = () => ids.forEach((id) => nodes.lanes[id].classList.add('is-hot'));
-      if (motion) laneCall = G.delayedCall(1.0, lightLanes); else lightLanes();
-      setCaption(a.name, a.role, false);
-      pulse(edgesK[i], true, 0);
-      ids.forEach((id, n) => pulse(edgesA[i][id], false, 0.55 + n * 0.07));
-    }
-
-    function focusLane(id) {
-      current = { type: 'lane', id };
-      const lane = LANES.find((l) => l.id === id);
-      clearHot();
-      nodes.lanes[id].classList.add('is-hot');
-      const who = [];
-      AGENTS.forEach((a, i) => {
-        if (!edgesA[i][id]) return;
-        edgesA[i][id].classList.add('is-hot');
-        nodes.agents[i].classList.add('is-hot');
-        who.push(a.name);
-        pulse(edgesA[i][id], false, who.length * 0.05);
-      });
-      const list = who.length > 1 ? `${who.slice(0, -1).join(', ')} and ${who[who.length - 1]}` : who[0];
-      setCaption(lane.name, `${lane.what} Worked on by ${list}.`, true);
+      n.g.classList.add('is-hot');
+      const inc = edges.filter((e) => e.b === id);
+      const out = edges.filter((e) => e.a === id);
+      inc.forEach((e) => { e.path.classList.add('is-hot'); nodes[e.a].g.classList.add('is-hot'); });
+      out.forEach((e) => e.path.classList.add('is-hot'));
+      const lightOut = () => out.forEach((e) => nodes[e.b].g.classList.add('is-hot'));
+      if (motion && out.length) laterCall = G.delayedCall(inc.length ? 1.15 : 0.65, lightOut); else lightOut();
+      setCaption(n.info);
+      inc.forEach((e, i) => pulse(e.path, e.a === 'kevin', i * 0.05));
+      out.forEach((e, i) => pulse(e.path, id === 'kevin', (inc.length ? 0.55 : 0) + i * 0.06));
     }
 
     const tick = () => {
       if (paused || !inView || document.hidden) return;
-      focusAgent(idx);
-      idx = (idx + 1) % AGENTS.length;
+      focus(TOUR[tourIdx]);
+      tourIdx = (tourIdx + 1) % TOUR.length;
     };
 
     function start() {
       build();
       if (running) return;
       running = true;
-      focusAgent(1);
-      idx = 2;
-      if (!reduce) setInterval(tick, 3000);
+      focus('stark');
+      tourIdx = 1;
+      if (!reduce) setInterval(tick, 3200);
     }
 
     function intro() {
       build();
       if (!motion) { start(); return; }
-      const edges = $$('.org-edge', svg);
+      const paths = edges.map((e) => e.path);
       const flows = $$('.org-flow', svg);
-      const agentEdges = edgesA.flatMap((m) => Object.values(m));
-      edges.forEach((p) => {
+      paths.forEach((p) => {
         const l = p.getTotalLength();
         p.style.strokeDasharray = `${l}`;
         p.style.strokeDashoffset = `${l}`;
       });
       G.set(flows, { opacity: 0 });
-      G.timeline({
+      const colNodes = (ci) => Object.values(nodes).filter((n) => n.col === ci).map((n) => n.g);
+      const colEdges = (ci) => edges.filter((e) => nodes[e.a].col === ci).map((e) => e.path);
+      const tl = G.timeline({
         onComplete: () => {
-          edges.forEach((p) => { p.style.strokeDasharray = ''; p.style.strokeDashoffset = ''; });
+          paths.forEach((p) => { p.style.strokeDasharray = ''; p.style.strokeDashoffset = ''; });
           start();
         },
-      })
-        .fromTo(nodes.kevin, { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.9, ease: 'back.out(2)' }, 0)
-        .to(edgesK, { strokeDashoffset: 0, duration: 0.9, stagger: 0.035, ease: 'power2.inOut' }, 0.15)
-        .fromTo(nodes.agents, { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.7, stagger: 0.04, ease: 'expo.out' }, 0.35)
-        .to(agentEdges, { strokeDashoffset: 0, duration: 0.9, stagger: 0.02, ease: 'power2.inOut' }, 0.65)
-        .fromTo(Object.values(nodes.lanes), { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.7, stagger: 0.045, ease: 'expo.out' }, 0.9)
-        .to(flows, { opacity: 0.5, duration: 1.2, ease: 'power1.out' }, 1.5);
+      }).fromTo(nodes.kevin.g, { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.9, ease: 'back.out(2)' }, 0);
+      [-1, 0, 1].forEach((ci, k) => {
+        tl.to(colEdges(ci), { strokeDashoffset: 0, duration: 0.8, stagger: 0.025, ease: 'power2.inOut' }, 0.15 + k * 0.38)
+          .fromTo(colNodes(ci + 1), { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.7, stagger: 0.04, ease: 'expo.out' }, 0.42 + k * 0.38);
+      });
+      tl.to(flows, { opacity: 0.5, duration: 1.2, ease: 'power1.out' }, 1.7);
     }
 
     whenVisible(svg, () => { inView = true; }, () => { inView = false; }, 0.15);
@@ -459,10 +436,7 @@
     addEventListener('resize', () => {
       clearTimeout(rT);
       rT = setTimeout(() => {
-        if (!running) return;
-        if (build()) {
-          if (current.type === 'lane') focusLane(current.id); else focusAgent(current.i);
-        }
+        if (running && build()) focus(currentId);
       }, 180);
     });
 
@@ -509,6 +483,10 @@
         .fromTo(kp, { '--strike': 0 }, { '--strike': 1, duration: 0.45, ease: 'power2.inOut' }, 1.1)
         .fromTo($('.stamp-build', v), { opacity: 0, scale: 2.2, rotate: 16 }, { opacity: 1, scale: 1, rotate: -5, duration: 0.5, ease: 'back.out(2.4)' }, 1.6);
     },
+    (v) => G.timeline({ paused: true, defaults: { ease: 'expo.out' } })
+      .fromTo($('.route-task', v), { opacity: 0, y: -14, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.6 }, 0.1)
+      .fromTo($$('.route-owner', v), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.65, stagger: 0.16 }, 0.55)
+      .fromTo($$('.route-owner li', v), { opacity: 0, x: -8 }, { opacity: 1, x: 0, duration: 0.45, stagger: 0.07 }, 0.95),
     (v) => G.timeline({ paused: true })
       .fromTo($$('.cl', v), { clipPath: 'inset(0 100% 0 0)' },
         { clipPath: 'inset(0 0% 0 0)', duration: 0.4, ease: 'steps(16)', stagger: 0.15 }, 0.1),
@@ -536,15 +514,6 @@
       }, null, 1.1 + k * 0.6));
       return tl;
     },
-    (v) => {
-      const ch = $$('.channels li', v);
-      const tl = G.timeline({ paused: true })
-        .call(() => ch.forEach((c) => c.classList.remove('is-on')), null, 0.001)
-        .fromTo($$('.log p', v), { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.4, ease: 'steps(14)', stagger: 0.35 }, 0.1)
-        .fromTo(ch, { opacity: 0.4, x: -8 }, { opacity: 1, x: 0, duration: 0.5, stagger: 0.12, ease: 'expo.out' }, 1.1);
-      ch.forEach((c, k) => tl.call(() => c.classList.add('is-on'), null, 1.25 + k * 0.12));
-      return tl;
-    },
   ];
 
   (function how() {
@@ -565,7 +534,7 @@
     const n = steps.length;
     const mm = G.matchMedia();
 
-    mm.add('(min-width: 1021px) and (min-height: 700px)', () => {
+    mm.add('(min-width: 1021px) and (min-height: 720px)', () => {
       section.classList.add('is-pinned');
       visuals.forEach((v) => stage.appendChild(v));
       let currentStep = -1;
@@ -635,7 +604,7 @@
       };
     });
 
-    mm.add('(max-width: 1020px), (max-height: 699px)', () => {
+    mm.add('(max-width: 1020px), (max-height: 719px)', () => {
       visuals.forEach((v, i) => ST.create({ trigger: v, start: 'top 82%', once: true, onEnter: () => players[i].play() }));
     });
   })();

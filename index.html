@@ -13,7 +13,7 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap">
 <link rel="stylesheet" href="assets/css/main.css">
 <script>
   (function () {
@@ -36,10 +36,11 @@
       <span class="brand-name">Kevin Yu</span>
     </a>
     <nav class="nav" aria-label="Sections">
+      <a href="#about">About</a>
       <a href="#work">Work</a>
-      <a href="#how">How it runs</a>
-      <a href="#lanes">Lanes</a>
-      <a href="#stack">Stack</a>
+      <a href="#how">AI team</a>
+      <a href="#noir">Music</a>
+      <a href="#lanes">Projects</a>
       <span class="nav-indicator" aria-hidden="true"></span>
     </nav>
     <div class="bar-actions">
@@ -57,13 +58,14 @@
 
 <div class="menu-sheet" id="menu-sheet" inert>
   <nav class="menu-links" aria-label="Menu">
+    <a href="#about">About</a>
     <a href="#work">Work</a>
-    <a href="#how">How it runs</a>
-    <a href="#lanes">Lanes</a>
-    <a href="#stack">Stack</a>
+    <a href="#how">AI team</a>
+    <a href="#noir">Music</a>
+    <a href="#lanes">Projects</a>
     <a href="#contact">Contact</a>
   </nav>
-  <p class="menu-meta mono">Kevin Yu · Purdue BME · one-person company</p>
+  <p class="menu-meta">Kevin Yu · 余佩远</p>
 </div>
 
 <main id="main">
@@ -72,43 +74,63 @@
   <section class="hero" id="top" aria-labelledby="hero-title">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow" data-intro><span class="pulse-dot" aria-hidden="true"></span>Purdue BME · gap year through spring 2027</p>
+        <p class="eyebrow" data-intro><span class="pulse-dot" aria-hidden="true"></span>Biomedical engineering at Purdue · gap year until spring 2027</p>
         <h1 class="hero-title" id="hero-title">
-          <span class="line"><span class="line-in">I run a</span></span>
-          <span class="line"><span class="line-in"><em class="human">one-person company</em></span></span>
-          <span class="line"><span class="line-in">staffed by <em class="agent">AI agents.</em></span></span>
+          <span class="line"><span class="line-in">Hi, I'm Kevin.</span></span>
+          <span class="line line-sub"><span class="line-in">I run a <em class="human">one-person company</em></span></span>
+          <span class="line line-sub"><span class="line-in">with a team of <em class="agent">AI agents.</em></span></span>
         </h1>
-        <p class="lede" data-intro>I'm Kevin Yu. I take products from spec to production on my own, with Claude Code and a crew of AI agents doing the work around me. In mid-2024 I had never written code. Today I'm building a SaaS, running a book publishing operation on Amazon, making AI video and shipping healthcare demos at hackathons.</p>
+        <p class="lede" data-intro>Two years ago I had never written code. Now I'm co-founder and CTO of a job-search startup, I publish children's coloring books on Amazon, I make AI films and late-night jazz, and I build healthcare demos at hackathons. I make the calls, and my AI team does a lot of the work.</p>
         <div class="cta-row" data-intro>
-          <a class="btn btn-ink" href="#work">See the work <svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></a>
-          <a class="btn btn-line" href="#how">How it runs</a>
+          <a class="btn btn-ink" href="#work">See my work <svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></a>
+          <a class="btn btn-line" href="#how">Meet my AI team</a>
         </div>
-        <p class="legend mono" data-intro><span class="key key-human"></span>Human decisions <span class="key key-agent"></span>Agent work</p>
+        <p class="legend" data-intro><span class="key key-human"></span>Orange is me <span class="key key-agent"></span>Blue is my AI team</p>
       </div>
 
       <figure class="org" data-spot>
-        <div class="org-head mono">
-          <span>Company OS</span>
-          <span class="org-live"><i></i>Running</span>
+        <div class="org-head">
+          <span>Who does what</span>
+          <span class="org-live"><i></i>Live</span>
         </div>
         <svg class="org-svg" viewBox="0 0 520 600" role="img" aria-labelledby="org-title org-desc">
-          <title id="org-title">How Kevin's one-person company is wired</title>
-          <desc id="org-desc">Kevin directs eleven AI agents and tools, including Claude Code, Codex and a Grok Bot crew. They work across ten lanes such as Hirvo, Bookflow and Amazon KDP, YouAreExtinct and UHOME.</desc>
+          <title id="org-title">Kevin's AI team</title>
+          <desc id="org-desc">Kevin sets the goals. Three lead agents, Stark (chief of staff), Tony (CTO) and Sadie (CMO), route the work to four project rooms: Hirvo, Dev and hackathons, KDP books and Marketing. Crew agents such as Cindy, Tim, Jennifer, Alex and Bob do the work.</desc>
         </svg>
         <figcaption class="org-caption">
-          <span class="org-cap-name mono">Claude Code</span>
-          <span class="org-cap-text">Deep repo work: the Hirvo rewrite, Bookflow hardening, sites and 3D builds.</span>
+          <span class="org-cap-name">Stark</span>
+          <span class="org-cap-text">Chief of staff. Breaks down my asks, routes them, keeps the scoreboard and checks the work against my goals.</span>
         </figcaption>
       </figure>
     </div>
 
     <div class="wrap">
       <ul class="facts">
-        <li><span class="fact-v">2 yrs</span><span class="fact-l">from no coding background to shipping production apps</span></li>
-        <li><span class="fact-v">9</span><span class="fact-l">coloring books live on Amazon</span></li>
+        <li><span class="fact-v">2 yrs</span><span class="fact-l">from my first line of code to shipping real products</span></li>
+        <li><span class="fact-v">9</span><span class="fact-l">children's coloring books on Amazon</span></li>
         <li><span class="fact-v">30/30</span><span class="fact-l">books made in a 30-day sprint</span></li>
-        <li><span class="fact-v">10</span><span class="fact-l">lanes running in parallel, one operator</span></li>
+        <li><span class="fact-v">10</span><span class="fact-l">projects on the go right now</span></li>
       </ul>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section about" id="about" aria-labelledby="about-title">
+    <div class="wrap about-grid">
+      <div class="about-copy">
+        <p class="kicker">A bit about me</p>
+        <h2 id="about-title" data-split>From zero code to a company of one.</h2>
+        <p>I study biomedical engineering at Purdue, with a background in statistics, and I want to end up in healthcare AI. Right now I'm on a gap year until spring 2027, building full time.</p>
+        <p>In mid-2024 I couldn't code. I learned by building with AI, and one rule has stuck: if a general chatbot can already do it, I don't build it. Whatever survives that test, I spec carefully and ship.</p>
+        <p>I work in English and Mandarin, between Canada, the US, China and Hong Kong.</p>
+      </div>
+      <ol class="timeline" data-reveal-group>
+        <li><span class="tl-when">Mid-2024</span><span class="tl-what">Wrote my first line of code.</span></li>
+        <li><span class="tl-when">Nov 2025</span><span class="tl-what">Snuggle Christmas Crew went live on Amazon.</span></li>
+        <li><span class="tl-when">2026</span><span class="tl-what">Became co-founder and CTO of Hirvo, and built healthcare demos at AIx Origin in Hong Kong, 复客松 and Fudan.</span></li>
+        <li><span class="tl-when">Sep 2026</span><span class="tl-what">Set my company's goals: get Hirvo's rewrite right and start selling, and keep the book pipeline running.</span></li>
+        <li class="is-now"><span class="tl-when">Now</span><span class="tl-what">On a gap year, building full time.</span></li>
+      </ol>
     </div>
   </section>
 
@@ -116,7 +138,7 @@
   <section class="section work" id="work" aria-labelledby="work-title">
     <div class="wrap">
       <header class="section-head">
-        <p class="kicker mono">Selected work</p>
+        <p class="kicker">Selected work</p>
         <h2 id="work-title" data-split>What I've shipped, with the how left in.</h2>
         <p class="section-sub">Five projects across SaaS, publishing, video and healthcare. Each one shows the system behind it.</p>
       </header>
@@ -305,8 +327,9 @@
     <div class="how-pin">
       <div class="wrap">
         <header class="section-head">
-          <p class="kicker mono">How it runs</p>
-          <h2 id="how-title" data-split>Five steps, whatever the lane.</h2>
+          <p class="kicker">My AI team</p>
+          <h2 id="how-title" data-split>How a one-person company actually runs.</h2>
+          <p class="section-sub how-sub">I run it like a small company. Grok Bot agents fill the roles, and Notion is our shared memory.</p>
         </header>
 
         <div class="how-grid">
@@ -315,32 +338,51 @@
             <ol class="how-steps">
               <li class="how-step is-active">
                 <div class="how-copy">
-                  <span class="how-num mono">01</span>
+                  <span class="how-num">01</span>
                   <div class="how-text">
-                    <h3>Try to kill the idea</h3>
-                    <div class="how-body"><div><p>Every idea faces one test: could a general chatbot already do this? If yes, it dies that day. Whatever survives gets built properly.</p></div></div>
+                    <h3>I ask. Stark routes it.</h3>
+                    <div class="how-body"><div><p>Every request goes to Stark, my chief of staff. He checks it against my goals: sell Hirvo once the rewrite is right, keep the book pipeline running, or finish a build I've committed to. Anything else gets parked.</p></div></div>
                   </div>
                 </div>
                 <div class="how-visual">
                   <div class="v v-kill">
-                    <p class="v-q">Could a general chatbot already do this?</p>
-                    <div class="idea idea-killed"><span class="mono idea-k">Idea</span><p>A PDF summarizer app</p><span class="stamp stamp-kill mono">Killed</span></div>
-                    <div class="idea idea-built"><span class="mono idea-k">Idea</span><p>Job matching that knows which employers sponsor visas</p><span class="stamp stamp-build mono">Build</span></div>
+                    <p class="v-q">Does it serve one of my goals?</p>
+                    <div class="idea idea-killed"><span class="idea-k">Request</span><p>A random weekend app</p><span class="stamp stamp-kill">Parked</span></div>
+                    <div class="idea idea-built"><span class="idea-k">Request</span><p>Eval sets for Hirvo's rewrite</p><span class="stamp stamp-build">Go</span></div>
                   </div>
                 </div>
               </li>
 
               <li class="how-step">
                 <div class="how-copy">
-                  <span class="how-num mono">02</span>
+                  <span class="how-num">02</span>
                   <div class="how-text">
-                    <h3>Write the spec</h3>
-                    <div class="how-body"><div><p>I write PRDs for coding agents, with typed interfaces and Given/When/Then acceptance criteria. Hirvo went through five versions and an engineering handoff pack before the build started.</p></div></div>
+                    <h3>The right lead owns it.</h3>
+                    <div class="how-body"><div><p>Tony, my CTO agent, owns anything we build. Sadie, my CMO agent, owns growth that can turn into money or an audience. A new book needs both.</p></div></div>
+                  </div>
+                </div>
+                <div class="how-visual">
+                  <div class="v v-route">
+                    <div class="route-task"><span class="route-k">New request</span><b>Publish Cozy Christmas</b></div>
+                    <div class="route-split">
+                      <div class="route-owner"><span class="route-who">Tony</span><span class="route-role">Build</span><ul><li>Manuscript</li><li>Cover files</li><li>Upload to KDP</li></ul></div>
+                      <div class="route-owner is-growth"><span class="route-who">Sadie</span><span class="route-role">Growth</span><ul><li>Listing copy</li><li>Keywords</li><li>Ads plan</li></ul></div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="how-step">
+                <div class="how-copy">
+                  <span class="how-num">03</span>
+                  <div class="how-text">
+                    <h3>A room manager scopes it.</h3>
+                    <div class="how-body"><div><p>Each project room has one manager. Steven runs Hirvo, KDP and dev. He cuts the work into a brief with clear checks. For code, I write the spec myself and hand it to Claude Code and Codex.</p></div></div>
                   </div>
                 </div>
                 <div class="how-visual">
                   <div class="v v-spec">
-                    <div class="code-head mono"><span>prd.md</span><span>example</span></div>
+                    <div class="code-head"><span>Spec</span><span>Example</span></div>
 <pre class="code"><code><span class="cl"><span class="c-k">interface</span> <span class="c-t">RewriteRequest</span> {</span><span class="cl">  resume: <span class="c-t">Resume</span></span><span class="cl">  target: <span class="c-t">JobPosting</span></span><span class="cl">}</span><span class="cl"> </span><span class="cl"><span class="c-g">Scenario:</span> rewrite never invents experience</span><span class="cl">  <span class="c-g">Given</span> a resume with no AWS experience</span><span class="cl">  <span class="c-g">When</span>  it is tailored to a cloud role</span><span class="cl">  <span class="c-g">Then</span>  no bullet mentions AWS</span><span class="cl">  <span class="c-g">And</span>   every claim traces to the source</span></code></pre>
                   </div>
                 </div>
@@ -348,24 +390,24 @@
 
               <li class="how-step">
                 <div class="how-copy">
-                  <span class="how-num mono">03</span>
+                  <span class="how-num">04</span>
                   <div class="how-text">
-                    <h3>Hand it to the crew</h3>
-                    <div class="how-body"><div><p>Claude Code and Codex do the deep repo work. A Grok Bot crew runs research, art briefs, ads reads and ops, with Notion scoreboards and handoffs so nothing lives only in my head.</p></div></div>
+                    <h3>The crew does the work.</h3>
+                    <div class="how-body"><div><p>Crew agents research niches, pull keywords, make art and read ad campaigns. Their results land in Notion as scoreboards and handoffs, so nothing lives only in my head.</p></div></div>
                   </div>
                 </div>
                 <div class="how-visual">
                   <div class="v v-crew">
-                    <div class="crew-head"><span class="crew-kevin mono">Kevin</span><span class="mono crew-sub">assigns the work</span></div>
+                    <div class="crew-head"><span class="crew-kevin crew-manager">Steven</span><span class="crew-sub">hands out the work</span></div>
                     <ul class="crew">
-                      <li><b>Claude Code</b><span>Repo work</span><i class="st mono" data-s="done">done</i></li>
-                      <li><b>Codex</b><span>Repo work</span><i class="st mono" data-s="done">done</i></li>
-                      <li><b>Cindy</b><span>Niches, keep or skip</span><i class="st mono" data-s="done">done</i></li>
-                      <li><b>Tim</b><span>Reverse-ASIN, longtails</span><i class="st mono" data-s="done">done</i></li>
-                      <li><b>Jennifer</b><span>Art packs, A+ pages</span><i class="st mono" data-s="done">done</i></li>
-                      <li><b>Alex</b><span>Ads read: hold or change</span><i class="st mono" data-s="done">done</i></li>
-                      <li><b>Bob</b><span>Bookflow tooling</span><i class="st mono" data-s="done">done</i></li>
-                      <li><b>Sadie</b><span>Story-IP direction</span><i class="st mono" data-s="done">done</i></li>
+                      <li><b>Cindy</b><span>Niches, keep or skip</span><i class="st" data-s="done">done</i></li>
+                      <li><b>Tim</b><span>Reverse-ASIN keywords</span><i class="st" data-s="done">done</i></li>
+                      <li><b>Jennifer</b><span>Art packs, A+ pages</span><i class="st" data-s="done">done</i></li>
+                      <li><b>Bob</b><span>Bookflow tooling</span><i class="st" data-s="done">done</i></li>
+                      <li><b>Alex</b><span>Ads: hold or change</span><i class="st" data-s="done">done</i></li>
+                      <li><b>Alan</b><span>Hirvo room</span><i class="st" data-s="done">done</i></li>
+                      <li><b>Justin</b><span>Marketing room</span><i class="st" data-s="done">done</i></li>
+                      <li><b>Kylie</b><span>Marketing room</span><i class="st" data-s="done">done</i></li>
                     </ul>
                   </div>
                 </div>
@@ -373,44 +415,18 @@
 
               <li class="how-step">
                 <div class="how-copy">
-                  <span class="how-num mono">04</span>
+                  <span class="how-num">05</span>
                   <div class="how-text">
-                    <h3>Keep the gates human</h3>
-                    <div class="how-body"><div><p>Agents research, draft and recommend. Anything that publishes, spends money or needs a 2FA code waits for me.</p></div></div>
+                    <h3>It gets checked. I sign off.</h3>
+                    <div class="how-body"><div><p>Stark, Tony and Sadie check the result against the goals. Anything that publishes, spends money or needs a 2FA code still waits for me.</p></div></div>
                   </div>
                 </div>
                 <div class="how-visual">
                   <div class="v v-gates">
-                    <div class="gate is-ok"><div class="gate-text"><b>Publish to Amazon KDP</b><span class="mono">proposed by Bob</span></div><span class="switch" aria-hidden="true"><i></i></span><span class="gate-state mono">Approved by Kevin</span></div>
-                    <div class="gate is-ok"><div class="gate-text"><b>Raise ad budget</b><span class="mono">recommended by Alex</span></div><span class="switch" aria-hidden="true"><i></i></span><span class="gate-state mono">Approved by Kevin</span></div>
-                    <div class="gate is-ok"><div class="gate-text"><b>2FA sign-in</b><span class="mono">requested by Tim</span></div><span class="switch" aria-hidden="true"><i></i></span><span class="gate-state mono">Approved by Kevin</span></div>
+                    <div class="gate is-ok"><div class="gate-text"><b>Publish to Amazon KDP</b><span>proposed by Steven</span></div><span class="switch" aria-hidden="true"><i></i></span><span class="gate-state">Approved by Kevin</span></div>
+                    <div class="gate is-ok"><div class="gate-text"><b>Raise ad budget</b><span>recommended by Alex</span></div><span class="switch" aria-hidden="true"><i></i></span><span class="gate-state">Approved by Kevin</span></div>
+                    <div class="gate is-ok"><div class="gate-text"><b>2FA sign-in</b><span>requested by Tim</span></div><span class="switch" aria-hidden="true"><i></i></span><span class="gate-state">Approved by Kevin</span></div>
                     <p class="v-note">Agents can't publish or spend on their own.</p>
-                  </div>
-                </div>
-              </li>
-
-              <li class="how-step">
-                <div class="how-copy">
-                  <span class="how-num mono">05</span>
-                  <div class="how-text">
-                    <h3>Ship, then distribute</h3>
-                    <div class="how-body"><div><p>AI made building cheap. Getting it in front of people is still the scarce skill, so every lane ships with a channel attached.</p></div></div>
-                  </div>
-                </div>
-                <div class="how-visual">
-                  <div class="v v-ship">
-                    <div class="log mono">
-                      <p><span class="ok">✓</span> build passed</p>
-                      <p><span class="ok">✓</span> deployed</p>
-                      <p class="dim">→ distribution</p>
-                    </div>
-                    <ul class="channels">
-                      <li class="is-on"><b>Amazon Ads</b><span class="mono">via KDP Marketing</span></li>
-                      <li class="is-on"><b>YouTube</b><span class="mono">@YouAreExtinct</span></li>
-                      <li class="is-on"><b>X</b><span class="mono">build in public</span></li>
-                      <li class="is-on"><b>WeChat 小程序</b><span class="mono">拼豆 store</span></li>
-                      <li class="is-on"><b>LinkedIn</b><span class="mono">roles and clients</span></li>
-                    </ul>
                   </div>
                 </div>
               </li>
@@ -434,9 +450,9 @@
     <div class="wrap">
       <header class="section-head section-head-row">
         <div class="head-main">
-          <p class="kicker mono">The whole board</p>
-          <h2 id="lanes-title" data-split>Ten lanes, one operator.</h2>
-          <p class="section-sub">Everything I'm running right now: who it's for, how it runs and where it stands. Open a row for details.</p>
+          <p class="kicker">All my projects</p>
+          <h2 id="lanes-title" data-split>Everything I'm working on.</h2>
+          <p class="section-sub">Who each one is for, how it runs and where it stands. Open a row for the details.</p>
         </div>
         <div class="filters" role="group" aria-label="Filter lanes by status">
           <button class="filter is-on" type="button" data-filter="all" aria-pressed="true">All <span>10</span></button>
@@ -475,7 +491,7 @@
           <div class="lane-detail" id="lane-kdp"><div class="lane-in">
             <dl>
               <div><dt class="mono">Who it's for</dt><dd>Buyers of cozy, seasonal and wholesome coloring books. On the seller side, the pain is slow creation, keyword research, ads ops and art throughput.</dd></div>
-              <div><dt class="mono">How it runs</dt><dd>Cindy and Tim run niche and keyword research, Jennifer makes art packs, Bob builds Bookflow tooling and Alex reads ad campaigns. A Notion hub is the source of truth. I hold the gates: publish, 2FA and ad spend.</dd></div>
+              <div><dt class="mono">How it runs</dt><dd>Steven manages the room. Cindy and Tim run niche and keyword research, Jennifer makes art packs, Bob builds Bookflow tooling and Alex reads ad campaigns. A Notion hub is the source of truth. I hold the gates: publish, 2FA and ad spend.</dd></div>
               <div><dt class="mono">Where it stands</dt><dd>Nine books live, most recently Cozy Thanksgiving in October 2026. Now shifting from volume to quality and wholesome story IP. <a href="https://bookflowai.site" target="_blank" rel="noopener">bookflowai.site</a></dd></div>
             </dl>
           </div></div>
@@ -624,8 +640,8 @@
   <section class="section stack" id="stack" aria-labelledby="stack-title">
     <div class="wrap">
       <header class="section-head">
-        <p class="kicker mono">Tools and range</p>
-        <h2 id="stack-title" data-split>What I build with, and what else I bring.</h2>
+        <p class="kicker">Toolbox</p>
+        <h2 id="stack-title" data-split>What I use, and what else I bring.</h2>
       </header>
       <div class="stack-grid" data-reveal-group>
         <article class="stack-card" data-spot>

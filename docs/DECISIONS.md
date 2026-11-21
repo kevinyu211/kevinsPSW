@@ -124,3 +124,8 @@
   - `main` holds the city commit only. The reworked five-look home page stays on `redesign/five-designs` and is not live.
   - `.vercelignore` keeps `tools/`, `docs/`, `designs/_archive/` and `PRODUCT.md` off the live site. Test screenshots and Blender previews stay out of git.
 - **Why:** the city is not yet tested on a real phone, Safari or a weak laptop, so the home page should not depend on it yet.
+
+## 2026-11-22 — The reworked home page goes live too
+- **Question:** the "Editorial" link in the city's Designs menu opened the old home page, not the one we built. Put the reworked home page live?
+- **Decision:** yes. kevinpeiyuanyu.com is now the reworked portfolio and résumé page (five looks, Editorial by default). The island city stays at `/designs/city/`. This replaces the "home page stays as it is" part of the entry above.
+- **Why:** Kevin: the editorial one "doesn't look like it's the one that we were working on". `main` and `redesign/five-designs` are now the same.

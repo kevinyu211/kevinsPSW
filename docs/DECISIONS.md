@@ -117,3 +117,10 @@
 - **Why:** plots big enough for each building's largest level did not fit on a 560 m island. The plan passes its checker with 0 problems, including the growth tests.
 - **Noted but not asked for:** I flagged a boxy coast, Harbour town and Garden village touching, few houses and a narrow beach. Kevin did not ask for changes, so they stay as they are.
 - **Map:** `docs/designs/city-style/island-town-plan.png`.
+
+## 2026-11-22 — Island city goes live at its own link first
+- **Question:** when we deploy, what does kevinpeiyuanyu.com show?
+- **Decision:** the home page stays as it is. The island city is live at `kevinpeiyuanyu.com/designs/city/`. It becomes the home page after Kevin has tried it on a real phone.
+  - `main` holds the city commit only. The reworked five-look home page stays on `redesign/five-designs` and is not live.
+  - `.vercelignore` keeps `tools/`, `docs/`, `designs/_archive/` and `PRODUCT.md` off the live site. Test screenshots and Blender previews stay out of git.
+- **Why:** the city is not yet tested on a real phone, Safari or a weak laptop, so the home page should not depend on it yet.

@@ -1,0 +1,19 @@
+# local tool state
+.playwright-mcp/
+.impeccable/
+.vercel
+.DS_Store
+node_modules/
+__pycache__/
+
+# test screenshots (the test scripts next to them are kept)
+designs/**/_shots/*.png
+designs/**/_shots/*.jpg
+!designs/monograph/_shots/v4-home-1440.png
+!designs/transit/_shots/v4-overview-1440.png
+
+# Blender render previews and raw exports: rebuilt by the scripts in tools/city3d
+tools/city3d/previews/
+tools/city3d/out/
+tools/city3d/island/previews/
+tools/city3d/island/out/

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kevin Yu · Monograph</title>
+<meta name="description" content="Kevin Yu builds AI products and ships them, end to end. Co-founder and CTO of Hirvo; client software, apps, books and films.">
+<meta name="theme-color" content="#F7F7F5">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#index">Skip to the index</a>
+
+<header class="bar" data-bar>
+  <a class="bar-name" href="#top">Kevin Yu</a>
+  <nav class="bar-nav" aria-label="Sections">
+    <a href="#index">Index</a>
+    <a href="#plates">Plates</a>
+    <a href="#resume">Résumé</a>
+    <a href="#writing">Writing</a>
+    <a href="#contact">Contact</a>
+    <a href="#card" data-card-open aria-haspopup="dialog">Card</a>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="plates" id="top" aria-labelledby="title">
+    <div class="plates-text">
+      <h1 class="title" id="title"><b data-name>Kevin Yu</b><span class="title-light">builds and<br>ships.</span></h1>
+      <p class="lede" data-lede></p>
+      <hr class="rule rule-heavy" data-rule>
+      <ol class="index" id="index" data-index aria-label="Project index"></ol>
+    </div>
+    <aside class="panel" aria-label="Drawing of the selected project">
+      <div class="panel-in">
+        <div class="stage" data-stage>
+          <svg class="obj" data-obj viewBox="0 0 600 600" role="img" aria-label=""></svg>
+        </div>
+        <hr class="rule rule-heavy">
+        <div class="panel-cap">
+          <p class="cap-text"><span class="cap-no" data-cap-no>01</span> <span data-cap-title>Hirvo</span><br><span class="cap-one" data-cap-one></span></p>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="section plates-sec" id="plates" aria-labelledby="plates-title">
+    <hr class="rule rule-heavy" data-rule>
+    <div class="section-head">
+      <h2 id="plates-title">Plates</h2>
+      <p class="section-note">Real screens, pages and frames from the work. Open any plate for the full story.</p>
+    </div>
+    <div class="pl-grid" data-plates-grid></div>
+  </section>
+
+  <section class="run" data-run aria-labelledby="run-title">
+    <div class="run-head">
+      <h3 class="run-title" id="run-title">Book art, games and apps</h3>
+      <span class="run-bar" aria-hidden="true"><i data-run-bar></i></span>
+    </div>
+    <div class="run-track" data-run-track></div>
+  </section>
+
+  <section class="section plates-tail" aria-label="More plates">
+    <div class="pl-grid" data-plates-tail></div>
+  </section>
+
+  <section class="section resume" id="resume" aria-labelledby="resume-title">
+    <hr class="rule rule-heavy" data-rule>
+    <div class="section-head">
+      <h2 id="resume-title">Résumé</h2>
+      <button class="text-btn" type="button" data-print>Print or save as PDF</button>
+    </div>
+    <div class="tl-wrap" data-timeline></div>
+    <div class="figures" data-figures></div>
+    <div class="colophon" data-resume></div>
+  </section>
+
+  <section class="section writing" id="writing" aria-labelledby="writing-title">
+    <hr class="rule rule-heavy" data-rule>
+    <div class="section-head">
+      <h2 id="writing-title">Writing</h2>
+      <p class="section-note">Daily AI, a short sourced brief in English and 中文.</p>
+    </div>
+    <ol class="issues" data-issues></ol>
+    <a class="more" href="../../newsletter/">All issues</a>
+  </section>
+
+  <section class="section contact" id="contact" aria-labelledby="contact-title">
+    <hr class="rule rule-heavy" data-rule>
+    <div class="section-head">
+      <h2 id="contact-title">Contact</h2>
+      <p class="section-note" data-asks></p>
+    </div>
+    <div class="contact-grid" data-contact></div>
+  </section>
+
+  <footer class="foot">
+    <span data-foot-name>Kevin Yu · Peiyuan Yu · 余佩远</span>
+    <span>Updated November 2026</span>
+    <a href="#top">Back to top</a>
+  </footer>
+</main>
+
+<div class="spread" data-spread role="dialog" aria-modal="true" aria-labelledby="spread-title" hidden>
+  <div class="spread-bar">
+    <span class="spread-no" data-sp-plate>Plate 01</span>
+    <div class="spread-nav">
+      <button class="text-btn" type="button" data-sp-prev>Previous plate</button>
+      <button class="text-btn" type="button" data-sp-next>Next plate</button>
+      <button class="text-btn close" type="button" data-sp-close>Close</button>
+    </div>
+  </div>
+  <div class="spread-body" data-lenis-prevent>
+    <div class="spread-text">
+      <p class="spread-big" data-sp-no>01</p>
+      <h2 class="spread-title" id="spread-title" tabindex="-1" data-sp-title>Hirvo</h2>
+      <p class="spread-role" data-sp-role></p>
+      <div class="spread-copy" data-sp-body></div>
+      <dl class="facts" data-sp-facts></dl>
+      <p class="spread-links" data-sp-links></p>
+    </div>
+    <div class="spread-media">
+      <div class="spread-stage" data-sp-stage></div>
+      <div class="gallery" data-sp-gallery></div>
+    </div>
+  </div>
+</div>
+
+<div class="card-overlay" data-card-overlay role="dialog" aria-modal="true" aria-label="Kevin Yu’s business card" hidden>
+  <button class="text-btn card-close" type="button" data-card-close>Close</button>
+  <div class="card-slot" data-card-slot-overlay></div>
+</div>
+
+<div class="preview" data-preview aria-hidden="true"><img src="../../assets/work/hirvo-builder.webp" alt=""></div>
+
+<noscript><p class="noscript">This page draws its index with JavaScript. You can still reach Kevin on <a href="https://www.linkedin.com/in/kevin-yu-5b7103327">LinkedIn</a>.</p></noscript>
+
+<script src="../shared/content.js"></script>
+<script src="../../assets/vendor/gsap.min.js"></script>
+<script src="../../assets/vendor/ScrollTrigger.min.js"></script>
+<script src="../../assets/vendor/Flip.min.js"></script>
+<script src="../../assets/vendor/lenis.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

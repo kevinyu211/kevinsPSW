@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Kevin Yu · design previews</title>
+<style>
+:root { --bg: #FAFAF8; --ink: #111; --muted: #6A6A64; --line: #DEDED8; --f: "Helvetica Neue", Arial, sans-serif; }
+* { box-sizing: border-box; margin: 0; }
+html, body { overflow-x: clip; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--f); padding: clamp(24px, 5vw, 64px); max-width: 1320px; margin: 0 auto; }
+h1 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.03em; line-height: 1; }
+p.lede { color: var(--muted); margin-top: 12px; max-width: 60ch; }
+ul { list-style: none; padding: 0; margin-top: 40px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+a { color: inherit; text-decoration: none; display: grid; gap: 12px; }
+a:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.shot { aspect-ratio: 16 / 10; border: 1px solid var(--line); background: #eee center / cover no-repeat; transition: transform 0.4s cubic-bezier(.16,1,.3,1); }
+a:hover .shot { transform: translateY(-4px); }
+b { font-size: 1.25rem; letter-spacing: -0.01em; }
+span { color: var(--muted); font-size: 0.95rem; }
+footer { margin-top: 48px; color: var(--muted); font-size: 0.9rem; }
+footer a { display: inline; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 860px) { ul { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .shot { transition: none; } }
+</style>
+</head>
+<body>
+<h1>Two directions</h1>
+<p class="lede">Same content, two worlds. Open each, click a project, scroll to the end. Then tell me which one, or what to mix.</p>
+<ul>
+  <li><a href="monograph/"><div class="shot" style="background-image:url(monograph/_shots/v4-home-1440.png)"></div><b>Monograph</b><span>A Swiss project index: blue plates, line drawings that come apart, work first.</span></a></li>
+  <li><a href="transit/"><div class="shot" style="background-image:url(transit/_shots/v4-overview-1440.png)"></div><b>Transit</b><span>A small city with one metro loop. Every station is a building that shows a project. Click one and ride there.</span></a></li>
+</ul>
+<footer>The earlier five-look version is at <a href="../">the home page</a>. The live site is unchanged.</footer>
+</body>
+</html>

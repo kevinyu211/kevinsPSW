@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kevin Yu · Kevin Metro</title>
+<meta name="description" content="Kevin Yu builds AI products and ships them end to end. This is his city: six metro lines, one for each kind of work, and a station for everything he has built. Take the tour or explore it yourself.">
+<meta name="theme-color" content="#D9E2E7">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/addons/" } }
+</script>
+</head>
+<body>
+<a class="skip" href="#rail">Skip to the projects</a>
+
+<header class="bar">
+  <a class="brand" href="#/about" data-nav="about" aria-label="Kevin Yu, Kevin Metro. About Kevin">
+    <span class="roundel" aria-hidden="true">K</span>
+    <span class="brand-txt"><b>Kevin Yu</b><span>Kevin Metro</span></span>
+  </a>
+  <div class="bar-switch" data-design-switch></div>
+  <div class="seg" role="group" aria-label="View">
+    <button type="button" data-view="3d" aria-pressed="true">3D</button>
+    <button type="button" data-view="2d" aria-pressed="false">2D</button>
+  </div>
+</header>
+
+<main class="city" id="main">
+  <!-- The projects: the one control. Click a project and the train takes you there -->
+  <aside class="rail" id="rail" data-rail aria-label="Projects"></aside>
+
+  <div class="view">
+  <div class="stage" data-stage></div>
+
+  <!-- While the city loads: the network draws itself -->
+  <div class="loading" data-loading role="status" aria-live="polite">
+    <div class="loading-in">
+      <div class="loading-map" data-loading-map aria-hidden="true"></div>
+      <p class="loading-t">Building the city</p>
+      <div class="loading-bar" aria-hidden="true"><i data-loading-bar></i></div>
+    </div>
+  </div>
+
+  <!-- Camera: turn, tilt, zoom, the whole city. Also on the keyboard: arrows, Q E, R F, + − -->
+  <div class="ctl" role="group" aria-label="View controls">
+    <button class="ctl-compass" type="button" data-ctl="north" aria-label="Face north" title="Face north">
+      <span class="ctl-needle" data-ctl-needle aria-hidden="true"><svg viewBox="0 0 24 24"><path class="n" d="M12 2.5l4.2 9.5H7.8z"/><path class="s" d="M12 21.5L7.8 12h8.4z"/></svg></span>
+    </button>
+    <button class="ctl-3d" type="button" data-ctl="left" aria-label="Turn left" title="Turn left (Q)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9M4 5v4.5h4.5"/></svg></button>
+    <button class="ctl-3d" type="button" data-ctl="right" aria-label="Turn right" title="Turn right (E)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 5v4.5h-4.5"/></svg></button>
+    <button class="ctl-3d" type="button" data-ctl="up" aria-label="Tilt towards top-down" title="Tilt up (R)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18h16M7 13l5-6 5 6"/></svg></button>
+    <button class="ctl-3d" type="button" data-ctl="down" aria-label="Tilt towards the horizon" title="Tilt down (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 11l5 6 5-6"/></svg></button>
+    <button type="button" data-ctl="in" aria-label="Zoom in" title="Zoom in (+)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button type="button" data-ctl="out" aria-label="Zoom out" title="Zoom out (−)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+    <button type="button" data-ctl="all" aria-label="Widest view" title="Widest view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+  </div>
+
+  <!-- The opening: what this is, and two ways in. The tour starts by itself after a few seconds -->
+  <section class="opening" data-opening aria-labelledby="opening-title" hidden>
+    <div class="opening-in">
+      <h1 id="opening-title" tabindex="-1">Everyone builds their own city. <span>This is Kevin Yu’s.</span></h1>
+      <p class="opening-sub">Builder. Co-founder and CTO of Hirvo. Every station is something I’ve built. The trains never stop.</p>
+      <div class="opening-actions">
+        <button class="btn btn-ink btn-go" type="button" data-opening-tour><span class="ring" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle class="ring-p" cx="12" cy="12" r="10"/></svg></span><span data-opening-tour-label>Take the tour</span></button>
+        <button class="btn btn-line" type="button" data-opening-explore>Explore on my own</button>
+      </div>
+      <p class="opening-note" data-opening-note aria-live="polite"></p>
+      <p class="opening-links"><button class="link-btn" type="button" data-nav="about">Résumé</button><button class="link-btn" type="button" data-nav="contact">Contact</button></p>
+    </div>
+  </section>
+
+  <!-- A tour stop: what this building is, in one card -->
+  <aside class="tcard" data-cap aria-live="polite" hidden></aside>
+
+  <!-- Station focus: the building fills the stage; its story sits beside it -->
+  <section class="focus" data-focus aria-labelledby="focus-title" hidden>
+    <div class="focus-panel" data-focus-panel>
+      <div class="focus-top">
+        <button class="btn btn-line btn-sm" type="button" data-focus-back>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Back to city
+        </button>
+        <p class="focus-where" data-focus-where></p>
+      </div>
+      <div class="focus-tabs" data-focus-tabs role="group" aria-label="Buildings at this station" hidden></div>
+      <div class="focus-head">
+        <h2 id="focus-title" tabindex="-1" data-focus-title></h2>
+        <p class="focus-place" data-focus-place></p>
+        <p class="focus-dek" data-focus-dek></p>
+      </div>
+      <dl class="focus-stats" data-focus-stats></dl>
+      <div class="focus-media" data-focus-media></div>
+      <div class="focus-actions" data-focus-actions></div>
+      <div class="focus-body" data-focus-body></div>
+      <section class="focus-links" data-focus-links aria-label="Connected to"></section>
+    </div>
+  </section>
+
+  <!-- One sheet for Skills, About, Contact and the tour picker -->
+  <div class="sheet" data-sheet role="dialog" aria-labelledby="sheet-title" hidden>
+    <div class="sheet-scrim" data-sheet-close></div>
+    <div class="sheet-in">
+      <header class="sheet-head">
+        <h2 id="sheet-title" tabindex="-1" data-sheet-title></h2>
+        <button class="btn btn-line btn-sm" type="button" data-sheet-close>Close</button>
+      </header>
+      <div class="sheet-body" data-sheet-body></div>
+    </div>
+  </div>
+  </div>
+</main>
+
+<!-- The story of one project: a short article -->
+<div class="read" data-read role="dialog" aria-modal="true" aria-labelledby="read-title" hidden>
+  <div class="read-in">
+    <header class="read-bar">
+      <button class="btn btn-line btn-sm" type="button" data-read-back>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        <span data-read-back-label>Back</span>
+      </button>
+      <p class="read-crumb" data-read-crumb></p>
+      <div class="read-nav">
+        <button class="icon-btn" type="button" data-read-prev aria-label="Previous story"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="icon-btn" type="button" data-read-next aria-label="Next story"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </header>
+    <article class="art" data-art></article>
+  </div>
+</div>
+
+<!-- The metro pass -->
+<div class="pass-dlg" data-pass role="dialog" aria-modal="true" aria-labelledby="pass-title" hidden>
+  <div class="pass-scrim" data-pass-close></div>
+  <div class="pass-wrap">
+    <h2 class="sr" id="pass-title">Kevin Yu's Kevin Metro pass</h2>
+    <div class="pass" data-pass-card>
+      <div class="pass-inner">
+        <div class="pass-face pass-front">
+          <div class="pass-top">
+            <span class="roundel" aria-hidden="true">K</span>
+            <span class="pass-valid">Kevin Metro · All stations · Non-stop</span>
+          </div>
+          <div class="pass-name">
+            <p class="pass-n">Kevin Yu</p>
+            <p class="pass-r">Co-founder &amp; CTO, Hirvo · Builder</p>
+          </div>
+          <div class="pass-livery" aria-hidden="true"><i class="lv-band"></i><i class="lv-accent"></i></div>
+          <span class="pass-chip" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="pass-stamp" data-pass-stamp aria-hidden="true">Added</span>
+        </div>
+        <div class="pass-face pass-back">
+          <div class="pass-back-grid">
+            <dl class="pass-info">
+              <div><dt>Phone</dt><dd><a href="tel:+17654210237">+1 (765) 421-0237</a></dd></div>
+              <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/kevin-yu-5b7103327" target="_blank" rel="noopener">kevin-yu-5b7103327</a></dd></div>
+              <div><dt>Website</dt><dd><a href="https://kevinpeiyuanyu.com" target="_blank" rel="noopener">kevinpeiyuanyu.com</a></dd></div>
+            </dl>
+            <img class="pass-qr" src="../../assets/img/wechat-qr.png" alt="WeChat QR code for Kevin Yu" width="112" height="112">
+          </div>
+          <div class="pass-livery" aria-hidden="true"><i class="lv-band"></i><i class="lv-accent"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="pass-actions">
+      <button class="btn btn-line" type="button" data-pass-flip aria-pressed="false">Flip card</button>
+      <a class="btn btn-ink" href="../shared/kevin-yu.vcf" download="kevin-yu.vcf" data-pass-add>Add to contacts</a>
+      <button class="btn btn-line" type="button" data-pass-copy>Copy link</button>
+      <button class="btn btn-line" type="button" data-pass-close>Close</button>
+    </div>
+    <p class="pass-note" data-pass-note aria-live="polite"></p>
+  </div>
+</div>
+
+<noscript><p class="noscript">Kevin Metro needs JavaScript. Reach Kevin on <a href="https://www.linkedin.com/in/kevin-yu-5b7103327">LinkedIn</a> or call +1 (765) 421-0237.</p></noscript>
+
+<script src="../shared/content.js"></script>
+<script src="../../assets/vendor/gsap.min.js"></script>
+<script type="module" src="app.js"></script>
+<script src="../shared/switcher.js" data-root="../../" data-current="transit" defer></script>
+</body>
+</html>

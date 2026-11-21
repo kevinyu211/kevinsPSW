@@ -1,0 +1,12 @@
+{
+  "name": "island-models-finish",
+  "private": true,
+  "type": "module",
+  "description": "Compresses and checks the island city GLBs (see finish_island.mjs).",
+  "dependencies": {
+    "@gltf-transform/core": "^4.1.0",
+    "@gltf-transform/extensions": "^4.1.0",
+    "@gltf-transform/functions": "^4.1.0",
+    "meshoptimizer": "^0.22.0"
+  }
+}

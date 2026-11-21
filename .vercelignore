@@ -1,0 +1,5 @@
+# Working files that stay in the repo but are not part of the live site
+/tools
+/docs
+/designs/_archive
+/PRODUCT.md

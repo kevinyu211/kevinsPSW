@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kevin Yu · Selects</title>
+<meta name="description" content="Kevin Yu builds AI products and ships them, end to end. Co-founder and CTO of Hirvo. Client software, apps, books and films.">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow+Semi+Condensed:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#work">Skip to the reel</a>
+
+<header class="bar">
+  <a class="bar-name" href="#top">Kevin Yu</a>
+  <nav class="bar-nav" aria-label="Sections">
+    <a href="#work">Work</a>
+    <a href="#resume">Résumé</a>
+    <a href="#writing">Writing</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="sheet sheet-work" id="top" aria-labelledby="work-title">
+    <div class="sheet-head" id="work">
+      <h1 class="display" id="work-title"><span class="line"><span>Kevin Yu</span></span><span class="line"><span>selects</span></span></h1>
+      <div class="head-side">
+        <p class="text head-line" data-line></p>
+        <p class="label hint">Drag the reel · or pick a frame</p>
+      </div>
+    </div>
+    <div class="rail" data-rail="work" role="region" aria-roledescription="film reel" aria-label="Projects. Use the arrow keys to move along the reel." tabindex="0">
+      <div class="strip" data-strip></div>
+    </div>
+    <div class="bin" aria-labelledby="bin-title">
+      <p class="label bin-title" id="bin-title">Set aside</p>
+      <ul class="pins" data-pins></ul>
+    </div>
+  </section>
+
+  <section class="sheet sheet-resume" id="resume" aria-labelledby="resume-title">
+    <div class="sheet-head">
+      <h2 class="display" id="resume-title">Résumé</h2>
+      <div class="head-side">
+        <p class="text head-line">Purdue biomedical engineering, on a gap year to build full time. Open a frame for the detail.</p>
+      </div>
+    </div>
+    <div class="rail" data-rail="resume" role="region" aria-roledescription="film reel" aria-label="Experience and education. Use the arrow keys to move along the reel." tabindex="0">
+      <div class="strip" data-strip></div>
+    </div>
+    <div class="window window-inline skills" data-skills aria-label="Skills"></div>
+  </section>
+
+  <section class="sheet sheet-writing" id="writing" aria-labelledby="writing-title">
+    <div class="sheet-head">
+      <h2 class="display" id="writing-title">Daily AI</h2>
+      <div class="head-side">
+        <p class="text head-line">A short, sourced brief on what changed in AI, in English and 中文.</p>
+        <a class="label head-link" href="../../newsletter/">All issues</a>
+      </div>
+    </div>
+    <div class="rail" data-rail="writing" role="region" aria-roledescription="film reel" aria-label="Newest newsletter issues. Use the arrow keys to move along the reel." tabindex="0">
+      <div class="strip" data-strip></div>
+    </div>
+  </section>
+
+  <section class="sheet sheet-contact" id="contact" aria-labelledby="contact-title">
+    <div class="sheet-head">
+      <h2 class="display" id="contact-title">Say hello</h2>
+      <div class="head-side">
+        <p class="text head-line">Consulting, builds, roles, or an AI-shot ad.</p>
+      </div>
+    </div>
+    <div class="rail rail-wide">
+      <div class="window window-inline contact" data-contact></div>
+    </div>
+    <footer class="foot">
+      <span class="label">Kevin Yu · Peiyuan Yu · 余佩远</span>
+      <a class="label" href="#top">Back to the top</a>
+    </footer>
+  </section>
+</main>
+
+<div class="viewer" data-viewer hidden>
+  <div class="viewer-shade" data-close></div>
+  <article class="window window-detail" role="dialog" aria-modal="true" aria-labelledby="w-title" data-window tabindex="-1">
+    <button class="close label" type="button" data-close aria-label="Close and go back to the reel">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4l12 12M16 4L4 16"/></svg><span>Close</span>
+    </button>
+    <div class="w-body" data-wbody></div>
+  </article>
+</div>
+
+<noscript><p class="noscript">This page needs JavaScript to run the reel. Reach Kevin on <a href="https://www.linkedin.com/in/kevin-yu-5b7103327">LinkedIn</a> or at +1 (765) 421-0237.</p></noscript>
+
+<script src="../shared/content.js"></script>
+<script src="../../assets/vendor/gsap.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

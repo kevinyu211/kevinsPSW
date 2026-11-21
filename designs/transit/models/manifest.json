@@ -1,0 +1,637 @@
+{
+ "version": 1,
+ "unit": "m",
+ "files": {
+  "kit": "kit.glb",
+  "landmarks": "landmarks.glb"
+ },
+ "conventions": "Y up, metres, front = +Z, origin at footprint centre on the ground. Vertex colours (COLOR_0, with baked AO) multiply one shared facade atlas. Screens and parts are child nodes of their model. Station canopies are white so code can tint them.",
+ "kit": [
+  {
+   "name": "tower_deco_a",
+   "class": "tower",
+   "w": 46,
+   "d": 46,
+   "h": 270.9,
+   "tris": 687
+  },
+  {
+   "name": "tower_deco_b",
+   "class": "tower",
+   "w": 44,
+   "d": 32,
+   "h": 164.8,
+   "tris": 359
+  },
+  {
+   "name": "tower_glass_a",
+   "class": "tower",
+   "w": 55,
+   "d": 28,
+   "h": 215,
+   "tris": 496
+  },
+  {
+   "name": "tower_glass_b",
+   "class": "tower",
+   "w": 45,
+   "d": 42,
+   "h": 185.7,
+   "tris": 636
+  },
+  {
+   "name": "tower_twist",
+   "class": "tower",
+   "w": 54,
+   "d": 54,
+   "h": 307,
+   "tris": 1131
+  },
+  {
+   "name": "tower_taper",
+   "class": "tower",
+   "w": 46,
+   "d": 46,
+   "h": 298.2,
+   "tris": 1021
+  },
+  {
+   "name": "tower_crown",
+   "class": "tower",
+   "w": 48,
+   "d": 48,
+   "h": 311.8,
+   "tris": 1232
+  },
+  {
+   "name": "tower_twin",
+   "class": "tower",
+   "w": 78,
+   "d": 40,
+   "h": 201.6,
+   "tris": 1376
+  },
+  {
+   "name": "tower_round",
+   "class": "tower",
+   "w": 50,
+   "d": 50,
+   "h": 198.8,
+   "tris": 1159
+  },
+  {
+   "name": "tower_res_a",
+   "class": "tower",
+   "w": 42.8,
+   "d": 21.4,
+   "h": 120.8,
+   "tris": 456
+  },
+  {
+   "name": "tower_res_b",
+   "class": "tower",
+   "w": 38,
+   "d": 38,
+   "h": 135.4,
+   "tris": 970
+  },
+  {
+   "name": "mid_brownstone",
+   "class": "midrise",
+   "w": 28.4,
+   "d": 17.6,
+   "h": 26,
+   "tris": 466
+  },
+  {
+   "name": "mid_shikumen",
+   "class": "lowrise",
+   "w": 33.3,
+   "d": 11.1,
+   "h": 14.1,
+   "tris": 227
+  },
+  {
+   "name": "mid_apartment_a",
+   "class": "midrise",
+   "w": 48,
+   "d": 20.7,
+   "h": 42.6,
+   "tris": 198
+  },
+  {
+   "name": "mid_apartment_b",
+   "class": "midrise",
+   "w": 31,
+   "d": 20,
+   "h": 65,
+   "tris": 292
+  },
+  {
+   "name": "mid_corner_retail",
+   "class": "midrise",
+   "w": 30.8,
+   "d": 32.3,
+   "h": 34.7,
+   "tris": 217
+  },
+  {
+   "name": "mid_hotel",
+   "class": "midrise",
+   "w": 38,
+   "d": 27,
+   "h": 56.4,
+   "tris": 394
+  },
+  {
+   "name": "mid_office_glass",
+   "class": "midrise",
+   "w": 35,
+   "d": 30.8,
+   "h": 45.2,
+   "tris": 166
+  },
+  {
+   "name": "mid_office_stone",
+   "class": "midrise",
+   "w": 40,
+   "d": 25.5,
+   "h": 36.8,
+   "tris": 150
+  },
+  {
+   "name": "mid_loft",
+   "class": "midrise",
+   "w": 30,
+   "d": 23.4,
+   "h": 36.3,
+   "tris": 384
+  },
+  {
+   "name": "mid_mixed",
+   "class": "midrise",
+   "w": 44,
+   "d": 34,
+   "h": 71.2,
+   "tris": 332
+  },
+  {
+   "name": "low_shops",
+   "class": "shop",
+   "w": 36,
+   "d": 13.8,
+   "h": 10,
+   "tris": 176
+  },
+  {
+   "name": "low_townhouses",
+   "class": "house",
+   "w": 35.7,
+   "d": 11.5,
+   "h": 14.2,
+   "tris": 350
+  },
+  {
+   "name": "low_school",
+   "class": "civic",
+   "w": 53.2,
+   "d": 35.1,
+   "h": 19.9,
+   "tris": 170
+  },
+  {
+   "name": "low_temple",
+   "class": "civic",
+   "w": 32,
+   "d": 25.6,
+   "h": 16.2,
+   "tris": 214
+  },
+  {
+   "name": "low_market",
+   "class": "shop",
+   "w": 54.4,
+   "d": 27.8,
+   "h": 15.9,
+   "tris": 386
+  },
+  {
+   "name": "low_house_a",
+   "class": "house",
+   "w": 15,
+   "d": 10.5,
+   "h": 10.2,
+   "tris": 100
+  },
+  {
+   "name": "low_house_b",
+   "class": "house",
+   "w": 13,
+   "d": 14,
+   "h": 9.8,
+   "tris": 94
+  },
+  {
+   "name": "low_cafe",
+   "class": "shop",
+   "w": 14,
+   "d": 17.5,
+   "h": 8.9,
+   "tris": 308
+  },
+  {
+   "name": "ind_warehouse_a",
+   "class": "industrial",
+   "w": 61,
+   "d": 40.5,
+   "h": 12.9,
+   "tris": 178
+  },
+  {
+   "name": "ind_warehouse_b",
+   "class": "industrial",
+   "w": 54.6,
+   "d": 34,
+   "h": 35,
+   "tris": 164
+  },
+  {
+   "name": "ind_containers",
+   "class": "industrial",
+   "w": 54,
+   "d": 13,
+   "h": 10.4,
+   "tris": 392
+  },
+  {
+   "name": "ind_gantry",
+   "class": "industrial",
+   "w": 29.6,
+   "d": 90,
+   "h": 66.3,
+   "tris": 320
+  },
+  {
+   "name": "ind_silos",
+   "class": "industrial",
+   "w": 49,
+   "d": 16,
+   "h": 30,
+   "tris": 246
+  },
+  {
+   "name": "tree_round",
+   "class": "prop",
+   "w": 5.2,
+   "d": 4.5,
+   "h": 7,
+   "tris": 38
+  },
+  {
+   "name": "tree_tall",
+   "class": "prop",
+   "w": 3.4,
+   "d": 2.9,
+   "h": 10.5,
+   "tris": 28
+  },
+  {
+   "name": "street_lamp",
+   "class": "prop",
+   "w": 0.4,
+   "d": 2.5,
+   "h": 8.2,
+   "tris": 44
+  },
+  {
+   "name": "car",
+   "class": "prop",
+   "w": 2,
+   "d": 4.6,
+   "h": 1.7,
+   "tris": 86
+  },
+  {
+   "name": "taxi",
+   "class": "prop",
+   "w": 2,
+   "d": 4.7,
+   "h": 1.8,
+   "tris": 98
+  },
+  {
+   "name": "bus",
+   "class": "prop",
+   "w": 2.8,
+   "d": 12,
+   "h": 3.3,
+   "tris": 92
+  },
+  {
+   "name": "pier_segment",
+   "class": "prop",
+   "w": 10,
+   "d": 20,
+   "h": 2.7,
+   "tris": 194
+  },
+  {
+   "name": "bridge_segment",
+   "class": "prop",
+   "w": 30,
+   "d": 16.5,
+   "h": 9.1,
+   "tris": 98
+  },
+  {
+   "name": "boat_small",
+   "class": "prop",
+   "w": 2.8,
+   "d": 8,
+   "h": 2.3,
+   "tris": 33
+  },
+  {
+   "name": "ferry",
+   "class": "prop",
+   "w": 10.2,
+   "d": 42,
+   "h": 13.7,
+   "tris": 153
+  },
+  {
+   "name": "park_fountain",
+   "class": "prop",
+   "w": 14,
+   "d": 14,
+   "h": 5.6,
+   "tris": 158
+  },
+  {
+   "name": "park_pavilion",
+   "class": "prop",
+   "w": 12.8,
+   "d": 12.8,
+   "h": 8.8,
+   "tris": 164
+  }
+ ],
+ "landmarks": [
+  {
+   "name": "k_tower",
+   "project": null,
+   "w": 116,
+   "d": 121,
+   "h": 417.4,
+   "tris": 3168,
+   "screens": [
+    "k_tower_screen",
+    "k_tower_screen2"
+   ],
+   "parts": [
+    "k_tower_canopy"
+   ]
+  },
+  {
+   "name": "hq_hirvo",
+   "project": "hirvo",
+   "w": 66,
+   "d": 56,
+   "h": 121,
+   "tris": 806,
+   "screens": [
+    "hq_hirvo_screen"
+   ]
+  },
+  {
+   "name": "hq_trade",
+   "project": "trade",
+   "w": 72.1,
+   "d": 50,
+   "h": 51.3,
+   "tris": 447,
+   "screens": [
+    "hq_trade_screen"
+   ]
+  },
+  {
+   "name": "hq_court",
+   "project": "court",
+   "w": 84,
+   "d": 56,
+   "h": 19.5,
+   "tris": 796,
+   "screens": [
+    "hq_court_screen"
+   ]
+  },
+  {
+   "name": "hq_uhome",
+   "project": "uhome",
+   "w": 78,
+   "d": 56,
+   "h": 52.5,
+   "tris": 730,
+   "screens": [
+    "hq_uhome_screen"
+   ]
+  },
+  {
+   "name": "hq_books",
+   "project": "books",
+   "w": 62,
+   "d": 44,
+   "h": 26.8,
+   "tris": 720,
+   "screens": [
+    "hq_books_screen"
+   ]
+  },
+  {
+   "name": "hq_ipad",
+   "project": "ipad",
+   "w": 58.2,
+   "d": 44,
+   "h": 22.7,
+   "tris": 706,
+   "screens": [
+    "hq_ipad_screen"
+   ]
+  },
+  {
+   "name": "hq_yae",
+   "project": "yae",
+   "w": 66,
+   "d": 60.1,
+   "h": 29.7,
+   "tris": 1606,
+   "screens": [
+    "hq_yae_screen"
+   ]
+  },
+  {
+   "name": "hq_noir",
+   "project": "noir",
+   "w": 42,
+   "d": 40,
+   "h": 27.2,
+   "tris": 726,
+   "screens": [
+    "hq_noir_screen"
+   ]
+  },
+  {
+   "name": "hq_influencers",
+   "project": "influencers",
+   "w": 52,
+   "d": 42,
+   "h": 30.1,
+   "tris": 550,
+   "screens": [
+    "hq_influencers_screen"
+   ]
+  },
+  {
+   "name": "hq_stickers",
+   "project": "stickers",
+   "w": 52,
+   "d": 40,
+   "h": 26.3,
+   "tris": 776,
+   "screens": [
+    "hq_stickers_screen"
+   ]
+  },
+  {
+   "name": "hq_party",
+   "project": "party",
+   "w": 46,
+   "d": 40,
+   "h": 18.3,
+   "tris": 1022,
+   "screens": [
+    "hq_party_screen"
+   ]
+  },
+  {
+   "name": "hq_duiyao",
+   "project": "duiyao",
+   "w": 52,
+   "d": 40,
+   "h": 25.6,
+   "tris": 718,
+   "screens": [
+    "hq_duiyao_screen"
+   ]
+  },
+  {
+   "name": "hq_hackathons",
+   "project": "hackathons",
+   "w": 72,
+   "d": 52,
+   "h": 15.9,
+   "tris": 724,
+   "screens": [
+    "hq_hackathons_screen"
+   ]
+  },
+  {
+   "name": "hq_pindou",
+   "project": "pindou",
+   "w": 42,
+   "d": 36,
+   "h": 18.7,
+   "tris": 606,
+   "screens": [
+    "hq_pindou_screen"
+   ]
+  },
+  {
+   "name": "hq_resume",
+   "project": "resume",
+   "w": 84,
+   "d": 60,
+   "h": 66.3,
+   "tris": 940,
+   "screens": [
+    "hq_resume_screen"
+   ]
+  },
+  {
+   "name": "hq_news",
+   "project": "news",
+   "w": 58,
+   "d": 46,
+   "h": 74.3,
+   "tris": 766,
+   "screens": [
+    "hq_news_screen"
+   ]
+  },
+  {
+   "name": "hq_nonstop",
+   "project": "nonstop",
+   "w": 60,
+   "d": 59.2,
+   "h": 30.8,
+   "tris": 772,
+   "screens": [
+    "hq_nonstop_screen"
+   ],
+   "parts": [
+    "hq_nonstop_dome"
+   ]
+  },
+  {
+   "name": "station_elevated",
+   "project": null,
+   "w": 98.7,
+   "d": 42,
+   "h": 15.6,
+   "tris": 1264,
+   "rail": 9,
+   "platform": 10.1,
+   "length": 92,
+   "trackClear": 7,
+   "screens": [
+    "station_elevated_screen",
+    "station_elevated_screen2"
+   ],
+   "parts": [
+    "station_elevated_canopy"
+   ]
+  },
+  {
+   "name": "station_grade",
+   "project": null,
+   "w": 104,
+   "d": 42.9,
+   "h": 11.2,
+   "tris": 1062,
+   "rail": 0.3,
+   "platform": 1.1,
+   "length": 92,
+   "trackClear": 7,
+   "screens": [
+    "station_grade_screen"
+   ],
+   "parts": [
+    "station_grade_canopy"
+   ]
+  },
+  {
+   "name": "plot_empty",
+   "project": null,
+   "w": 50.3,
+   "d": 69.1,
+   "h": 61.1,
+   "tris": 1569,
+   "screens": [
+    "plot_empty_screen"
+   ],
+   "parts": [
+    "plot_empty_jib"
+   ]
+  }
+ ]
+}

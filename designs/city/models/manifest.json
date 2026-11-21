@@ -1,0 +1,4152 @@
+{
+ "version": 1,
+ "unit": "m",
+ "files": {
+  "buildings": "buildings.glb",
+  "props": "props.glb"
+ },
+ "compression": "meshopt (EXT_meshopt_compression; normals and colours quantized, positions are plain floats in metres)",
+ "totals": {
+  "buildings": {
+   "file": "buildings.glb",
+   "bytes": 4992692,
+   "models": 51,
+   "tris": 262615
+  },
+  "props": {
+   "file": "props.glb",
+   "bytes": 554884,
+   "models": 33,
+   "tris": 21837
+  }
+ },
+ "conventions": {
+  "axes": "glTF Y up. Buildings: front (entrance) faces +Z, origin at the footprint centre on the ground. Moving things (trains, tram, cars, bus, boats, animals): length along X, facing +X.",
+  "lane": "There is no track. The metro cars and the hill pod (node `tram`) float along a lane. Their origin is on the lane datum, which the numbers still call rail level (railLevel, track.railTop): the floor is `floor` above it and the belly `underside` above it. lane_ring and lane_ring_double are gates the trains fly through: origin at the ring's centre, axis along X; place the centre `aboveDatum` over the datum (and, for the double one, midway between the two lanes).",
+  "nodes": "Every model is a top-level node at the origin. Moving parts are child nodes named <model>_<part>; their own origin is the pivot (listed under pivots).",
+  "colour": "No textures. COLOR_0 (linear) carries the film-look colour with ambient occlusion baked in. For the white model look, replace the material and ignore COLOR_0, or multiply it away.",
+  "door": "door = [x, z] in the model's own space: where the street should meet the plot.",
+  "size": "size = [width (x), height above the origin (y), depth (z)]; min and max give the full box, including parts below the ground (skirts, piles)."
+ },
+ "materials": {
+  "_how": "Every material multiplies its base colour (white) by the vertex colour (COLOR_0), so colour and baked shade still come from the vertices; the material adds how the surface behaves. Names containing \"glass\" are glazing; everything that is not glass, glow or sign can share one matte material if reflections are not wanted. For the real look give pearl, metal and both glasses an environment map.",
+  "city": "Anything painted or natural: matte. Roughness 0.82, metalness 0.",
+  "pearl": "Glossy white coachwork and shells (train and pod bodies, building shells, canopies). Roughness 0.26, metalness 0: wants sky reflections.",
+  "metal": "Brushed metal (rails, poles, masts, frames, lamp posts). Roughness 0.36, metalness 0.9.",
+  "stone": "Paving, kerbs, plinths and masonry: fully matte. Roughness 0.94.",
+  "rubber": "Dark trims, tyres, seals, gangway openings. Roughness 0.7.",
+  "glass_tint": "Smoked, slightly blue-grey glass for the train and pod canopies and door leaves: reflects the sky and lets the cabin show only faintly, like a bullet train's windows. alphaMode BLEND, alpha 0.82, roughness 0.06, metalness 0.3. COLOR_0 is already the dark smoke tint. Draw it after the opaque parts.",
+  "glass": "Clear tinted glass you can see through (platform screens and gates, lift shafts, railings, the station entrance). alphaMode BLEND, alpha 0.34, roughness 0.05. COLOR_0 is the tint. Draw it after the opaque parts, without writing depth.",
+  "glass_dark": "Opaque reflective glazing for building windows (there is nothing modelled behind them). Roughness 0.1, metalness 0.4. COLOR_0 is the tint.",
+  "sign": "Name boards and next-train displays (child nodes <model>_sign_n, <model>_board_n): one quad each with 0-1 UVs (u to the right, v up, seen from the front). Give it your own texture.",
+  "glow": "Window panes, signs and lamps to light at night. COLOR_0 is the daytime colour. At night set emissive (warm: #ffd58a) and raise emissiveIntensity; to keep each sign's own colour, multiply emissive by the vertex colour in the shader."
+ },
+ "levels": {
+  "1": "lot",
+  "2": "site_small or site_large (see buildings.<id>.nodes[2])",
+  "3": "b_<id>_L3",
+  "4": "b_<id>_L4",
+  "5": "b_<id>_L5"
+ },
+ "buildings": {
+  "hirvo": {
+   "model": "b_hirvo",
+   "district": "software",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_large",
+    "3": "b_hirvo_L3",
+    "4": "b_hirvo_L4",
+    "5": "b_hirvo_L5"
+   }
+  },
+  "trade": {
+   "model": "b_trade",
+   "district": "software",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_large",
+    "3": "b_trade_L3",
+    "4": "b_trade_L4",
+    "5": "b_trade_L5"
+   }
+  },
+  "court": {
+   "model": "b_court",
+   "district": "software",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_large",
+    "3": "b_court_L3",
+    "4": "b_court_L4",
+    "5": "b_court_L5"
+   }
+  },
+  "uhome": {
+   "model": "b_uhome",
+   "district": "software",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_large",
+    "3": "b_uhome_L3",
+    "4": "b_uhome_L4",
+    "5": "b_uhome_L5"
+   }
+  },
+  "pindou": {
+   "model": "b_pindou",
+   "district": "software",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_small",
+    "3": "b_pindou_L3",
+    "4": "b_pindou_L4",
+    "5": "b_pindou_L5"
+   }
+  },
+  "books": {
+   "model": "b_books",
+   "district": "books",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_small",
+    "3": "b_books_L3",
+    "4": "b_books_L4",
+    "5": "b_books_L5"
+   }
+  },
+  "bookflow": {
+   "model": "b_bookflow",
+   "district": "books",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_large",
+    "3": "b_bookflow_L3",
+    "4": "b_bookflow_L4",
+    "5": "b_bookflow_L5"
+   }
+  },
+  "ipad": {
+   "model": "b_ipad",
+   "district": "books",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_small",
+    "3": "b_ipad_L3",
+    "4": "b_ipad_L4",
+    "5": "b_ipad_L5"
+   }
+  },
+  "yae": {
+   "model": "b_yae",
+   "district": "film",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_large",
+    "3": "b_yae_L3",
+    "4": "b_yae_L4",
+    "5": "b_yae_L5"
+   }
+  },
+  "noir": {
+   "model": "b_noir",
+   "district": "film",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_small",
+    "3": "b_noir_L3",
+    "4": "b_noir_L4",
+    "5": "b_noir_L5"
+   }
+  },
+  "influencers": {
+   "model": "b_influencers",
+   "district": "film",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_small",
+    "3": "b_influencers_L3",
+    "4": "b_influencers_L4",
+    "5": "b_influencers_L5"
+   }
+  },
+  "stickers": {
+   "model": "b_stickers",
+   "district": "games",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_small",
+    "3": "b_stickers_L3",
+    "4": "b_stickers_L4",
+    "5": "b_stickers_L5"
+   }
+  },
+  "party": {
+   "model": "b_party",
+   "district": "games",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_small",
+    "3": "b_party_L3",
+    "4": "b_party_L4",
+    "5": "b_party_L5"
+   }
+  },
+  "duiyao": {
+   "model": "b_duiyao",
+   "district": "health",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_small",
+    "3": "b_duiyao_L3",
+    "4": "b_duiyao_L4",
+    "5": "b_duiyao_L5"
+   }
+  },
+  "hackathons": {
+   "model": "b_hackathons",
+   "district": "health",
+   "levels": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nodes": {
+    "1": "lot",
+    "2": "site_large",
+    "3": "b_hackathons_L3",
+    "4": "b_hackathons_L4",
+    "5": "b_hackathons_L5"
+   }
+  }
+ },
+ "models": [
+  {
+   "name": "b_hirvo_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    36,
+    11.3,
+    30
+   ],
+   "tris": 3017,
+   "min": [
+    -18,
+    -2,
+    -15
+   ],
+   "max": [
+    18,
+    11.3,
+    15
+   ],
+   "project": "hirvo",
+   "district": "software",
+   "level": 3,
+   "site": "site_large",
+   "door": [
+    0,
+    15
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_hirvo_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    62,
+    69.2,
+    50
+   ],
+   "tris": 7385,
+   "min": [
+    -31,
+    -2,
+    -25
+   ],
+   "max": [
+    31,
+    69.2,
+    25
+   ],
+   "project": "hirvo",
+   "district": "software",
+   "level": 4,
+   "site": "site_large",
+   "door": [
+    -9,
+    25
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_hirvo_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    72,
+    80.6,
+    56
+   ],
+   "tris": 10189,
+   "min": [
+    -36,
+    -2,
+    -28
+   ],
+   "max": [
+    36,
+    80.6,
+    28
+   ],
+   "project": "hirvo",
+   "district": "software",
+   "level": 5,
+   "site": "site_large",
+   "door": [
+    -9,
+    28
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_trade_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    44,
+    14.8,
+    73
+   ],
+   "tris": 3271,
+   "min": [
+    -22,
+    -9.1,
+    -56
+   ],
+   "max": [
+    22,
+    14.8,
+    17
+   ],
+   "project": "trade",
+   "district": "software",
+   "level": 3,
+   "site": "site_large",
+   "door": [
+    0,
+    17
+   ],
+   "quayEdge": -22,
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_trade_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    74,
+    24.5,
+    104
+   ],
+   "tris": 8693,
+   "min": [
+    -37,
+    -9.1,
+    -80
+   ],
+   "max": [
+    37,
+    24.5,
+    24
+   ],
+   "project": "trade",
+   "district": "software",
+   "level": 4,
+   "site": "site_large",
+   "door": [
+    0,
+    24
+   ],
+   "quayEdge": -34,
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_trade_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    76,
+    24.5,
+    118
+   ],
+   "tris": 10517,
+   "min": [
+    -38,
+    -9.1,
+    -92
+   ],
+   "max": [
+    38,
+    24.5,
+    26
+   ],
+   "project": "trade",
+   "district": "software",
+   "level": 5,
+   "site": "site_large",
+   "door": [
+    0,
+    26
+   ],
+   "quayEdge": -36,
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_court_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    38,
+    11.4,
+    46
+   ],
+   "tris": 2057,
+   "min": [
+    -19,
+    -2,
+    -23
+   ],
+   "max": [
+    19,
+    11.4,
+    23
+   ],
+   "project": "court",
+   "district": "software",
+   "level": 3,
+   "site": "site_large",
+   "door": [
+    0,
+    23
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_court_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    62,
+    12.5,
+    58
+   ],
+   "tris": 5950,
+   "min": [
+    -31,
+    -2,
+    -29
+   ],
+   "max": [
+    31,
+    12.5,
+    29
+   ],
+   "project": "court",
+   "district": "software",
+   "level": 4,
+   "site": "site_large",
+   "door": [
+    0,
+    29
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_court_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    74,
+    12.5,
+    58
+   ],
+   "tris": 7638,
+   "min": [
+    -37,
+    -2,
+    -29
+   ],
+   "max": [
+    37,
+    12.5,
+    29
+   ],
+   "project": "court",
+   "district": "software",
+   "level": 5,
+   "site": "site_large",
+   "door": [
+    0,
+    29
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_uhome_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    36,
+    9.3,
+    30
+   ],
+   "tris": 2381,
+   "min": [
+    -18,
+    -2,
+    -15
+   ],
+   "max": [
+    18,
+    9.3,
+    15
+   ],
+   "project": "uhome",
+   "district": "software",
+   "level": 3,
+   "site": "site_large",
+   "door": [
+    -5.25,
+    15
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_uhome_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    56,
+    32.2,
+    42
+   ],
+   "tris": 8005,
+   "min": [
+    -28,
+    -2,
+    -21
+   ],
+   "max": [
+    28,
+    32.2,
+    21
+   ],
+   "project": "uhome",
+   "district": "software",
+   "level": 4,
+   "site": "site_large",
+   "door": [
+    -5.85,
+    21
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_uhome_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    66,
+    35.9,
+    48
+   ],
+   "tris": 10679,
+   "min": [
+    -33,
+    -2,
+    -24
+   ],
+   "max": [
+    33,
+    35.9,
+    24
+   ],
+   "project": "uhome",
+   "district": "software",
+   "level": 5,
+   "site": "site_large",
+   "door": [
+    -9.7,
+    24
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_pindou_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    24,
+    8.4,
+    20
+   ],
+   "tris": 2003,
+   "min": [
+    -12,
+    -2,
+    -10
+   ],
+   "max": [
+    12,
+    8.4,
+    10
+   ],
+   "project": "pindou",
+   "district": "software",
+   "level": 3,
+   "site": "site_small",
+   "door": [
+    0,
+    10
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_pindou_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    36,
+    11.7,
+    28
+   ],
+   "tris": 6627,
+   "min": [
+    -18,
+    -2,
+    -14
+   ],
+   "max": [
+    18,
+    11.7,
+    14
+   ],
+   "project": "pindou",
+   "district": "software",
+   "level": 4,
+   "site": "site_small",
+   "door": [
+    0,
+    14
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_pindou_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    46,
+    14.6,
+    34
+   ],
+   "tris": 9057,
+   "min": [
+    -23,
+    -2,
+    -17
+   ],
+   "max": [
+    23,
+    14.6,
+    17
+   ],
+   "project": "pindou",
+   "district": "software",
+   "level": 5,
+   "site": "site_small",
+   "door": [
+    0,
+    17
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_books_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    30,
+    6.2,
+    24
+   ],
+   "tris": 2107,
+   "min": [
+    -15,
+    -2,
+    -12
+   ],
+   "max": [
+    15,
+    6.2,
+    12
+   ],
+   "project": "books",
+   "district": "books",
+   "level": 3,
+   "site": "site_small",
+   "door": [
+    0,
+    12
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_books_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    44,
+    15.5,
+    34
+   ],
+   "tris": 5341,
+   "min": [
+    -22,
+    -2,
+    -17
+   ],
+   "max": [
+    22,
+    15.5,
+    17
+   ],
+   "project": "books",
+   "district": "books",
+   "level": 4,
+   "site": "site_small",
+   "door": [
+    0,
+    17
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_books_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    56,
+    15.5,
+    42
+   ],
+   "tris": 7191,
+   "min": [
+    -28,
+    -2,
+    -21
+   ],
+   "max": [
+    28,
+    15.5,
+    21
+   ],
+   "project": "books",
+   "district": "books",
+   "level": 5,
+   "site": "site_small",
+   "door": [
+    0,
+    21
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_bookflow_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    38,
+    7.2,
+    30
+   ],
+   "tris": 2115,
+   "min": [
+    -19,
+    -2,
+    -15
+   ],
+   "max": [
+    19,
+    7.2,
+    15
+   ],
+   "project": "bookflow",
+   "district": "books",
+   "level": 3,
+   "site": "site_large",
+   "door": [
+    7,
+    15
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_bookflow_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    62,
+    20,
+    44
+   ],
+   "tris": 4196,
+   "min": [
+    -31,
+    -2,
+    -22
+   ],
+   "max": [
+    31,
+    20,
+    22
+   ],
+   "project": "bookflow",
+   "district": "books",
+   "level": 4,
+   "site": "site_large",
+   "door": [
+    18,
+    22
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_bookflow_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    74,
+    20,
+    50
+   ],
+   "tris": 5476,
+   "min": [
+    -37,
+    -2,
+    -25
+   ],
+   "max": [
+    37,
+    20,
+    25
+   ],
+   "project": "bookflow",
+   "district": "books",
+   "level": 5,
+   "site": "site_large",
+   "door": [
+    24,
+    25
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_ipad_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    30,
+    6.2,
+    24
+   ],
+   "tris": 1469,
+   "min": [
+    -15,
+    -2,
+    -12
+   ],
+   "max": [
+    15,
+    6.2,
+    12
+   ],
+   "project": "ipad",
+   "district": "books",
+   "level": 3,
+   "site": "site_small",
+   "door": [
+    0,
+    12
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_ipad_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    46,
+    13.7,
+    36
+   ],
+   "tris": 3516,
+   "min": [
+    -23,
+    -2,
+    -18
+   ],
+   "max": [
+    23,
+    13.7,
+    18
+   ],
+   "project": "ipad",
+   "district": "books",
+   "level": 4,
+   "site": "site_small",
+   "door": [
+    0,
+    18
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_ipad_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    58,
+    13.7,
+    42
+   ],
+   "tris": 5238,
+   "min": [
+    -29,
+    -2,
+    -21
+   ],
+   "max": [
+    29,
+    13.7,
+    21
+   ],
+   "project": "ipad",
+   "district": "books",
+   "level": 5,
+   "site": "site_small",
+   "door": [
+    0,
+    21
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_yae_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    36,
+    9.1,
+    32
+   ],
+   "tris": 3314,
+   "min": [
+    -18,
+    -2,
+    -16
+   ],
+   "max": [
+    18,
+    9.1,
+    16
+   ],
+   "project": "yae",
+   "district": "film",
+   "level": 3,
+   "site": "site_large",
+   "door": [
+    0,
+    16
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_yae_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    62,
+    19.7,
+    48
+   ],
+   "tris": 6895,
+   "min": [
+    -31,
+    -2,
+    -24
+   ],
+   "max": [
+    31,
+    19.7,
+    24
+   ],
+   "project": "yae",
+   "district": "film",
+   "level": 4,
+   "site": "site_large",
+   "door": [
+    0,
+    24
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_yae_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    74,
+    19.7,
+    54
+   ],
+   "tris": 9017,
+   "min": [
+    -37,
+    -2,
+    -27
+   ],
+   "max": [
+    37,
+    19.7,
+    27
+   ],
+   "project": "yae",
+   "district": "film",
+   "level": 5,
+   "site": "site_large",
+   "door": [
+    0,
+    27
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_noir_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    26,
+    10.8,
+    22
+   ],
+   "tris": 1500,
+   "min": [
+    -13,
+    -2,
+    -11
+   ],
+   "max": [
+    13,
+    10.8,
+    11
+   ],
+   "project": "noir",
+   "district": "film",
+   "level": 3,
+   "site": "site_small",
+   "door": [
+    -1.56,
+    11
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_noir_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    40,
+    21.3,
+    30
+   ],
+   "tris": 3409,
+   "min": [
+    -20,
+    -2,
+    -15
+   ],
+   "max": [
+    20,
+    21.3,
+    15
+   ],
+   "project": "noir",
+   "district": "film",
+   "level": 4,
+   "site": "site_small",
+   "door": [
+    -2.88,
+    15
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_noir_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    50,
+    21.3,
+    36
+   ],
+   "tris": 4715,
+   "min": [
+    -25,
+    -2,
+    -18
+   ],
+   "max": [
+    25,
+    21.3,
+    18
+   ],
+   "project": "noir",
+   "district": "film",
+   "level": 5,
+   "site": "site_small",
+   "door": [
+    -2.88,
+    18
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_influencers_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    30,
+    5.7,
+    24
+   ],
+   "tris": 1986,
+   "min": [
+    -15,
+    -2,
+    -12
+   ],
+   "max": [
+    15,
+    5.7,
+    12
+   ],
+   "project": "influencers",
+   "district": "film",
+   "level": 3,
+   "site": "site_small",
+   "door": [
+    0,
+    12
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_influencers_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    46,
+    17.9,
+    36
+   ],
+   "tris": 3500,
+   "min": [
+    -23,
+    -2,
+    -18
+   ],
+   "max": [
+    23,
+    17.9,
+    18
+   ],
+   "project": "influencers",
+   "district": "film",
+   "level": 4,
+   "site": "site_small",
+   "door": [
+    0,
+    18
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_influencers_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    58,
+    17.9,
+    42
+   ],
+   "tris": 5056,
+   "min": [
+    -29,
+    -2,
+    -21
+   ],
+   "max": [
+    29,
+    17.9,
+    21
+   ],
+   "project": "influencers",
+   "district": "film",
+   "level": 5,
+   "site": "site_small",
+   "door": [
+    0,
+    21
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_stickers_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    24,
+    8.2,
+    20
+   ],
+   "tris": 1694,
+   "min": [
+    -12,
+    -2,
+    -10
+   ],
+   "max": [
+    12,
+    8.2,
+    10
+   ],
+   "project": "stickers",
+   "district": "games",
+   "level": 3,
+   "site": "site_small",
+   "door": [
+    0,
+    10
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_stickers_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    38,
+    20.4,
+    30
+   ],
+   "tris": 4538,
+   "min": [
+    -19,
+    -2,
+    -15
+   ],
+   "max": [
+    19,
+    20.4,
+    15
+   ],
+   "project": "stickers",
+   "district": "games",
+   "level": 4,
+   "site": "site_small",
+   "door": [
+    0,
+    15
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_stickers_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    50,
+    20.4,
+    36
+   ],
+   "tris": 5666,
+   "min": [
+    -25,
+    -2,
+    -18
+   ],
+   "max": [
+    25,
+    20.4,
+    18
+   ],
+   "project": "stickers",
+   "district": "games",
+   "level": 5,
+   "site": "site_small",
+   "door": [
+    0,
+    18
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_party_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    26,
+    6.7,
+    22
+   ],
+   "tris": 2212,
+   "min": [
+    -13,
+    -2,
+    -11
+   ],
+   "max": [
+    13,
+    6.7,
+    11
+   ],
+   "project": "party",
+   "district": "games",
+   "level": 3,
+   "site": "site_small",
+   "door": [
+    0,
+    11
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_party_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    40,
+    22.1,
+    32
+   ],
+   "tris": 4762,
+   "min": [
+    -20,
+    -2,
+    -16
+   ],
+   "max": [
+    20,
+    22.1,
+    16
+   ],
+   "project": "party",
+   "district": "games",
+   "level": 4,
+   "site": "site_small",
+   "door": [
+    0,
+    16
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_party_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    52,
+    23.2,
+    38
+   ],
+   "tris": 6464,
+   "min": [
+    -26,
+    -2,
+    -19
+   ],
+   "max": [
+    26,
+    23.2,
+    19
+   ],
+   "project": "party",
+   "district": "games",
+   "level": 5,
+   "site": "site_small",
+   "door": [
+    0,
+    19
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_duiyao_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    26,
+    10.2,
+    20
+   ],
+   "tris": 1154,
+   "min": [
+    -13,
+    -2,
+    -10
+   ],
+   "max": [
+    13,
+    10.2,
+    10
+   ],
+   "project": "duiyao",
+   "district": "health",
+   "level": 3,
+   "site": "site_small",
+   "door": [
+    0,
+    10
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_duiyao_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    40,
+    14.1,
+    28
+   ],
+   "tris": 3141,
+   "min": [
+    -20,
+    -2,
+    -14
+   ],
+   "max": [
+    20,
+    14.1,
+    14
+   ],
+   "project": "duiyao",
+   "district": "health",
+   "level": 4,
+   "site": "site_small",
+   "door": [
+    0,
+    14
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_duiyao_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    52,
+    14.1,
+    34
+   ],
+   "tris": 5007,
+   "min": [
+    -26,
+    -2,
+    -17
+   ],
+   "max": [
+    26,
+    14.1,
+    17
+   ],
+   "project": "duiyao",
+   "district": "health",
+   "level": 5,
+   "site": "site_small",
+   "door": [
+    0,
+    17
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_hackathons_L3",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    38,
+    6.9,
+    30
+   ],
+   "tris": 2647,
+   "min": [
+    -19,
+    -2,
+    -15
+   ],
+   "max": [
+    19,
+    6.9,
+    15
+   ],
+   "project": "hackathons",
+   "district": "health",
+   "level": 3,
+   "site": "site_large",
+   "door": [
+    0,
+    15
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_hackathons_L4",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    64,
+    9.9,
+    46
+   ],
+   "tris": 5054,
+   "min": [
+    -32,
+    -2,
+    -23
+   ],
+   "max": [
+    32,
+    9.9,
+    23
+   ],
+   "project": "hackathons",
+   "district": "health",
+   "level": 4,
+   "site": "site_large",
+   "door": [
+    0,
+    23
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "b_hackathons_L5",
+   "file": "buildings.glb",
+   "class": "building",
+   "size": [
+    74,
+    21.9,
+    52
+   ],
+   "tris": 5994,
+   "min": [
+    -37,
+    -2,
+    -26
+   ],
+   "max": [
+    37,
+    21.9,
+    26
+   ],
+   "project": "hackathons",
+   "district": "health",
+   "level": 5,
+   "site": "site_large",
+   "door": [
+    0,
+    26
+   ],
+   "levels": [
+    3,
+    4,
+    5
+   ]
+  },
+  {
+   "name": "lot",
+   "file": "buildings.glb",
+   "class": "level",
+   "size": [
+    34,
+    5,
+    26
+   ],
+   "tris": 2004,
+   "min": [
+    -17,
+    -2,
+    -13
+   ],
+   "max": [
+    17,
+    5,
+    13
+   ],
+   "level": 1,
+   "door": [
+    0,
+    13
+   ]
+  },
+  {
+   "name": "site_small",
+   "file": "buildings.glb",
+   "class": "level",
+   "size": [
+    45.9,
+    32.3,
+    26
+   ],
+   "tris": 2751,
+   "min": [
+    -17,
+    -2,
+    -13
+   ],
+   "max": [
+    28.9,
+    32.3,
+    13
+   ],
+   "children": [
+    "site_small_jib"
+   ],
+   "pivots": {
+    "site_small_jib": [
+     9.82,
+     25.2,
+     -5.05
+    ]
+   },
+   "level": 2,
+   "door": [
+    0,
+    13
+   ]
+  },
+  {
+   "name": "site_large",
+   "file": "buildings.glb",
+   "class": "level",
+   "size": [
+    73.9,
+    49.3,
+    42
+   ],
+   "tris": 4163,
+   "min": [
+    -28,
+    -2,
+    -21
+   ],
+   "max": [
+    45.9,
+    49.3,
+    21
+   ],
+   "children": [
+    "site_large_jib"
+   ],
+   "pivots": {
+    "site_large_jib": [
+     15.78,
+     42.2,
+     -9.3
+    ]
+   },
+   "level": 2,
+   "door": [
+    0,
+    21
+   ]
+  },
+  {
+   "name": "tower",
+   "file": "buildings.glb",
+   "class": "tower",
+   "size": [
+    62,
+    200.4,
+    62
+   ],
+   "tris": 13631,
+   "min": [
+    -31,
+    -11,
+    -31
+   ],
+   "max": [
+    31,
+    200.4,
+    31
+   ],
+   "children": [
+    "tower_crown"
+   ],
+   "pivots": {
+    "tower_crown": [
+     0,
+     145,
+     0
+    ]
+   },
+   "height": 200,
+   "crownBase": 145,
+   "plazaRadius": 31,
+   "door": [
+    0,
+    31
+   ]
+  },
+  {
+   "name": "station",
+   "file": "buildings.glb",
+   "class": "station",
+   "size": [
+    49,
+    18.6,
+    30.1
+   ],
+   "tris": 10279,
+   "min": [
+    -24.5,
+    -0.6,
+    -11.9
+   ],
+   "max": [
+    24.5,
+    18.6,
+    18.1
+   ],
+   "children": [
+    "station_gate_1",
+    "station_gate_2",
+    "station_gate_3",
+    "station_gate_4",
+    "station_gate_5",
+    "station_gate_6",
+    "station_sign_1",
+    "station_sign_2",
+    "station_board_1",
+    "station_gate_7",
+    "station_gate_8",
+    "station_gate_9",
+    "station_gate_10",
+    "station_gate_11",
+    "station_gate_12",
+    "station_sign_3",
+    "station_sign_4",
+    "station_board_2",
+    "station_sign_5"
+   ],
+   "pivots": {
+    "station_gate_1": [
+     -18.1,
+     11.1,
+     3.85
+    ],
+    "station_gate_2": [
+     -11.1,
+     11.1,
+     3.85
+    ],
+    "station_gate_3": [
+     -3.5,
+     11.1,
+     3.85
+    ],
+    "station_gate_4": [
+     3.5,
+     11.1,
+     3.85
+    ],
+    "station_gate_5": [
+     11.1,
+     11.1,
+     3.85
+    ],
+    "station_gate_6": [
+     18.1,
+     11.1,
+     3.85
+    ],
+    "station_sign_1": [
+     -12,
+     12.85,
+     8.26
+    ],
+    "station_sign_2": [
+     12,
+     12.85,
+     8.26
+    ],
+    "station_board_1": [
+     0,
+     14.4,
+     5.6
+    ],
+    "station_gate_7": [
+     -18.1,
+     11.1,
+     -3.85
+    ],
+    "station_gate_8": [
+     -11.1,
+     11.1,
+     -3.85
+    ],
+    "station_gate_9": [
+     -3.5,
+     11.1,
+     -3.85
+    ],
+    "station_gate_10": [
+     3.5,
+     11.1,
+     -3.85
+    ],
+    "station_gate_11": [
+     11.1,
+     11.1,
+     -3.85
+    ],
+    "station_gate_12": [
+     18.1,
+     11.1,
+     -3.85
+    ],
+    "station_sign_3": [
+     -12,
+     12.85,
+     -8.26
+    ],
+    "station_sign_4": [
+     12,
+     12.85,
+     -8.26
+    ],
+    "station_board_2": [
+     0,
+     14.4,
+     -5.6
+    ],
+    "station_sign_5": [
+     -17.2,
+     5.25,
+     14.3
+    ]
+   },
+   "length": 48,
+   "gates": [
+    {
+     "name": "station_gate_1",
+     "x": -18.1,
+     "side": "+z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_gate_2",
+     "x": -11.1,
+     "side": "+z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_gate_3",
+     "x": -3.5,
+     "side": "+z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_gate_4",
+     "x": 3.5,
+     "side": "+z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_gate_5",
+     "x": 11.1,
+     "side": "+z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_gate_6",
+     "x": 18.1,
+     "side": "+z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_gate_7",
+     "x": -18.1,
+     "side": "-z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_gate_8",
+     "x": -11.1,
+     "side": "-z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_gate_9",
+     "x": -3.5,
+     "side": "-z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_gate_10",
+     "x": 3.5,
+     "side": "-z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_gate_11",
+     "x": 11.1,
+     "side": "-z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_gate_12",
+     "x": 18.1,
+     "side": "-z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    }
+   ],
+   "signs": [
+    {
+     "name": "station_sign_1",
+     "size": [
+      7,
+      1.3
+     ],
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "name": "station_sign_2",
+     "size": [
+      7,
+      1.3
+     ],
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "name": "station_sign_3",
+     "size": [
+      7,
+      1.3
+     ],
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "name": "station_sign_4",
+     "size": [
+      7,
+      1.3
+     ],
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "name": "station_sign_5",
+     "size": [
+      6,
+      1.2
+     ],
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    }
+   ],
+   "boards": [
+    {
+     "name": "station_board_1",
+     "size": [
+      3.6,
+      0.9
+     ],
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "name": "station_board_2",
+     "size": [
+      3.6,
+      0.9
+     ],
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    }
+   ],
+   "track": {
+    "axis": "x",
+    "centre": [
+     0,
+     0
+    ],
+    "centres": [
+     2.1,
+     -2.1
+    ],
+    "offset": 2.1,
+    "railTop": 10,
+    "deckTop": 10,
+    "deckWidthMin": 7.3,
+    "floating": true,
+    "clearAbove": 8.6,
+    "keepRight": "a train running towards +x uses the track at z = +2.1 and the platform on +z"
+   },
+   "platform": {
+    "top": 11.1,
+    "length": 48,
+    "edge": 3.65,
+    "outer": 9.4,
+    "sides": [
+     "+z",
+     "-z"
+    ]
+   },
+   "stop": {
+    "trainCentre": [
+     0,
+     0
+    ],
+    "cars": 3,
+    "carPitch": 14.6,
+    "carCentres": [
+     -14.6,
+     0,
+     14.6
+    ],
+    "doorCentres": [
+     -18.1,
+     -11.1,
+     -3.5,
+     3.5,
+     11.1,
+     18.1
+    ],
+    "doorWidth": 1.5,
+    "gateWidth": 1.9
+   },
+   "canopy": {
+    "underside": 15.5
+   },
+   "door": [
+    -19.2,
+    17.5
+   ],
+   "backDoor": [
+    14.5,
+    -9.65
+   ],
+   "concourse": {
+    "floor": 5.4,
+    "halfLength": 12,
+    "halfWidth": 8,
+    "headroomBelow": 4.4
+   },
+   "entrance": {
+    "door": [
+     -19.2,
+     13.4
+    ],
+    "doorHeight": 2.3,
+    "floor": 0.3
+   }
+  },
+  {
+   "name": "station_main",
+   "file": "buildings.glb",
+   "class": "station",
+   "size": [
+    66,
+    20.8,
+    69.5
+   ],
+   "tris": 7944,
+   "min": [
+    -33,
+    -2,
+    -22
+   ],
+   "max": [
+    33,
+    20.8,
+    47.5
+   ],
+   "children": [
+    "station_main_gate_1",
+    "station_main_gate_2",
+    "station_main_gate_3",
+    "station_main_gate_4",
+    "station_main_gate_5",
+    "station_main_gate_6",
+    "station_main_sign_1",
+    "station_main_sign_2",
+    "station_main_board_1",
+    "station_main_gate_7",
+    "station_main_gate_8",
+    "station_main_gate_9",
+    "station_main_gate_10",
+    "station_main_gate_11",
+    "station_main_gate_12",
+    "station_main_sign_3",
+    "station_main_sign_4",
+    "station_main_board_2",
+    "station_main_sign_5",
+    "station_main_sign_6"
+   ],
+   "pivots": {
+    "station_main_gate_1": [
+     -18.1,
+     11.1,
+     3.85
+    ],
+    "station_main_gate_2": [
+     -11.1,
+     11.1,
+     3.85
+    ],
+    "station_main_gate_3": [
+     -3.5,
+     11.1,
+     3.85
+    ],
+    "station_main_gate_4": [
+     3.5,
+     11.1,
+     3.85
+    ],
+    "station_main_gate_5": [
+     11.1,
+     11.1,
+     3.85
+    ],
+    "station_main_gate_6": [
+     18.1,
+     11.1,
+     3.85
+    ],
+    "station_main_sign_1": [
+     -12,
+     12.85,
+     8.26
+    ],
+    "station_main_sign_2": [
+     12,
+     12.85,
+     8.26
+    ],
+    "station_main_board_1": [
+     0,
+     14.4,
+     5.6
+    ],
+    "station_main_gate_7": [
+     -18.1,
+     11.1,
+     -3.85
+    ],
+    "station_main_gate_8": [
+     -11.1,
+     11.1,
+     -3.85
+    ],
+    "station_main_gate_9": [
+     -3.5,
+     11.1,
+     -3.85
+    ],
+    "station_main_gate_10": [
+     3.5,
+     11.1,
+     -3.85
+    ],
+    "station_main_gate_11": [
+     11.1,
+     11.1,
+     -3.85
+    ],
+    "station_main_gate_12": [
+     18.1,
+     11.1,
+     -3.85
+    ],
+    "station_main_sign_3": [
+     -12,
+     12.85,
+     -8.26
+    ],
+    "station_main_sign_4": [
+     12,
+     12.85,
+     -8.26
+    ],
+    "station_main_board_2": [
+     0,
+     14.4,
+     -5.6
+    ],
+    "station_main_sign_5": [
+     0,
+     6.3,
+     14.36
+    ],
+    "station_main_sign_6": [
+     0,
+     3.4,
+     -13.58
+    ]
+   },
+   "length": 48,
+   "gates": [
+    {
+     "name": "station_main_gate_1",
+     "x": -18.1,
+     "side": "+z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_main_gate_2",
+     "x": -11.1,
+     "side": "+z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_main_gate_3",
+     "x": -3.5,
+     "side": "+z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_main_gate_4",
+     "x": 3.5,
+     "side": "+z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_main_gate_5",
+     "x": 11.1,
+     "side": "+z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_main_gate_6",
+     "x": 18.1,
+     "side": "+z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_main_gate_7",
+     "x": -18.1,
+     "side": "-z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_main_gate_8",
+     "x": -11.1,
+     "side": "-z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_main_gate_9",
+     "x": -3.5,
+     "side": "-z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_main_gate_10",
+     "x": 3.5,
+     "side": "-z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_main_gate_11",
+     "x": 11.1,
+     "side": "-z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "station_main_gate_12",
+     "x": 18.1,
+     "side": "-z",
+     "open": [
+      1.7,
+      0,
+      0
+     ]
+    }
+   ],
+   "signs": [
+    {
+     "name": "station_main_sign_1",
+     "size": [
+      7,
+      1.3
+     ],
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "name": "station_main_sign_2",
+     "size": [
+      7,
+      1.3
+     ],
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "name": "station_main_sign_3",
+     "size": [
+      7,
+      1.3
+     ],
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "name": "station_main_sign_4",
+     "size": [
+      7,
+      1.3
+     ],
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "name": "station_main_sign_5",
+     "size": [
+      7.6,
+      1.3
+     ],
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "name": "station_main_sign_6",
+     "size": [
+      4.6,
+      0.9
+     ],
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    }
+   ],
+   "boards": [
+    {
+     "name": "station_main_board_1",
+     "size": [
+      3.6,
+      0.9
+     ],
+     "facing": [
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "name": "station_main_board_2",
+     "size": [
+      3.6,
+      0.9
+     ],
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    }
+   ],
+   "track": {
+    "axis": "x",
+    "centre": [
+     0,
+     0
+    ],
+    "centres": [
+     2.1,
+     -2.1
+    ],
+    "offset": 2.1,
+    "railTop": 10,
+    "deckTop": 10,
+    "deckWidthMin": 7.3,
+    "floating": true,
+    "clearAbove": 8.79,
+    "keepRight": "a train running towards +x uses the track at z = +2.1 and the platform on +z"
+   },
+   "platform": {
+    "top": 11.1,
+    "length": 48,
+    "edge": 3.65,
+    "outer": 9.4,
+    "sides": [
+     "+z",
+     "-z"
+    ]
+   },
+   "stop": {
+    "trainCentre": [
+     0,
+     0
+    ],
+    "cars": 3,
+    "carPitch": 14.6,
+    "carCentres": [
+     -14.6,
+     0,
+     14.6
+    ],
+    "doorCentres": [
+     -18.1,
+     -11.1,
+     -3.5,
+     3.5,
+     11.1,
+     18.1
+    ],
+    "doorWidth": 1.5,
+    "gateWidth": 1.9
+   },
+   "canopy": {
+    "underside": 16.1
+   },
+   "door": [
+    0,
+    25.5
+   ],
+   "hall": {
+    "height": 8.6
+   },
+   "tram": {
+    "axis": "x",
+    "trackCentre": [
+     0,
+     -16.7
+    ],
+    "railTop": 0,
+    "platformTop": 0.9,
+    "platformEdge": 1.4,
+    "platformLength": 15
+   },
+   "ferryWalkEnd": [
+    25,
+    47.5
+   ]
+  },
+  {
+   "name": "train_end",
+   "file": "props.glb",
+   "class": "train",
+   "size": [
+    16.5,
+    3.8,
+    3
+   ],
+   "tris": 2240,
+   "min": [
+    -7.3,
+    0.3,
+    -1.5
+   ],
+   "max": [
+    9.2,
+    3.8,
+    1.5
+   ],
+   "children": [
+    "train_end_door_1",
+    "train_end_door_2",
+    "train_end_door_3",
+    "train_end_door_4",
+    "train_end_door_5",
+    "train_end_door_6",
+    "train_end_door_7",
+    "train_end_door_8"
+   ],
+   "pivots": {
+    "train_end_door_1": [
+     -3.875,
+     1.1,
+     1.47
+    ],
+    "train_end_door_2": [
+     -3.125,
+     1.1,
+     1.47
+    ],
+    "train_end_door_3": [
+     3.125,
+     1.1,
+     1.47
+    ],
+    "train_end_door_4": [
+     3.875,
+     1.1,
+     1.47
+    ],
+    "train_end_door_5": [
+     -3.875,
+     1.1,
+     -1.47
+    ],
+    "train_end_door_6": [
+     -3.125,
+     1.1,
+     -1.47
+    ],
+    "train_end_door_7": [
+     3.125,
+     1.1,
+     -1.47
+    ],
+    "train_end_door_8": [
+     3.875,
+     1.1,
+     -1.47
+    ]
+   },
+   "forward": "+x",
+   "length": 14.5,
+   "width": 2.9,
+   "height": 3.75,
+   "floor": 1.1,
+   "pitch": 14.6,
+   "doorWidth": 1.5,
+   "doors": [
+    {
+     "name": "train_end_door_1",
+     "side": "+z",
+     "open": [
+      -0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_end_door_2",
+     "side": "+z",
+     "open": [
+      0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_end_door_3",
+     "side": "+z",
+     "open": [
+      -0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_end_door_4",
+     "side": "+z",
+     "open": [
+      0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_end_door_5",
+     "side": "-z",
+     "open": [
+      -0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_end_door_6",
+     "side": "-z",
+     "open": [
+      0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_end_door_7",
+     "side": "-z",
+     "open": [
+      -0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_end_door_8",
+     "side": "-z",
+     "open": [
+      0.71,
+      0,
+      0
+     ]
+    }
+   ],
+   "doorways": [
+    -3.5,
+    3.5
+   ],
+   "railLevel": 0,
+   "underside": 0.34,
+   "hover": true,
+   "doorTop": 3.1,
+   "sideAtFloor": 1.4
+  },
+  {
+   "name": "train_mid",
+   "file": "props.glb",
+   "class": "train",
+   "size": [
+    14.6,
+    3.8,
+    3
+   ],
+   "tris": 2144,
+   "min": [
+    -7.3,
+    0.3,
+    -1.5
+   ],
+   "max": [
+    7.3,
+    3.8,
+    1.5
+   ],
+   "children": [
+    "train_mid_door_1",
+    "train_mid_door_2",
+    "train_mid_door_3",
+    "train_mid_door_4",
+    "train_mid_door_5",
+    "train_mid_door_6",
+    "train_mid_door_7",
+    "train_mid_door_8"
+   ],
+   "pivots": {
+    "train_mid_door_1": [
+     -3.875,
+     1.1,
+     1.47
+    ],
+    "train_mid_door_2": [
+     -3.125,
+     1.1,
+     1.47
+    ],
+    "train_mid_door_3": [
+     3.125,
+     1.1,
+     1.47
+    ],
+    "train_mid_door_4": [
+     3.875,
+     1.1,
+     1.47
+    ],
+    "train_mid_door_5": [
+     -3.875,
+     1.1,
+     -1.47
+    ],
+    "train_mid_door_6": [
+     -3.125,
+     1.1,
+     -1.47
+    ],
+    "train_mid_door_7": [
+     3.125,
+     1.1,
+     -1.47
+    ],
+    "train_mid_door_8": [
+     3.875,
+     1.1,
+     -1.47
+    ]
+   },
+   "forward": "+x",
+   "length": 14.5,
+   "width": 2.9,
+   "height": 3.75,
+   "floor": 1.1,
+   "pitch": 14.6,
+   "doorWidth": 1.5,
+   "doors": [
+    {
+     "name": "train_mid_door_1",
+     "side": "+z",
+     "open": [
+      -0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_mid_door_2",
+     "side": "+z",
+     "open": [
+      0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_mid_door_3",
+     "side": "+z",
+     "open": [
+      -0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_mid_door_4",
+     "side": "+z",
+     "open": [
+      0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_mid_door_5",
+     "side": "-z",
+     "open": [
+      -0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_mid_door_6",
+     "side": "-z",
+     "open": [
+      0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_mid_door_7",
+     "side": "-z",
+     "open": [
+      -0.71,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "train_mid_door_8",
+     "side": "-z",
+     "open": [
+      0.71,
+      0,
+      0
+     ]
+    }
+   ],
+   "doorways": [
+    -3.5,
+    3.5
+   ],
+   "railLevel": 0,
+   "underside": 0.34,
+   "hover": true,
+   "doorTop": 3.1,
+   "sideAtFloor": 1.4
+  },
+  {
+   "name": "tram",
+   "file": "props.glb",
+   "class": "train",
+   "size": [
+    10.2,
+    3.4,
+    2.6
+   ],
+   "tris": 1792,
+   "min": [
+    -5.1,
+    0.3,
+    -1.3
+   ],
+   "max": [
+    5.1,
+    3.4,
+    1.3
+   ],
+   "children": [
+    "tram_door_1",
+    "tram_door_2",
+    "tram_door_3",
+    "tram_door_4",
+    "tram_door_5",
+    "tram_door_6",
+    "tram_door_7",
+    "tram_door_8"
+   ],
+   "pivots": {
+    "tram_door_1": [
+     -2.725,
+     1.02,
+     1.27
+    ],
+    "tram_door_2": [
+     -2.075,
+     1.02,
+     1.27
+    ],
+    "tram_door_3": [
+     2.075,
+     1.02,
+     1.27
+    ],
+    "tram_door_4": [
+     2.725,
+     1.02,
+     1.27
+    ],
+    "tram_door_5": [
+     -2.725,
+     1.02,
+     -1.27
+    ],
+    "tram_door_6": [
+     -2.075,
+     1.02,
+     -1.27
+    ],
+    "tram_door_7": [
+     2.075,
+     1.02,
+     -1.27
+    ],
+    "tram_door_8": [
+     2.725,
+     1.02,
+     -1.27
+    ]
+   },
+   "forward": "+x",
+   "length": 10.2,
+   "width": 2.5,
+   "height": 3.4,
+   "floor": 0.9,
+   "doorWidth": 1.3,
+   "doors": [
+    {
+     "name": "tram_door_1",
+     "side": "+z",
+     "open": [
+      -0.61,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "tram_door_2",
+     "side": "+z",
+     "open": [
+      0.61,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "tram_door_3",
+     "side": "+z",
+     "open": [
+      -0.61,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "tram_door_4",
+     "side": "+z",
+     "open": [
+      0.61,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "tram_door_5",
+     "side": "-z",
+     "open": [
+      -0.61,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "tram_door_6",
+     "side": "-z",
+     "open": [
+      0.61,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "tram_door_7",
+     "side": "-z",
+     "open": [
+      -0.61,
+      0,
+      0
+     ]
+    },
+    {
+     "name": "tram_door_8",
+     "side": "-z",
+     "open": [
+      0.61,
+      0,
+      0
+     ]
+    }
+   ],
+   "doorways": [
+    -2.4,
+    2.4
+   ],
+   "railLevel": 0,
+   "underside": 0.3,
+   "hover": true,
+   "doorTop": 2.8
+  },
+  {
+   "name": "lane_ring",
+   "file": "props.glb",
+   "class": "lane",
+   "size": [
+    0.5,
+    2.9,
+    5.7
+   ],
+   "tris": 224,
+   "min": [
+    -0.3,
+    -2.9,
+    -2.9
+   ],
+   "max": [
+    0.3,
+    2.9,
+    2.9
+   ],
+   "axis": "x",
+   "opening": [
+    5.1,
+    5.1
+   ],
+   "lanes": [
+    0
+   ],
+   "thickness": 0.32,
+   "depth": 0.52,
+   "centre": "origin",
+   "aboveDatum": 1.97
+  },
+  {
+   "name": "lane_ring_double",
+   "file": "props.glb",
+   "class": "lane",
+   "size": [
+    0.5,
+    2.9,
+    9.9
+   ],
+   "tris": 208,
+   "min": [
+    -0.3,
+    -2.9,
+    -5
+   ],
+   "max": [
+    0.3,
+    2.9,
+    5
+   ],
+   "axis": "x",
+   "opening": [
+    9.3,
+    5.1
+   ],
+   "lanes": [
+    2.1,
+    -2.1
+   ],
+   "thickness": 0.32,
+   "depth": 0.52,
+   "centre": "origin",
+   "aboveDatum": 1.97
+  },
+  {
+   "name": "house_a",
+   "file": "props.glb",
+   "class": "house",
+   "size": [
+    10.4,
+    5.8,
+    10.3
+   ],
+   "tris": 876,
+   "min": [
+    -4.6,
+    -1.5,
+    -4.6
+   ],
+   "max": [
+    5.7,
+    5.8,
+    5.7
+   ],
+   "door": [
+    0,
+    5.8
+   ]
+  },
+  {
+   "name": "house_b",
+   "file": "props.glb",
+   "class": "house",
+   "size": [
+    11.9,
+    4.6,
+    8.4
+   ],
+   "tris": 768,
+   "min": [
+    -5.3,
+    -1.5,
+    -3.8
+   ],
+   "max": [
+    6.5,
+    4.6,
+    4.6
+   ],
+   "door": [
+    3.6,
+    4.6
+   ]
+  },
+  {
+   "name": "house_c",
+   "file": "props.glb",
+   "class": "house",
+   "size": [
+    10.5,
+    7,
+    10.5
+   ],
+   "tris": 1116,
+   "min": [
+    -5.2,
+    -1.5,
+    -5.2
+   ],
+   "max": [
+    5.2,
+    7,
+    5.2
+   ],
+   "door": [
+    0,
+    5.1
+   ]
+  },
+  {
+   "name": "house_d",
+   "file": "props.glb",
+   "class": "house",
+   "size": [
+    10.5,
+    4.7,
+    5.8
+   ],
+   "tris": 572,
+   "min": [
+    -5.2,
+    -1.5,
+    -2.4
+   ],
+   "max": [
+    5.2,
+    4.7,
+    3.3
+   ],
+   "door": [
+    2.6,
+    3.4
+   ]
+  },
+  {
+   "name": "tree_a",
+   "file": "props.glb",
+   "class": "tree",
+   "size": [
+    8.7,
+    9.7,
+    7.9
+   ],
+   "tris": 672,
+   "min": [
+    -4.2,
+    -0.5,
+    -3.7
+   ],
+   "max": [
+    4.5,
+    9.7,
+    4.2
+   ]
+  },
+  {
+   "name": "tree_b",
+   "file": "props.glb",
+   "class": "tree",
+   "size": [
+    5.4,
+    13.4,
+    4.8
+   ],
+   "tris": 656,
+   "min": [
+    -2.6,
+    -0.5,
+    -2.3
+   ],
+   "max": [
+    2.7,
+    13.4,
+    2.4
+   ]
+  },
+  {
+   "name": "tree_c",
+   "file": "props.glb",
+   "class": "tree",
+   "size": [
+    9.7,
+    7.9,
+    9.4
+   ],
+   "tris": 672,
+   "min": [
+    -4,
+    -0.6,
+    -4.8
+   ],
+   "max": [
+    5.7,
+    7.9,
+    4.5
+   ]
+  },
+  {
+   "name": "tree_pine",
+   "file": "props.glb",
+   "class": "tree",
+   "size": [
+    6.6,
+    13,
+    6.6
+   ],
+   "tris": 224,
+   "min": [
+    -3.2,
+    -0.5,
+    -3.3
+   ],
+   "max": [
+    3.3,
+    13,
+    3.3
+   ]
+  },
+  {
+   "name": "palm",
+   "file": "props.glb",
+   "class": "tree",
+   "size": [
+    8.6,
+    10.4,
+    8.7
+   ],
+   "tris": 240,
+   "min": [
+    -1.5,
+    -0.5,
+    -4.4
+   ],
+   "max": [
+    7.1,
+    10.4,
+    4.3
+   ]
+  },
+  {
+   "name": "car_a",
+   "file": "props.glb",
+   "class": "car",
+   "size": [
+    6,
+    2.2,
+    2.8
+   ],
+   "tris": 404,
+   "min": [
+    -3,
+    0,
+    -1.4
+   ],
+   "max": [
+    3,
+    2.2,
+    1.4
+   ],
+   "forward": "+x"
+  },
+  {
+   "name": "car_b",
+   "file": "props.glb",
+   "class": "car",
+   "size": [
+    6.6,
+    1.9,
+    2.8
+   ],
+   "tris": 408,
+   "min": [
+    -3.3,
+    0,
+    -1.4
+   ],
+   "max": [
+    3.3,
+    1.9,
+    1.4
+   ],
+   "forward": "+x"
+  },
+  {
+   "name": "car_c",
+   "file": "props.glb",
+   "class": "car",
+   "size": [
+    6.4,
+    2.7,
+    2.9
+   ],
+   "tris": 412,
+   "min": [
+    -3.2,
+    0,
+    -1.4
+   ],
+   "max": [
+    3.2,
+    2.7,
+    1.4
+   ],
+   "forward": "+x"
+  },
+  {
+   "name": "bus",
+   "file": "props.glb",
+   "class": "car",
+   "size": [
+    11,
+    3.6,
+    3.3
+   ],
+   "tris": 586,
+   "min": [
+    -5.5,
+    0,
+    -1.6
+   ],
+   "max": [
+    5.5,
+    3.6,
+    1.6
+   ],
+   "forward": "+x",
+   "doorSide": "+z"
+  },
+  {
+   "name": "streetlamp",
+   "file": "props.glb",
+   "class": "prop",
+   "size": [
+    1.2,
+    7.1,
+    2.4
+   ],
+   "tris": 116,
+   "min": [
+    -0.6,
+    0,
+    -0.2
+   ],
+   "max": [
+    0.6,
+    7.1,
+    2.2
+   ],
+   "lamp": [
+    0,
+    6.85,
+    1.6
+   ]
+  },
+  {
+   "name": "bench",
+   "file": "props.glb",
+   "class": "prop",
+   "size": [
+    2.4,
+    1,
+    0.6
+   ],
+   "tris": 88,
+   "min": [
+    -1.2,
+    0,
+    -0.3
+   ],
+   "max": [
+    1.2,
+    1,
+    0.3
+   ]
+  },
+  {
+   "name": "boat_sail",
+   "file": "props.glb",
+   "class": "boat",
+   "size": [
+    9.5,
+    12,
+    2.9
+   ],
+   "tris": 507,
+   "min": [
+    -4.8,
+    -0.8,
+    -1.5
+   ],
+   "max": [
+    4.8,
+    12,
+    1.5
+   ],
+   "forward": "+x",
+   "waterline": 0
+  },
+  {
+   "name": "boat_fishing",
+   "file": "props.glb",
+   "class": "boat",
+   "size": [
+    11.5,
+    6.6,
+    3.8
+   ],
+   "tris": 589,
+   "min": [
+    -5.8,
+    -1,
+    -1.9
+   ],
+   "max": [
+    5.8,
+    6.6,
+    1.9
+   ],
+   "forward": "+x",
+   "waterline": 0
+  },
+  {
+   "name": "ferry",
+   "file": "props.glb",
+   "class": "boat",
+   "size": [
+    34.5,
+    11.8,
+    9
+   ],
+   "tris": 1135,
+   "min": [
+    -17.5,
+    -1.4,
+    -4.5
+   ],
+   "max": [
+    17,
+    11.8,
+    4.5
+   ],
+   "forward": "+x",
+   "waterline": 0
+  },
+  {
+   "name": "lighthouse",
+   "file": "props.glb",
+   "class": "landmark",
+   "size": [
+    16.2,
+    29,
+    12.8
+   ],
+   "tris": 1858,
+   "min": [
+    -6.5,
+    -3,
+    -6.4
+   ],
+   "max": [
+    9.7,
+    29,
+    6.4
+   ],
+   "children": [
+    "lighthouse_lamp"
+   ],
+   "pivots": {
+    "lighthouse_lamp": [
+     0,
+     24.3,
+     0
+    ]
+   },
+   "height": 28.8,
+   "lampHeight": 24.3,
+   "door": [
+    0,
+    4.5
+   ]
+  },
+  {
+   "name": "umbrella",
+   "file": "props.glb",
+   "class": "prop",
+   "size": [
+    4.2,
+    3,
+    4.2
+   ],
+   "tris": 104,
+   "min": [
+    -2.1,
+    -0.5,
+    -2.1
+   ],
+   "max": [
+    2.1,
+    3,
+    2.1
+   ]
+  },
+  {
+   "name": "sunbed",
+   "file": "props.glb",
+   "class": "prop",
+   "size": [
+    1.9,
+    1,
+    0.7
+   ],
+   "tris": 42,
+   "min": [
+    -0.9,
+    0,
+    -0.3
+   ],
+   "max": [
+    1,
+    1,
+    0.3
+   ]
+  },
+  {
+   "name": "gull",
+   "file": "props.glb",
+   "class": "animal",
+   "size": [
+    1.6,
+    0.2,
+    2.6
+   ],
+   "tris": 42,
+   "min": [
+    -0.9,
+    -0.1,
+    -1.3
+   ],
+   "max": [
+    0.7,
+    0.2,
+    1.3
+   ],
+   "children": [
+    "gull_wing_l",
+    "gull_wing_r"
+   ],
+   "pivots": {
+    "gull_wing_l": [
+     0,
+     0.06,
+     -0.1
+    ],
+    "gull_wing_r": [
+     0,
+     0.06,
+     0.1
+    ]
+   },
+   "forward": "+x",
+   "wingspan": 2.6
+  },
+  {
+   "name": "dolphin",
+   "file": "props.glb",
+   "class": "animal",
+   "size": [
+    4.4,
+    2.1,
+    1.7
+   ],
+   "tris": 108,
+   "min": [
+    -2.5,
+    -0.1,
+    -0.9
+   ],
+   "max": [
+    2,
+    2.1,
+    0.9
+   ],
+   "forward": "+x",
+   "waterline": 0
+  },
+  {
+   "name": "sheep",
+   "file": "props.glb",
+   "class": "animal",
+   "size": [
+    2.4,
+    1.8,
+    1.2
+   ],
+   "tris": 362,
+   "min": [
+    -1.1,
+    0,
+    -0.6
+   ],
+   "max": [
+    1.3,
+    1.8,
+    0.6
+   ],
+   "forward": "+x"
+  },
+  {
+   "name": "deer",
+   "file": "props.glb",
+   "class": "animal",
+   "size": [
+    3,
+    3.9,
+    1
+   ],
+   "tris": 396,
+   "min": [
+    -1.1,
+    0,
+    -0.5
+   ],
+   "max": [
+    1.8,
+    3.9,
+    0.5
+   ],
+   "forward": "+x"
+  },
+  {
+   "name": "dog",
+   "file": "props.glb",
+   "class": "animal",
+   "size": [
+    2.1,
+    1.7,
+    0.9
+   ],
+   "tris": 432,
+   "min": [
+    -1,
+    0,
+    -0.4
+   ],
+   "max": [
+    1.2,
+    1.7,
+    0.4
+   ],
+   "forward": "+x"
+  },
+  {
+   "name": "tram_stop",
+   "file": "props.glb",
+   "class": "station",
+   "size": [
+    14,
+    5,
+    5.9
+   ],
+   "tris": 604,
+   "min": [
+    -7,
+    -1.5,
+    0.3
+   ],
+   "max": [
+    7,
+    5,
+    6.1
+   ],
+   "children": [
+    "tram_stop_sign_1"
+   ],
+   "pivots": {
+    "tram_stop_sign_1": [
+     0,
+     2.9,
+     4.55
+    ]
+   },
+   "track": {
+    "axis": "x",
+    "centre": [
+     0,
+     0
+    ],
+    "railTop": 0
+   },
+   "platform": {
+    "top": 0.9,
+    "length": 14,
+    "edge": 1.4,
+    "side": "+z"
+   },
+   "signs": [
+    {
+     "name": "tram_stop_sign_1",
+     "size": [
+      3.6,
+      0.9
+     ],
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    }
+   ],
+   "door": [
+    0,
+    5.2
+   ]
+  },
+  {
+   "name": "ferry_terminal",
+   "file": "props.glb",
+   "class": "station",
+   "size": [
+    18,
+    5.5,
+    38.6
+   ],
+   "tris": 1240,
+   "min": [
+    -9,
+    -8.5,
+    -30
+   ],
+   "max": [
+    9,
+    5.5,
+    8.6
+   ],
+   "children": [
+    "ferry_terminal_sign_1"
+   ],
+   "pivots": {
+    "ferry_terminal_sign_1": [
+     0,
+     4.95,
+     6.2
+    ]
+   },
+   "signs": [
+    {
+     "name": "ferry_terminal_sign_1",
+     "size": [
+      4.6,
+      0.9
+     ],
+     "facing": [
+      0,
+      0,
+      1
+     ]
+    }
+   ],
+   "door": [
+    0,
+    7
+   ],
+   "jettyEnd": [
+    0,
+    -30
+   ],
+   "deck": 0.4
+  }
+ ]
+}

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Island town plan</title>
+<style>
+  html, body { margin: 0; background: #F4F1EA; color: #1A1A1A; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  header { padding: 14px 20px 6px; display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: baseline; }
+  h1 { font-size: 20px; margin: 0; }
+  header p { margin: 0; font-size: 13px; line-height: 1.4; }
+  nav { padding: 0 20px 10px; font-size: 13px; }
+  nav a { color: #1A1A1A; margin-right: 12px; }
+  nav a[aria-current] { font-weight: 700; text-decoration: none; }
+  #map { display: block; width: 100%; height: auto; }
+  body.shot header, body.shot nav { display: none; }
+  body.shot { background: #BCDDE8; }
+</style>
+</head>
+<body>
+<header><h1>Island town plan</h1><p id="sum">Drawing the plan…</p></header>
+<nav id="nav"></nav>
+<svg id="map" role="img" aria-label="Top-down map of the island town plan"></svg>
+<script src="../shared/content.js"></script>
+<script type="module">
+/* The island seen from above, drawn straight from buildPlan(): nothing on this page is placed by hand.
+   ?town=harbour|garden|north|point|beach  a close-up of one town     ?shot  hide the page chrome (for pictures)
+   ?walks=0  hide the walking routes     ?grow  add a test project to every town (shows the reserved plots filling)
+   ?six  add a sixth kind of work (shows the town on the south meadow) */
+import { buildPlan, footprint, groundBox, toWorld, treeRadius, PLAN } from './plan.js';
+import * as data from './city-data.js';
+
+const Q = new URLSearchParams(location.search);
+if (Q.has('shot')) document.body.classList.add('shot');
+const manifest = await (await fetch('./models/manifest.json', { cache: 'no-store' })).json();
+const defs = new Map(manifest.models.map((m) => [m.name, m]));
+let city = data;
+if (Q.has('grow')) city = { ...data, PROJECTS: [...(data.PROJECTS || data.STOPS || []), ...(data.DISTRICTS || []).map((d) => ({ id: `new-${d.id}`, district: d.id, building: 'A new project' }))] };
+if (Q.has('six')) city = { ...city, DISTRICTS: [...(data.DISTRICTS || []), { id: 'newwork', label: 'A sixth kind of work', color: '#7A3FB5' }], TOWNS: [...(data.TOWNS || []), { id: 'meadow', code: 'K6', name: 'Meadow town', district: 'newwork' }], PROJECTS: [...(city.PROJECTS || city.STOPS || []), { id: 'new-work', district: 'newwork', building: 'A new project' }] };
+const plan = buildPlan(city, manifest, { projects: (window.KY && window.KY.projects) || [] });
+window.plan = plan;
+
+const COLORS = Object.fromEntries((city.DISTRICTS || []).map((d) => [d.id, d.color]));
+const townColor = (id) => { const t = plan.towns.find((x) => x.id === id); return (t && COLORS[t.district]) || '#666'; };
+const focus = Q.get('town') && plan.towns.find((t) => t.id === Q.get('town'));
+
+/* ---- the view ---- */
+let view = { x: -342, z: -248, w: 684, h: 506, px: 2.5 };
+if (focus) { const pts = [...plan.lots.filter((l) => l.town === focus.id).flatMap((l) => l.poly), ...plan.zones.filter((z) => z.town === focus.id).flatMap((z) => z.poly)]; const xs = pts.map((p) => p[0]), zs = pts.map((p) => p[1]); const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cz = (Math.min(...zs) + Math.max(...zs)) / 2; const w = Math.max(300, Math.max(...xs) - Math.min(...xs) + 70), h = Math.max(230, Math.max(...zs) - Math.min(...zs) + 70); const hh = Math.max(h, w * 0.76), ww = hh / 0.76; view = { x: cx - ww / 2, z: cz - hh / 2, w: ww, h: hh, px: 1680 / ww }; }
+const u = (px) => px / view.px;                      // a size in screen pixels → map metres
+const svg = document.getElementById('map'); svg.setAttribute('viewBox', `${view.x} ${view.z} ${view.w} ${view.h}`); svg.setAttribute('width', Math.round(view.w * view.px)); svg.setAttribute('height', Math.round(view.h * view.px));
+
+const out = [];
+const pts = (a) => a.map((p) => `${p[0]},${p[1]}`).join(' ');
+const poly = (a, attr) => out.push(`<polygon points="${pts(a)}" ${attr}/>`);
+const line = (a, attr) => out.push(`<polyline points="${pts(a)}" fill="none" ${attr}/>`);
+const text = (x, z, s, { size = 12, weight = 600, fill = '#1A1A1A', anchor = 'middle', halo = '#fff', rot = 0, italic = false } = {}) => out.push(`<text x="${x}" y="${z}" font-size="${u(size)}" font-weight="${weight}" fill="${fill}" text-anchor="${anchor}" ${italic ? 'font-style="italic"' : ''} ${rot ? `transform="rotate(${rot} ${x} ${z})"` : ''} paint-order="stroke" stroke="${halo}" stroke-width="${u(3.2)}" stroke-linejoin="round" stroke-opacity=".9">${String(s).replace(/&/g, '&amp;')}</text>`);
+const inside = (p, poly) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const a = poly[i], b = poly[j]; if ((a[1] > p[1]) !== (b[1] > p[1]) && p[0] < ((b[0] - a[0]) * (p[1] - a[1])) / (b[1] - a[1]) + a[0]) c = !c; } return c; };
+const mid = (a) => { const s = a.reduce((m, p) => [m[0] + p[0], m[1] + p[1]], [0, 0]); return [s[0] / a.length, s[1] / a.length]; };
+
+/* ---- sea, land, hill ---- */
+out.push(`<rect x="${view.x}" y="${view.z}" width="${view.w}" height="${view.h}" fill="#BCDDE8"/>`);
+out.push(`<polygon points="${pts(plan.island.coast)}" fill="none" stroke="#A9D3DC" stroke-width="16" stroke-linejoin="round"/>`);
+poly(plan.island.coast, 'fill="#D9E8C2" stroke="#E7D9A8" stroke-width="2.4" stroke-linejoin="round"');
+line(plan.island.quay, 'stroke="#6F7780" stroke-width="1.6"');
+const TINT = { square: ['#F2E6C4', '#C9B37A'], park: ['#A8D08A', '#7FAE62'], hill: ['#B5D596', 'none'], residential: ['#F6D8C2', '#D9A27E'], port: ['#C7CCD4', '#8E96A2'], beach: ['#F3E2AC', 'none'], farm: ['#CFE3A2', '#9DB96A'], future: ['#E6F0D4', '#6E9A4D'], reserved: ['#FFFFFF', '#8A8A8A'] };
+for (const z of plan.zones.filter((q) => q.use === 'beach')) poly(z.poly, `fill="${TINT.beach[0]}"`);
+for (const z of plan.zones.filter((q) => q.use === 'hill')) { poly(z.poly, `fill="${TINT.hill[0]}"`); const h = plan.island.hill; for (const f of [0.75, 0.5]) out.push(`<ellipse cx="${h.x}" cy="${h.z}" rx="${h.ta + (h.a - h.ta) * f}" ry="${h.tb + (h.b - h.tb) * f}" fill="none" stroke="#8FB36B" stroke-opacity=".55" stroke-width="${u(1)}"/>`); }
+for (const z of plan.zones) {
+  if (z.use === 'beach' || z.use === 'hill') continue;
+  if (TINT[z.use] && z.use !== 'reserved') poly(z.poly, `fill="${TINT[z.use][0]}" stroke="${TINT[z.use][1]}" stroke-width="${u(1.2)}" ${z.use === 'future' ? `stroke-dasharray="${u(7)} ${u(5)}"` : ''}`);
+  else if (z.use === 'reserved') poly(z.poly, `fill="#fff" fill-opacity=".72" stroke="#6B6B6B" stroke-width="${u(1.4)}" stroke-dasharray="${u(6)} ${u(4)}"`);
+  else poly(z.poly, `fill="${townColor(z.town)}" fill-opacity=".16" stroke="${townColor(z.town)}" stroke-opacity=".7" stroke-width="${u(1.3)}"`);
+}
+
+/* ---- paths, then roads by rank ---- */
+const PATH = { footpath: ['#B79B6E', 0], promenade: ['#B8895A', 0], boardwalk: ['#8E5F33', 0], steps: ['#7A6A4F', 1] };
+for (const p of plan.paths) line(p.points, `stroke="${PATH[p.kind][0]}" stroke-width="${Math.max(p.width, u(1.6))}" stroke-linejoin="round" stroke-linecap="round" ${PATH[p.kind][1] ? `stroke-dasharray="${u(3)} ${u(3)}"` : ''}`);
+const ROAD = { coast: '#4B4F55', main: '#5C6066', street: '#74787E', lane: '#9A9DA2', hill: '#6B6F6A' };
+for (const kind of ['lane', 'hill', 'street', 'main', 'coast']) for (const r of plan.roads.filter((q) => q.kind === kind)) line(r.points, `stroke="#fff" stroke-width="${r.width + u(2)}" stroke-linejoin="round" stroke-linecap="round"`);
+for (const kind of ['lane', 'hill', 'street', 'main', 'coast']) for (const r of plan.roads.filter((q) => q.kind === kind)) line(r.points, `stroke="${ROAD[kind]}" stroke-width="${r.width}" stroke-linejoin="round" stroke-linecap="round"`);
+
+/* ---- everything that stands ---- */
+const fp = (pl) => { const d = defs.get(pl.model); return d ? footprint(pl, d) : null; };
+for (const pl of plan.placements.filter((p) => p.kind === 'tree')) { const d = defs.get(pl.model); if (!d) continue; out.push(`<circle cx="${pl.x}" cy="${pl.z}" r="${treeRadius(d, pl.scale)}" fill="${pl.model === 'palm' ? '#7FB36A' : pl.grove === 'orchard' ? '#8FBF5E' : '#5E9E58'}" fill-opacity=".85" stroke="#3F7A3E" stroke-width="${u(0.6)}"/>`); }
+for (const lot of plan.lots.filter((l) => l.use === 'project')) {                          // the room each building has to grow: its largest level, dashed
+  const pl = plan.placements.find((p) => p.project === lot.project); const nodes = ((manifest.buildings || {})[lot.project] || {}).nodes || { 1: 'lot', 2: 'site_small' }; let b = null;
+  for (const name of Object.values(nodes)) { const d = defs.get(name); if (!d) continue; const g = groundBox(d); if (d.quayEdge != null) g[1] = d.quayEdge; b = b ? [Math.min(b[0], g[0]), Math.min(b[1], g[1]), Math.max(b[2], g[2]), Math.max(b[3], g[3])] : g; }
+  if (b && pl) poly([[b[0], b[1]], [b[2], b[1]], [b[2], b[3]], [b[0], b[3]]].map(([x, z]) => toWorld(pl, x, z)), `fill="none" stroke="${townColor(lot.town)}" stroke-width="${u(1.1)}" stroke-dasharray="${u(3)} ${u(3)}"`);
+}
+for (const pl of plan.placements) {
+  const f = fp(pl); if (!f) continue;
+  if (pl.kind === 'building') { const d = defs.get(pl.model); if (d.quayEdge != null) { const piers = [[d.min[0], d.min[2]], [d.max[0], d.min[2]], [d.max[0], d.quayEdge], [d.min[0], d.quayEdge]].map(([x, z]) => toWorld(pl, x, z)); poly(piers, `fill="#9AA1AB" fill-opacity=".8" stroke="#5F6670" stroke-width="${u(0.8)}"`); const land = [[d.min[0], d.quayEdge], [d.max[0], d.quayEdge], [d.max[0], d.max[2]], [d.min[0], d.max[2]]].map(([x, z]) => toWorld(pl, x, z)); poly(land, `fill="${townColor(pl.town)}" stroke="#1A1A1A" stroke-width="${u(1.4)}"`); } else poly(f, `fill="${pl.level <= 2 ? '#fff' : townColor(pl.town)}" ${pl.level <= 2 ? `stroke="${townColor(pl.town)}"` : 'stroke="#1A1A1A"'} stroke-width="${u(1.4)}"`); }
+  else if (pl.kind === 'station') poly(f, `fill="#fff" stroke="#1A1A1A" stroke-width="${u(1.8)}"`);
+  else if (pl.kind === 'tower') out.push(`<circle cx="${pl.x}" cy="${pl.z}" r="31" fill="#fff" stroke="#1A1A1A" stroke-width="${u(1.4)}"/><circle cx="${pl.x}" cy="${pl.z}" r="13" fill="#1A1A1A"/>`);
+  else if (pl.kind === 'house') poly(f, `fill="#E9A06B" stroke="#8A4B22" stroke-width="${u(0.9)}"`);
+  else if (pl.kind === 'landmark') poly(f, `fill="#fff" stroke="#1A1A1A" stroke-width="${u(1.4)}"`);
+  else if (pl.kind === 'boat') poly(f, `fill="#fff" stroke="#3B5F7A" stroke-width="${u(0.9)}"`);
+  else if (pl.kind === 'lamp') out.push(`<circle cx="${pl.x}" cy="${pl.z}" r="${Math.max(0.7, u(1.5))}" fill="#F2B705" stroke="#7A5A00" stroke-width="${u(0.5)}"/>`);
+  else if (pl.kind === 'bench') poly(f, `fill="#6B4A2B" stroke="#6B4A2B" stroke-width="${u(1)}"`);
+  else if (pl.kind === 'beach') { if (pl.model === 'umbrella') out.push(`<circle cx="${pl.x}" cy="${pl.z}" r="2.1" fill="#E8731A" stroke="#fff" stroke-width="${u(0.8)}"/>`); else poly(f, 'fill="#fff" stroke="#9A7B4F" stroke-width="0.15"'); }
+}
+
+/* ---- the lanes in the air, the gates, the pod ---- */
+for (const l of [plan.metro.cw, plan.metro.ccw]) line(l, `stroke="#D5281E" stroke-width="${Math.max(1.1, u(1.6))}" stroke-dasharray="${u(2)} ${u(4)}" stroke-linecap="round"`);
+for (const g of plan.placements.filter((p) => p.kind === 'gate')) { const c = Math.cos(g.rot), s = Math.sin(g.rot); out.push(`<line x1="${g.x - s * 5}" y1="${g.z - c * 5}" x2="${g.x + s * 5}" y2="${g.z + c * 5}" stroke="#D5281E" stroke-width="${u(2.2)}" stroke-linecap="round"/>`); }
+line(plan.pod.path.map((p) => [p[0], p[2]]), `stroke="#1A1A1A" stroke-width="${Math.max(0.9, u(1.4))}" stroke-dasharray="${u(1.5)} ${u(4)}" stroke-linecap="round"`);
+
+/* ---- walking routes ---- */
+if (Q.get('walks') !== '0') for (const [id, w] of Object.entries(plan.walks)) { if (focus && plan.projects[id].town !== focus.id) continue; line(w, `stroke="#0B57D0" stroke-width="${u(2.4)}" stroke-dasharray="${u(1)} ${u(5)}" stroke-linecap="round" stroke-linejoin="round"`); const e = w[w.length - 1]; out.push(`<circle cx="${e[0]}" cy="${e[1]}" r="${u(3.2)}" fill="#0B57D0" stroke="#fff" stroke-width="${u(1)}"/>`); }
+
+/* ---- words ---- */
+for (const pl of plan.placements.filter((p) => p.kind === 'building')) { const lot = plan.lots.find((l) => l.id === pl.lot); const c = mid(lot.poly); text(c[0], c[1] + u(4), `${pl.project}${focus ? ` · level ${pl.level}` : ''}`, { size: focus ? 13 : 11, weight: 700 }); }
+for (const lot of plan.lots.filter((l) => l.use === 'reserved')) { const c = mid(lot.poly); text(c[0], c[1] + u(4), 'reserved', { size: 11, weight: 500, italic: true, fill: '#444' }); }
+for (const z of plan.zones) if (z.label && (focus || !['Station Square', 'Pocket green'].includes(z.label))) { const c = mid(z.poly); if (z.use === 'hill') text(c[0], c[1] + 52, z.label, { size: 12, italic: true, fill: '#2F5A2A' }); else if (z.label === 'Tower plaza') continue; else if (z.use === 'port' || z.use === 'residential') { if (focus) text(c[0], c[1] - u(16), z.label, { size: 11, weight: 500, italic: true, fill: '#333' }); } else text(c[0], c[1] + u(4), z.label, { size: 11, weight: 500, italic: true, fill: '#2F5A2A' }); }
+if (focus) for (const r of plan.roads) { if (r.kind === 'coast' || !r.name) continue; const m = r.points[Math.floor(r.points.length / 2)], a = r.points[0], b = r.points[r.points.length - 1]; if (m[0] < view.x || m[0] > view.x + view.w || m[1] < view.z || m[1] > view.z + view.h) continue; const c = r.points.length === 2 ? [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2] : m; let ang = (Math.atan2(b[1] - a[1], b[0] - a[0]) * 180) / Math.PI; if (ang > 90) ang -= 180; if (ang < -90) ang += 180; text(c[0], c[1] - u(5), r.name, { size: 11, weight: 500, fill: '#333', rot: r.points.length === 2 ? ang : 0 }); }
+for (const t of plan.towns) {
+  const s = t.station; out.push(`<circle cx="${s.x}" cy="${s.z}" r="${u(12)}" fill="#1A1A1A" stroke="#fff" stroke-width="${u(2)}"/>`); text(s.x, s.z + u(4), t.code, { size: 12, weight: 800, fill: '#fff', halo: '#1A1A1A' });
+  const st = plan.metro.stations.find((q) => q.town === t.id); const sea = [st.dir[1], -st.dir[0]]; let d = 30; while (d < 200 && inside([s.x + sea[0] * d, s.z + sea[1] * d], plan.island.coast)) d += 4;
+  const at = [s.x + sea[0] * (d + 26), s.z + sea[1] * (d + 26)]; const east = sea[0] > 0.5; const anchor = east ? 'end' : sea[0] < -0.5 ? 'start' : 'middle'; const ax = east ? view.x + view.w - u(14) : sea[0] < -0.5 ? Math.max(view.x + u(14), at[0] - 70) : at[0]; if (east) at[1] += 34; const legTop = view.z + view.h - u(16) - 13 * u(17) - u(16); if (ax < view.x + u(330) && at[1] > legTop - u(44)) at[1] = legTop - u(44);   // keep clear of the legend
+  if (!focus) { text(ax, at[1], `${t.code} ${t.name}`, { size: 15, weight: 800, fill: townColor(t.id), anchor }); text(ax, at[1] + u(16), (city.DISTRICTS || []).find((q) => q.id === t.district)?.label || t.district, { size: 12, weight: 500, anchor }); }
+}
+{ const h = plan.island.hill; text(h.x, h.z - 38, 'the tower', { size: 12, weight: 700 }); }
+const lh = plan.placements.find((p) => p.model === 'lighthouse'); if (lh) text(lh.x + 4, lh.z - 12, 'lighthouse', { size: 11, weight: 500 });
+const ft = plan.placements.find((p) => p.model === 'ferry_terminal'); if (ft) text(ft.x - 16, ft.z + 22, 'ferry', { size: 11, weight: 500 });
+if (!focus) for (const [x, z] of [[-236, -30], [216, 62], [-150, -150]]) text(x, z, 'green belt', { size: 11, italic: true, fill: '#2F5A2A', weight: 500 });
+{ const ps = plan.pod.stops[1]; if (focus) text(ps.x, ps.z - u(10), 'pod stop', { size: 11, weight: 500 }); }
+
+/* ---- title, legend, scale ---- */
+const x0 = view.x + u(16), zt = view.z + u(30);
+text(x0, zt, focus ? `${focus.code} ${focus.name}` : Q.has('six') ? 'The island with a sixth town' : Q.has('grow') ? 'The island with one more project in every town' : 'The island: town plan', { size: 22, weight: 800, anchor: 'start' });
+text(x0, zt + u(20), `${plan.island.width.toFixed(0)} × ${plan.island.depth.toFixed(0)} m · ${plan.towns.length} towns · ${plan.counts.buildings} project buildings · ${plan.lots.filter((l) => l.use === 'reserved').length} reserved plots · ${plan.counts.houses} houses · ${plan.counts.trees} trees`, { size: 12, weight: 500, anchor: 'start' });
+const LEG = [['rect', '#D5281E', 'project building (dashed: room to grow)'], ['resv', '', 'reserved plot'], ['rect', '#F2E6C4', 'station square'], ['rect', '#F6D8C2', 'homes'], ['rect', '#A8D08A', 'park, pocket green'], ['rect', '#CFE3A2', 'orchard'], ['rect', '#C7CCD4', 'port'], ['rect', '#F3E2AC', 'beach'], ['road', '#4B4F55', 'coast road'], ['road2', '#5C6066', 'main street · street · lane'], ['path', '#B8895A', 'promenade and footpaths'], ['lane', '#D5281E', 'metro lanes (in the air) and gates'], ['walk', '#0B57D0', 'walk from the station to a door']];
+const lx = view.x + u(16); let lz = view.z + view.h - u(16) - LEG.length * u(17);
+out.push(`<rect x="${lx - u(8)}" y="${lz - u(16)}" width="${u(300)}" height="${LEG.length * u(17) + u(22)}" rx="${u(8)}" fill="#fff" fill-opacity=".88"/>`);
+for (const [k, c, label] of LEG) {
+  const y = lz; const w = u(26);
+  if (k === 'rect') out.push(`<rect x="${lx}" y="${y - u(9)}" width="${w}" height="${u(11)}" fill="${c}" stroke="#555" stroke-width="${u(0.8)}"/>`);
+  else if (k === 'resv') out.push(`<rect x="${lx}" y="${y - u(9)}" width="${w}" height="${u(11)}" fill="#fff" stroke="#6B6B6B" stroke-width="${u(1.2)}" stroke-dasharray="${u(4)} ${u(3)}"/>`);
+  else out.push(`<line x1="${lx}" y1="${y - u(4)}" x2="${lx + w}" y2="${y - u(4)}" stroke="${c}" stroke-width="${u(k === 'road' ? 6 : k === 'road2' ? 4 : 2.4)}" ${k === 'lane' ? `stroke-dasharray="${u(2)} ${u(4)}"` : k === 'walk' ? `stroke-dasharray="${u(1)} ${u(5)}"` : ''} stroke-linecap="round"/>`);
+  text(lx + w + u(8), y, label, { size: 12, weight: 500, anchor: 'start', halo: 'none' }); lz += u(17);
+}
+const sx = view.x + view.w - u(16) - 100, sz = view.z + view.h - u(20);
+out.push(`<line x1="${sx}" y1="${sz}" x2="${sx + 100}" y2="${sz}" stroke="#1A1A1A" stroke-width="${u(3)}"/>`); text(sx + 50, sz - u(7), '100 m', { size: 12, weight: 700 });
+out.push(`<path d="M ${view.x + view.w - u(30)} ${view.z + u(48)} l ${u(-8)} ${u(22)} l ${u(8)} ${u(-6)} l ${u(8)} ${u(6)} z" fill="#1A1A1A"/>`); text(view.x + view.w - u(30), view.z + u(40), 'N', { size: 13, weight: 800 });
+
+svg.innerHTML = out.join('');
+document.getElementById('sum').textContent = `${plan.island.width.toFixed(0)} × ${plan.island.depth.toFixed(0)} m. ${plan.roads.length} roads, ${plan.paths.length} paths, ${plan.lots.length} plots, ${plan.placements.length} things placed. The plan reports ${plan.problems.length} problem${plan.problems.length === 1 ? '' : 's'} of its own; run plan-check.mjs for the full test.`;
+document.getElementById('nav').innerHTML = [`<a href="?" ${focus ? '' : 'aria-current="page"'}>Whole island</a>`, ...plan.towns.map((t) => `<a href="?town=${t.id}" ${focus && focus.id === t.id ? 'aria-current="page"' : ''}>${t.code} ${t.name}</a>`)].join('');
+document.documentElement.dataset.ready = '1';
+</script>
+</body>
+</html>

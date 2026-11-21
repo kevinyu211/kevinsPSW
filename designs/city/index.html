@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kevin Yu · Island city</title>
+<meta name="description" content="Kevin Yu builds AI products and ships them end to end. This is his island: five towns on one metro loop, a building for everything he has built, and his tower on the hill.">
+<meta name="theme-color" content="#F6F4EF">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/addons/" } }
+</script>
+</head>
+<body class="is-loading">
+<a class="skip" href="#strip">Skip to the metro line</a>
+
+<header class="top">
+  <button class="brand" type="button" data-brand aria-label="Kevin Yu. About Kevin">
+    <span class="roundel" aria-hidden="true" data-roundel>K</span>
+    <span class="brand-txt"><b data-owner>Kevin Yu</b><span>Island city</span></span>
+  </button>
+  <div class="tools">
+    <p class="sky" data-sky hidden><span class="sky-ic" data-sky-icon aria-hidden="true"></span><span data-sky-text></span></p>
+    <div class="seg" role="group" aria-label="Look">
+      <button type="button" data-look="film" aria-pressed="true">Film</button>
+      <button type="button" data-look="model" aria-pressed="false">Model</button>
+    </div>
+    <button class="chip" type="button" data-reset>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4.5V9h4.5"/></svg><span>Reset view</span>
+    </button>
+    <div class="switch" data-design-switch></div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- The island. Drag to turn, scroll or pinch to zoom, click a building to ride there -->
+  <div class="stage" data-stage>
+    <div class="tags" data-tags aria-hidden="true"></div>
+  </div>
+  <div class="tip" data-tip role="tooltip" hidden></div>
+
+  <!-- What the visitor is looking at: its name and level, and the way in -->
+  <aside class="focus" data-focus aria-label="What you are looking at" hidden>
+    <button class="focus-x" type="button" data-focus-x aria-label="Stop looking at this"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg></button>
+    <p class="focus-k" data-focus-k></p>
+    <h2 class="focus-t" data-focus-t></h2>
+    <p class="focus-l" data-focus-l></p>
+    <div class="focus-a" data-focus-a></div>
+  </aside>
+
+  <!-- The opening: one line, while the island builds itself -->
+  <section class="opening" data-opening aria-labelledby="opening-title">
+    <h1 id="opening-title">Everyone builds their own city. <span>This is Kevin Yu’s.</span></h1>
+    <div class="opening-bar" aria-hidden="true"><i data-opening-bar></i></div>
+    <button class="chip chip-ink" type="button" data-skip hidden>
+      <span>Skip</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l8 7-8 7z"/><path d="M18 5v14"/></svg>
+    </button>
+  </section>
+
+  <!-- Inside the train as it pulls in: the doors, then the page -->
+  <div class="cabin" data-cabin aria-hidden="true">
+    <div class="cabin-roof">
+      <div class="sign">
+        <span class="sign-k" data-sign-k>Next stop</span>
+        <span class="sign-line" aria-hidden="true"><i></i><i></i><i class="on"></i></span>
+        <b class="sign-name" data-sign-name></b>
+        <span class="sign-sub" data-sign-sub></span>
+      </div>
+    </div>
+    <div class="cabin-wall cabin-wall-l"><span class="pane"></span></div>
+    <div class="cabin-wall cabin-wall-r"><span class="pane"></span></div>
+    <div class="doorway">
+      <div class="leaf leaf-l"><span class="pane"></span><span class="handle"></span></div>
+      <div class="leaf leaf-r"><span class="pane"></span><span class="handle"></span></div>
+    </div>
+    <span class="pole pole-l"></span><span class="pole pole-r"></span>
+    <div class="cabin-floor"><i></i></div>
+  </div>
+
+  <!-- The page a stop opens onto -->
+  <article class="page" data-page data-mode="side" role="dialog" aria-modal="false" aria-labelledby="page-title" tabindex="-1" hidden>
+    <header class="page-bar">
+      <button class="chip chip-ink" type="button" data-close>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></svg><span data-close-label>Close</span>
+      </button>
+      <p class="page-where" data-page-where></p>
+      <div class="page-tools">
+        <button class="chip chip-i" type="button" data-tuck aria-label="Look at the building: tuck this page away" title="Look at the building">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Look at the building</span>
+        </button>
+        <button class="chip chip-i" type="button" data-expand aria-pressed="false" aria-label="Expand the page to the full screen" title="Expand">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5"/><path d="M20 9V4h-5"/><path d="M4 15v5h5"/><path d="M20 15v5h-5"/></svg><span data-expand-label>Expand</span>
+        </button>
+        <button class="chip" type="button" data-page-next>
+          <span data-page-next-label>Next stop</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </header>
+    <div class="page-body" data-page-body></div>
+  </article>
+
+  <!-- The one control: the metro line, like the route map above a train door -->
+  <nav class="strip" id="strip" data-strip aria-label="Metro line. Pick a project or a station and the train takes you there">
+    <div class="strip-now">
+      <p class="strip-at"><span data-at-k>You are at</span><b data-at>Main station</b></p>
+      <button class="next" type="button" data-next>
+        <span class="next-k">Next stop</span><b data-next-name></b>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+    <div class="strip-scroll" data-strip-scroll>
+      <div class="line" data-line></div>
+    </div>
+  </nav>
+</main>
+
+<p class="sr" data-live aria-live="polite"></p>
+
+<script src="../shared/content.js"></script>
+<script src="../shared/switcher.js" data-root="../../" data-current="city" defer></script>
+<script type="module" src="app.js"></script>
+<noscript><p class="noscript">This page draws an island with JavaScript. With it turned off, see <a href="../monograph/">the Monograph design</a> instead.</p></noscript>
+</body>
+</html>

@@ -403,7 +403,7 @@ def home_section():
     <div class="wrap">
       <div class="section-head section-head-row">
         <div class="head-main">
-          <p class="kicker"><span class="kicker-n">04</span>What I write</p>
+          <p class="kicker"><span class="kicker-n">05</span>What I write</p>
           <h2 id="newsletter-title" data-split>Daily AI, in English and 中文.</h2>
           <p class="section-sub">Every morning Andrew, the news-desk agent on my team, files a short, sourced brief on what changed in AI. {len(ISSUES)} issues so far, each with a link to every source.</p>
         </div>

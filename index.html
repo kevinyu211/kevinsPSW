@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kevin Yu</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Kevin Yu (Peiyuan Yu) is a Purdue biomedical engineering student who runs a one-person company with a team of AI agents: Hirvo, Snuggle Crew coloring books on Amazon, AI films, Noir Hours jazz and healthcare AI hackathon builds.">
+<meta name="description" content="Kevin Yu (Peiyuan Yu) builds AI products end to end. Purdue biomedical engineering student, co-founder and CTO of Hirvo, with shipped client software, mobile apps, nine books on Amazon, AI films and healthcare AI hackathon builds.">
 <link rel="canonical" href="https://kevinpeiyuanyu.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Kevin Yu">
 <meta property="og:url" content="https://kevinpeiyuanyu.com/">
-<meta property="og:title" content="Kevin Yu · I run a one-person company with a team of AI agents">
-<meta property="og:description" content="Purdue biomedical engineering student on a gap year, building Hirvo, children's books, AI films and late-night jazz with an AI team.">
+<meta property="og:title" content="Kevin Yu · I build AI products and ship them end to end">
+<meta property="og:description" content="Purdue biomedical engineering student and co-founder/CTO of Hirvo. Client software, mobile apps, books on Amazon, AI films and healthcare AI.">
 <meta property="og:image" content="https://kevinpeiyuanyu.com/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -26,7 +26,7 @@
   "alternateName": ["Peiyuan Yu", "余佩远"],
   "url": "https://kevinpeiyuanyu.com/",
   "image": "https://kevinpeiyuanyu.com/assets/og-image.png",
-  "jobTitle": "Founder of a one-person company; co-founder and CTO of Hirvo",
+  "jobTitle": "Co-founder and CTO of Hirvo",
   "affiliation": { "@type": "CollegeOrUniversity", "name": "Purdue University", "url": "https://www.purdue.edu/" },
   "alumniOf": { "@type": "HighSchool", "name": "Shanghai American School", "alternateName": "SAS", "url": "https://www.saschina.org/" },
   "knowsLanguage": ["English", "Mandarin"],
@@ -40,19 +40,24 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Space+Grotesk:wght@400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&display=swap">
 <link rel="stylesheet" href="assets/css/main.css">
 <link rel="stylesheet" href="assets/css/contact.css">
-<link rel="stylesheet" href="assets/css/noir.css">
 <link rel="stylesheet" href="assets/css/newsletter.css">
+<link rel="stylesheet" href="assets/css/designs.css">
 <script>
   (function () {
     var d = document.documentElement;
     try { var t = localStorage.getItem('ky-theme'); if (t === 'dark' || t === 'light') d.setAttribute('data-theme', t); } catch (e) {}
     try { if (localStorage.getItem('ky-nl-lang') === 'zh') d.setAttribute('data-nl-lang', 'zh'); } catch (e) {}
+    var designs = ['editorial', 'aurora', 'swiss', 'bento', 'noir'];
+    var pick = null;
+    try { pick = new URLSearchParams(location.search).get('design') || localStorage.getItem('ky-design'); } catch (e) {}
+    d.setAttribute('data-design', designs.indexOf(pick) > -1 ? pick : 'editorial');
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       d.classList.add('intro-pending');
-      setTimeout(function () { d.classList.remove('intro-pending'); }, 2600);
+      try { if (sessionStorage.getItem('ky-curtain') !== '1') { d.classList.add('has-curtain'); sessionStorage.setItem('ky-curtain', '1'); } } catch (e) {}
+      setTimeout(function () { d.classList.remove('intro-pending'); }, 3200);
     }
   })();
 </script>
@@ -67,11 +72,10 @@
       <span class="brand-name">Kevin Yu</span>
     </a>
     <nav class="nav" aria-label="Sections">
-      <a href="#about">About</a>
-      <a href="#how">How I work</a>
       <a href="#work">Work</a>
-      <a href="#lanes">Projects</a>
-      <a href="#newsletter">Newsletter</a>
+      <a href="#resume">Résumé</a>
+      <a href="#projects">Projects</a>
+      <a href="#newsletter">Writing</a>
       <span class="nav-indicator" aria-hidden="true"></span>
     </nav>
     <div class="bar-actions">
@@ -89,13 +93,11 @@
 
 <div class="menu-sheet" id="menu-sheet" inert>
   <nav class="menu-links" aria-label="Menu">
-    <a href="#about">About</a>
-    <a href="#how">How I work</a>
     <a href="#work">Work</a>
-    <a href="#noir">Music</a>
-    <a href="#lanes">Projects</a>
-    <a href="#newsletter">Newsletter</a>
-    <a href="#stack">Toolbox</a>
+    <a href="#resume">Résumé</a>
+    <a href="#build">How I build</a>
+    <a href="#projects">Projects</a>
+    <a href="#newsletter">Writing</a>
     <a href="#contact">Contact</a>
   </nav>
   <p class="menu-meta">Kevin Yu · 余佩远</p>
@@ -108,310 +110,28 @@
     <div class="wrap">
       <div class="hero-top">
         <div class="hero-copy">
-          <p class="eyebrow" data-intro><span class="pulse-dot" aria-hidden="true"></span>Biomedical engineering at Purdue · gap year until spring 2027</p>
+          <p class="eyebrow" data-intro><span class="pulse-dot" aria-hidden="true"></span>Open to healthcare AI and AI product roles</p>
           <h1 class="hero-title" id="hero-title">
-            <span class="line"><span class="line-in">Hi, I'm Kevin.</span></span>
-            <span class="line line-sub"><span class="line-in">I run a <em class="human">one-person company</em></span></span>
-            <span class="line line-sub"><span class="line-in">with a team of <em class="agent">AI agents.</em></span></span>
+            <span class="line"><span class="line-in">Kevin Yu.</span></span>
+            <span class="line line-sub"><span class="line-in">I build <em class="human">AI products</em></span></span>
+            <span class="line line-sub"><span class="line-in">and ship them <em class="agent">end to end.</em></span></span>
           </h1>
         </div>
         <div class="hero-side">
-          <p class="lede" data-intro>Two years ago I had never written code. Now I'm co-founder and CTO of a job-search startup, I publish children's coloring books on Amazon, I make AI films and late-night jazz, and I build healthcare demos at hackathons. I talk to one agent, and a team of them runs the rest.</p>
+          <p class="lede" data-intro>Biomedical engineering student at Purdue, on a gap year to build full time. I'm co-founder and CTO of Hirvo, and I've shipped client software, mobile apps, nine books on Amazon and AI films. I wrote my first line of code in 2024.</p>
           <div class="cta-row" data-intro>
             <a class="btn btn-ink" href="#work">See my work <svg class="arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></a>
-            <a class="btn btn-line" href="#how">How I work</a>
+            <a class="btn btn-line" href="#resume">Résumé</a>
           </div>
         </div>
       </div>
-
-      <figure class="org" aria-labelledby="org-title">
-        <div class="org-head">
-          <span class="org-title" id="org-title">How my AI company runs</span>
-          <span class="org-legend"><span class="key key-human"></span>Me <span class="key key-agent"></span>AI team <span class="key key-tool"></span>Connected tools</span>
-        </div>
-        <div class="sys" data-sys>
-          <svg class="sys-wires" aria-hidden="true"></svg>
-          <div class="sys-col">
-            <p class="sys-label">Me</p>
-            <div class="sys-stack">
-              <button class="node node-me" type="button" data-node="kevin"><b>Kevin</b><span>Talks to Stark</span></button>
-            </div>
-          </div>
-          <div class="sys-col">
-            <p class="sys-label">Grok Bot</p>
-            <div class="sys-stack">
-              <button class="node" type="button" data-node="stark"><b>Stark</b><span>COO · breaks asks into tasks</span></button>
-              <button class="node node-data" type="button" data-node="notion"><b>Notion</b><span>What each business runs</span></button>
-            </div>
-          </div>
-          <div class="sys-col">
-            <p class="sys-label">Leadership channel</p>
-            <div class="sys-stack">
-              <button class="chan chan-big" type="button" data-node="big3">
-                <span class="chan-name">#big-three</span>
-                <span class="chan-row"><b>Stark</b>COO</span>
-                <span class="chan-row"><b>Tony</b>CTO</span>
-                <span class="chan-row"><b>Sadie</b>CMO</span>
-                <span class="chan-note">Decide from the data, then delegate</span>
-              </button>
-            </div>
-          </div>
-          <div class="sys-col sys-rooms">
-            <p class="sys-label">Project channels</p>
-            <div class="sys-stack">
-              <button class="chan" type="button" data-node="hirvo"><span class="chan-name">#hirvo</span><span class="chan-mgr">James <i>manager</i></span><span class="chan-crew">Bob, Cindy, Alan</span></button>
-              <button class="chan" type="button" data-node="dev"><span class="chan-name">#dev</span><span class="chan-mgr">Steven <i>manager</i></span><span class="chan-crew">Bob, Cindy</span></button>
-              <button class="chan" type="button" data-node="mkt"><span class="chan-name">#marketing</span><span class="chan-mgr">Sadie <i>manager</i></span><span class="chan-crew">Blake, Kylie, Justin, Jennifer, Andrew</span></button>
-              <button class="chan" type="button" data-node="kdp"><span class="chan-name">#kdp</span><span class="chan-mgr">Tim <i>manager</i></span><span class="chan-crew">Cindy, Jennifer, Blake, Bob, Alex</span></button>
-            </div>
-          </div>
-          <div class="sys-col">
-            <p class="sys-label">Connected tools</p>
-            <div class="sys-stack">
-              <button class="node node-tool" type="button" data-node="claude"><b>Claude Code</b><span>Code and video edits</span></button>
-              <button class="node node-tool" type="button" data-node="codex"><b>Codex</b><span>Code and video edits</span></button>
-              <button class="node node-tool" type="button" data-node="bookflow"><b>Bookflow</b><span>Full KDP packages</span></button>
-            </div>
-          </div>
-        </div>
-        <figcaption class="org-caption" aria-live="off">
-          <span class="org-cap-name">#hirvo · James</span>
-          <span class="org-cap-text">James manages Hirvo and preps the crew so Bob, Cindy and Alan know what to do. Claude Code and Codex do the heavy coding.</span>
-        </figcaption>
-      </figure>
 
       <ul class="facts">
-        <li><span class="fact-v">2 yrs</span><span class="fact-l">from my first line of code to shipping real products</span></li>
-        <li><span class="fact-v">9</span><span class="fact-l">children's coloring books on Amazon</span></li>
-        <li><span class="fact-v">30/30</span><span class="fact-l">books made in a 30-day sprint</span></li>
-        <li><span class="fact-v">10</span><span class="fact-l">projects on the go right now</span></li>
+        <li><span class="fact-v">2 yrs</span><span class="fact-l">from my first line of code to shipped products</span></li>
+        <li><span class="fact-v">9</span><span class="fact-l">children's books live on Amazon</span></li>
+        <li><span class="fact-v">4</span><span class="fact-l">client and startup products in use or in testing</span></li>
+        <li><span class="fact-v">3</span><span class="fact-l">healthcare AI hackathon builds in Hong Kong and Shanghai</span></li>
       </ul>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section class="section about" id="about" aria-labelledby="about-title">
-    <div class="wrap about-grid">
-      <div class="about-copy">
-        <p class="kicker"><span class="kicker-n">01</span>Who I am</p>
-        <h2 id="about-title" data-split>From zero code to a company of one.</h2>
-        <p>I'm a Shanghai American School alum, and now I study biomedical engineering at Purdue, with a background in statistics. I want to end up in healthcare AI. Right now I'm on a gap year until spring 2027, building full time.</p>
-        <p>In mid-2024 I couldn't code. I learned by building with AI, and one rule has stuck: if a general chatbot can already do it, I don't build it. Whatever survives that test, I spec carefully and ship.</p>
-        <p>I work in English and Mandarin, between Canada, the US, China and Hong Kong.</p>
-      </div>
-      <ol class="timeline" data-reveal-group>
-        <li><span class="tl-when">2024</span><span class="tl-what">Graduated from Shanghai American School.</span></li>
-        <li><span class="tl-when">Mid-2024</span><span class="tl-what">Wrote my first line of code.</span></li>
-        <li><span class="tl-when">Nov 2025</span><span class="tl-what">Snuggle Christmas Crew went live on Amazon.</span></li>
-        <li><span class="tl-when">2026</span><span class="tl-what">Became co-founder and CTO of Hirvo, and built healthcare demos at AIx Origin in Hong Kong, 复客松 and Fudan.</span></li>
-        <li><span class="tl-when">Sep 2026</span><span class="tl-what">Set my company's goals: get Hirvo's rewrite right and start selling, and keep the book pipeline running.</span></li>
-        <li class="is-now"><span class="tl-when">Now</span><span class="tl-what">On a gap year, building full time and learning evals, fine-tuning and local AI.</span></li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- HOW IT RUNS -->
-  <section class="how" id="how" aria-labelledby="how-title">
-    <div class="how-pin">
-      <div class="wrap">
-        <header class="section-head">
-          <p class="kicker"><span class="kicker-n">02</span>How I work</p>
-          <h2 id="how-title" data-split>How a one-person company actually runs.</h2>
-          <p class="section-sub how-sub">I talk to one agent in Grok Bot. The team turns that into finished work, and the results come back to me.</p>
-        </header>
-
-        <div class="how-grid">
-          <div class="how-col">
-            <div class="how-rail" aria-hidden="true"><span></span></div>
-            <ol class="how-steps">
-              <li class="how-step is-active">
-                <div class="how-copy">
-                  <span class="how-num">01</span>
-                  <div class="how-text">
-                    <h3>I tell Stark.</h3>
-                    <div class="how-body"><div><p>I message Stark, my COO agent, in Grok Bot with whatever I have. Stark breaks it into clear tasks and brings them to the Big Three.</p></div></div>
-                  </div>
-                </div>
-                <div class="how-visual">
-                  <div class="v v-chat">
-                    <div class="code-head"><span>Grok Bot · Stark</span><span>Example</span></div>
-                    <div class="msg msg-me">
-                      <span class="msg-who">Me</span>
-                      <p>Let's get Cozy Christmas out. Hirvo's rewrite needs eval sets. Also, I have an idea for a weekend app.</p>
-                    </div>
-                    <div class="msg msg-agent">
-                      <span class="msg-who">Stark · COO</span>
-                      <p>Got it. Three tasks for the Big Three.</p>
-                      <ol class="tasks">
-                        <li><span class="task-n">1</span>Publish Cozy Christmas</li>
-                        <li><span class="task-n">2</span>Eval sets for Hirvo's rewrite</li>
-                        <li><span class="task-n">3</span>A weekend app</li>
-                      </ol>
-                    </div>
-                    <span class="msg-typing" aria-hidden="true"><i></i><i></i><i></i></span>
-                  </div>
-                </div>
-              </li>
-
-              <li class="how-step">
-                <div class="how-copy">
-                  <span class="how-num">02</span>
-                  <div class="how-text">
-                    <h3>The Big Three decide.</h3>
-                    <div class="how-body"><div><p>Tasks land in the Big Three channel. Stark, Tony (CTO) and Sadie (CMO) keep notes there and in Notion on what each business is running. They research, decide, and park work that serves no current goal.</p></div></div>
-                  </div>
-                </div>
-                <div class="how-visual">
-                  <div class="v v-decide">
-                    <div class="code-head"><span>#big-three · Stark, Tony, Sadie</span><span>Example</span></div>
-                    <div class="ledger">
-                      <p class="ledger-k">What each business is running, from Notion</p>
-                      <ul>
-                        <li><b>Hirvo</b><span>Get the rewrite right, then sell</span><i class="tick" aria-hidden="true"></i></li>
-                        <li><b>KDP</b><span>Keep the book pipeline running</span><i class="tick" aria-hidden="true"></i></li>
-                        <li><b>Dev</b><span>Finish the builds I've committed to</span><i class="tick" aria-hidden="true"></i></li>
-                        <li><b>Marketing</b><span>Growth that brings money or an audience</span><i class="tick" aria-hidden="true"></i></li>
-                      </ul>
-                    </div>
-                    <div class="idea idea-built"><span class="idea-k">Task 1 · to KDP and Marketing</span><p>Publish Cozy Christmas</p><span class="stamp stamp-build">Go</span></div>
-                    <div class="idea idea-built"><span class="idea-k">Task 2 · to Hirvo and Dev</span><p>Eval sets for Hirvo's rewrite</p><span class="stamp stamp-build">Go</span></div>
-                    <div class="idea idea-killed"><span class="idea-k">Task 3 · serves no current goal</span><p>A weekend app</p><span class="stamp stamp-kill">Parked</span></div>
-                  </div>
-                </div>
-              </li>
-
-              <li class="how-step">
-                <div class="how-copy">
-                  <span class="how-num">03</span>
-                  <div class="how-text">
-                    <h3>Managers brief their rooms.</h3>
-                    <div class="how-body"><div><p>Each project has its own channel and one manager. James runs Hirvo, Tim runs KDP, Steven runs dev and Sadie runs marketing. The manager preps every agent, so each one knows what to do.</p></div></div>
-                  </div>
-                </div>
-                <div class="how-visual">
-                  <div class="v v-rooms">
-                    <div class="code-head"><span>Project channels</span><span>Example</span></div>
-                    <ul class="rooms">
-                      <li class="room">
-                        <p class="room-head"><b>#hirvo</b><span class="crew-kevin crew-manager">James</span></p>
-                        <p class="room-task">Write eval sets for the rewrite</p>
-                        <p class="room-crew"><span class="is-on">Cindy</span><span class="is-on">Alan</span></p>
-                      </li>
-                      <li class="room">
-                        <p class="room-head"><b>#dev</b><span class="crew-kevin crew-manager">Steven</span></p>
-                        <p class="room-task">Cut the eval runner into small specs</p>
-                        <p class="room-crew"><span class="is-on">Bob</span><span class="is-on">Cindy</span></p>
-                      </li>
-                      <li class="room">
-                        <p class="room-head"><b>#kdp</b><span class="crew-kevin crew-manager">Tim</span></p>
-                        <p class="room-task">Research Cozy Christmas and build it in Bookflow</p>
-                        <p class="room-crew"><span class="is-on">Cindy</span><span class="is-on">Jennifer</span><span class="is-on">Bob</span></p>
-                      </li>
-                      <li class="room">
-                        <p class="room-head"><b>#marketing</b><span class="crew-kevin crew-manager">Sadie</span></p>
-                        <p class="room-task">Cozy Christmas listing copy</p>
-                        <p class="room-crew"><span class="is-on">Blake</span></p>
-                      </li>
-                    </ul>
-                    <p class="v-note">Each dot fills in once that agent has its brief.</p>
-                  </div>
-                </div>
-              </li>
-
-              <li class="how-step">
-                <div class="how-copy">
-                  <span class="how-num">04</span>
-                  <div class="how-text">
-                    <h3>Claude Code and Codex build it.</h3>
-                    <div class="how-body"><div><p>The hard coding goes to Claude Code and Codex, which are connected to the team. They edit the videos too, with CapCut.</p></div></div>
-                  </div>
-                </div>
-                <div class="how-visual">
-                  <div class="v v-lift">
-                    <div class="code-head"><span>Claude Code · Codex</span><span>Example</span></div>
-                    <div class="lift">
-                      <p class="lift-head"><b>Code</b><span>Hirvo eval runner</span></p>
-                      <ol class="pipe">
-                        <li><b>Spec</b><span>from #dev</span><i class="st" data-s="done">done</i></li>
-                        <li><b>Build</b><span>Claude Code</span><i class="st" data-s="done">done</i></li>
-                        <li><b>Review</b><span>Codex</span><i class="st" data-s="done">done</i></li>
-                        <li><b>Merge</b><span>into main</span><i class="st" data-s="done">done</i></li>
-                      </ol>
-                    </div>
-                    <div class="lift">
-                      <p class="lift-head"><b>Video</b><span>YouAreExtinct film in CapCut</span><i class="st" data-s="done">done</i></p>
-                      <div class="cut" aria-hidden="true">
-                        <span class="cut-ruler"></span>
-                        <div class="cut-track">
-                          <i class="cut-clip" style="--g:5"></i><i class="cut-clip" style="--g:3"></i><i class="cut-clip" style="--g:6"></i><i class="cut-clip" style="--g:2.5"></i><i class="cut-clip" style="--g:4"></i>
-                        </div>
-                        <span class="cut-audio"></span>
-                        <span class="cut-play"></span>
-                      </div>
-                      <p class="cut-note">Shots come from Higgsfield through MCP.</p>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li class="how-step">
-                <div class="how-copy">
-                  <span class="how-num">05</span>
-                  <div class="how-text">
-                    <h3>I approve the scenes and cover.</h3>
-                    <div class="how-body"><div><p>Every book's scenes and cover come to me. The rest follows the data. Agents upload the book to KDP, set up the ads and report results back to Notion and the Big Three channel.</p></div></div>
-                  </div>
-                </div>
-                <div class="how-visual">
-                  <div class="v v-ship">
-                    <div class="code-head"><span>#kdp · Cozy Christmas</span><span>Example</span></div>
-                    <div class="gate is-ok"><div class="gate-text"><b>Book scenes</b><span>made in Bookflow</span></div><span class="switch" aria-hidden="true"><i></i></span><span class="gate-state">Approved by Kevin</span></div>
-                    <div class="gate is-ok"><div class="gate-text"><b>Book cover</b><span>made in Bookflow</span></div><span class="switch" aria-hidden="true"><i></i></span><span class="gate-state">Approved by Kevin</span></div>
-                    <div class="gate gate-auto"><div class="gate-text"><b>Keywords, price, upload and ads</b><span>follow the data</span></div><i class="st" data-s="done">done</i></div>
-                    <div class="msg msg-agent msg-report is-seen">
-                      <span class="msg-who">Tim · in #big-three</span>
-                      <p>Cozy Christmas is uploaded and its ads are set up. Results are in Notion.</p>
-                      <span class="seen">Seen by Kevin</span>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ol>
-          </div>
-          <div class="how-stage"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW I BUILD -->
-  <section class="section build" id="build" data-nav="how" aria-labelledby="build-title">
-    <div class="wrap">
-      <header class="section-head">
-        <p class="kicker">How I build</p>
-        <h2 id="build-title" data-split>Plan in Notion. Build in Claude.</h2>
-        <p class="section-sub">The agent team keeps the company running. The building itself is me, a plan, and Claude.</p>
-      </header>
-      <ol class="loop" data-reveal-group>
-        <li class="loop-step">
-          <span class="loop-k">1 · Plan</span>
-          <h3>Notion</h3>
-          <p>Plans, specs and briefs live in Notion, right next to the agent team's scoreboards. Every build starts as a page there.</p>
-        </li>
-        <li class="loop-step loop-claude">
-          <span class="loop-k">2 · Build</span>
-          <h3>Claude</h3>
-          <div class="loop-tracks">
-            <div class="loop-track"><b>App dev</b><span>Claude Code and Codex turn the spec into working code.</span></div>
-            <div class="loop-track"><b>Video</b><span>Shots come from Higgsfield through MCP. Claude Code and Codex edit them together in CapCut.</span></div>
-          </div>
-        </li>
-        <li class="loop-step">
-          <span class="loop-k">3 · Ship</span>
-          <h3>Out the door</h3>
-          <p>Web apps go live on Vercel, films go to YouTube and books go to Amazon. Then it's back to the plan.</p>
-        </li>
-      </ol>
     </div>
   </section>
 
@@ -419,25 +139,27 @@
   <section class="section work" id="work" aria-labelledby="work-title">
     <div class="wrap">
       <header class="section-head">
-        <p class="kicker"><span class="kicker-n">03</span>What I do</p>
-        <h2 id="work-title" data-split>What I've shipped, with the how left in.</h2>
-        <p class="section-sub">Six projects across SaaS, publishing, video, AI talent and healthcare. Each one shows the system behind it.</p>
+        <p class="kicker"><span class="kicker-n">01</span>Selected work</p>
+        <h2 id="work-title" data-split>Things I've built and shipped.</h2>
+        <p class="section-sub">Startup, client and personal work across software, publishing, video and healthcare.</p>
       </header>
 
       <div class="work-list">
         <!-- Hirvo -->
         <article class="work-card work-feature" id="work-hirvo" data-spot data-reveal>
           <div class="work-text">
-            <div class="work-meta"><span class="status status-progress">In production build</span><span class="mono role">Co-founder &amp; CTO</span></div>
+            <div class="work-meta"><span class="status status-live">App live · rewrite in progress</span><span class="mono role">Co-founder &amp; CTO · 2026</span></div>
             <h3 class="work-title">Hirvo</h3>
-            <p class="work-sub">Job search for international students that knows which employers sponsor visas, and rewrites resumes without inventing anything.</p>
+            <p class="work-sub">Job search for international students. It knows which employers sponsor visas, and it rewrites résumés without inventing anything.</p>
             <ul class="ticks">
-              <li>Built solo with Claude Code and Codex, in Next.js, TypeScript, Supabase and the Anthropic API.</li>
-              <li>Anti-fabrication resume engine with a three-layer ATS risk model.</li>
-              <li>Five PRD versions and an engineering handoff pack before the build.</li>
-              <li>Set up the GitHub org and branch protection, then onboarded engineers.</li>
+              <li>Built with Next.js, TypeScript, Supabase and the Anthropic API.</li>
+              <li>A rewrite engine that blocks made-up facts, with a three-layer ATS risk model.</li>
+              <li>In a 10-user simulated test, a recruiter-style grader preferred the new tailored résumé 8 times out of 10, up from 1.</li>
+              <li>Wrote five versions of the product spec, set up the GitHub org and onboarded engineers.</li>
             </ul>
-            <p class="work-foot mono">Repo available on request</p>
+            <p class="links">
+              <a class="link-arrow" href="https://resumefit-hirvo-6d2c6d74.vercel.app" target="_blank" rel="noopener">Try the app <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
+            </p>
           </div>
           <div class="work-visual">
             <div class="mock" data-anim="hirvo">
@@ -458,26 +180,60 @@
                 </div>
               </div>
             </div>
-            <p class="visual-note mono">Illustration of the anti-fabrication check</p>
+            <p class="visual-note mono">How the fact check works</p>
+          </div>
+        </article>
+
+        <!-- B2B risk + outreach tool -->
+        <article class="work-card work-feature work-reverse" id="work-trade" data-spot data-reveal>
+          <div class="work-text">
+            <div class="work-meta"><span class="status status-live">Live · in daily use</span><span class="mono role">Client work · solo build · Nov 2026</span></div>
+            <h3 class="work-title">Export risk &amp; buyer finder</h3>
+            <p class="work-sub">A bilingual (中文 / English) web app for a Chinese export manufacturer. It watches buyers for risk, finds new ones and drafts the first email.</p>
+            <ul class="ticks">
+              <li>Checks every client against 4 sanctions lists (32,592 entries) and company registers each day, on its own.</li>
+              <li>Researches any company in any country from public sources, and shows a quote for every fact it keeps.</li>
+              <li>Its first buyer search found 20 companies in Chile, kept 4 and drafted 4 emails in Spanish for review.</li>
+              <li>Cloudflare Workers, Supabase and Firecrawl, with about 200 tests. Works in mainland China without a VPN.</li>
+            </ul>
+            <p class="work-foot mono">Private client tool · demo on request</p>
+          </div>
+          <div class="work-visual">
+            <div class="risk" data-play>
+              <div class="mock-bar"><i></i><i></i><i></i><span class="mono">risk watch · today</span></div>
+              <div class="risk-body">
+                <div class="risk-stats">
+                  <div><b class="risk-num">32,592</b><span>sanctions entries checked</span></div>
+                  <div><b class="risk-num">7</b><span>clients watched</span></div>
+                </div>
+                <ul class="risk-list">
+                  <li><span class="risk-co">Buyer · Germany</span><span class="risk-src mono">register ✓ · sanctions ✓</span><span class="pill pill-ok">Clear</span></li>
+                  <li><span class="risk-co">Buyer · Chile</span><span class="risk-src mono">register ✓ · sanctions ✓</span><span class="pill pill-ok">Clear</span></li>
+                  <li><span class="risk-co">Buyer · UAE</span><span class="risk-src mono">name match · 1 list</span><span class="pill pill-warn">Review</span></li>
+                  <li><span class="risk-co">Buyer · Italy</span><span class="risk-src mono">register ✓ · sanctions ✓</span><span class="pill pill-ok">Clear</span></li>
+                </ul>
+                <div class="risk-draft"><span class="mono">Outreach</span><p>4 emails drafted in Spanish · waiting for review</p></div>
+              </div>
+            </div>
+            <p class="visual-note mono">Illustration with placeholder names</p>
           </div>
         </article>
 
         <!-- KDP -->
-        <article class="work-card work-feature work-reverse" id="work-kdp" data-spot data-reveal>
+        <article class="work-card work-feature" id="work-kdp" data-spot data-reveal>
           <div class="work-text">
-            <div class="work-meta"><span class="status status-live">Live on Amazon</span><span class="mono role">Publisher &amp; toolmaker</span></div>
-            <h3 class="work-title">Bookflow + Amazon KDP</h3>
-            <p class="work-sub">A small publishing house behind the Snuggle Crew coloring books: nine titles on Amazon, a team to run it, and my own tools for making them.</p>
+            <div class="work-meta"><span class="status status-live">Live on Amazon</span><span class="mono role">Publisher &amp; toolmaker · since Nov 2025</span></div>
+            <h3 class="work-title">Snuggle Crew books + Bookflow</h3>
+            <p class="work-sub">A small children's publishing label: nine coloring and story books on Amazon, the tool I built to make them, and an iPad coloring app.</p>
             <ul class="ticks">
-              <li>Agents research the topic and the backend keywords, and the brief lands in Notion.</li>
-              <li>Bookflow, my own tool at bookflowai.site, turns that brief into the full KDP package, ready to upload.</li>
-              <li>I approve the scenes and the cover. Everything else follows the data.</li>
-              <li>An agent uploads the finished book to KDP, and another sets up the Amazon Ads campaigns.</li>
-              <li>Ran a 30-books-in-30-days sprint. Cozy Thanksgiving went from niche pick on September 20 to live on October 5.</li>
+              <li>Bookflow, my own tool, turns a researched brief into a full Amazon KDP package. I approve the scenes and the cover.</li>
+              <li>Made 30 books in 30 days. Cozy Thanksgiving went from niche pick to live on Amazon in 15 days.</li>
+              <li>A native iPad app with Apple Pencil, tap-to-fill and in-app purchases, covered by 161 tests. Not yet in the App Store.</li>
+              <li>Read-along videos on YouTube, linked by a QR code inside the book.</li>
             </ul>
             <p class="links">
               <a class="link-arrow" href="https://www.amazon.com/dp/B0HLZFVW8N" target="_blank" rel="noopener">Cozy Thanksgiving on Amazon <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
-              <a class="link-arrow" href="https://www.amazon.com/dp/B0HGRB281R" target="_blank" rel="noopener">Pumpkin Pals on Amazon <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
+              <a class="link-arrow" href="https://youtu.be/xhY8zRzaX24" target="_blank" rel="noopener">Read-along video <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
               <a class="link-arrow" href="https://bookflowai.site" target="_blank" rel="noopener">bookflowai.site <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
             </p>
           </div>
@@ -498,36 +254,23 @@
               <div class="shelf-board" aria-hidden="true"></div>
               <p class="shelf-readout mono"><span class="shelf-count">9 titles on Amazon</span><span class="shelf-current">Hover a spine</span></p>
             </div>
-            <ol class="flow mono" aria-label="How a book gets made">
-              <li><b>Agents</b> keywords and research</li>
-              <li><b>Notion</b> brief</li>
-              <li><b>Bookflow</b> full KDP package</li>
-              <li class="human"><b>Kevin</b> approves scenes and cover</li>
-              <li><b>Agent</b> uploads to KDP</li>
-              <li><b>Agent</b> ad campaigns</li>
-            </ol>
           </div>
         </article>
 
-        <!-- YouAreExtinct -->
-        <article class="work-card work-feature" id="work-yae" data-spot data-reveal>
+        <!-- AI films -->
+        <article class="work-card work-feature work-reverse" id="work-yae" data-spot data-reveal>
           <div class="work-text">
-            <div class="work-meta"><span class="status status-live">Live on YouTube</span><span class="mono role">Made solo with AI</span></div>
-            <h3 class="work-title">YouAreExtinct</h3>
-            <p class="work-sub">Cinematic AI stories about extinct animals. The channel is live, and it doubles as my portfolio for brand video work.</p>
+            <div class="work-meta"><span class="status status-live">Live on YouTube</span><span class="mono role">Writer, director, editor</span></div>
+            <h3 class="work-title">AI films &amp; video</h3>
+            <p class="work-sub">YouAreExtinct tells cinematic stories about extinct animals, and Noir Hours is a late-night jazz channel. The same pipeline makes AI ads for brands.</p>
             <ul class="ticks">
-              <li>Each film starts from a reference. Claude writes a shot-by-shot playbook, then drives Higgsfield through MCP to make the shots.</li>
-              <li>The same pipeline makes AI ads for brands, without a production crew.</li>
+              <li>Claude writes a shot-by-shot plan from a reference, then drives Higgsfield to make the shots. I cut them in CapCut.</li>
+              <li>Narration with ElevenLabs. Local image work in ComfyUI on a DGX Spark.</li>
+              <li>The YouAreExtinct sabre-toothed cat Shorts have about 6,000 views.</li>
             </ul>
-            <ol class="flow flow-start mono" aria-label="How a film gets made">
-              <li><b>Reference</b> pull</li>
-              <li><b>Claude</b> shot list</li>
-              <li><b>Higgsfield</b> shots</li>
-              <li><b>CapCut</b> edit</li>
-              <li class="human"><b>Kevin</b> publishes</li>
-            </ol>
             <p class="links">
-              <a class="link-arrow" href="https://www.youtube.com/@YouAreExtinct" target="_blank" rel="noopener">Watch the channel <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
+              <a class="link-arrow" href="https://www.youtube.com/@YouAreExtinct" target="_blank" rel="noopener">YouAreExtinct <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
+              <a class="link-arrow" href="https://www.youtube.com/@NOIRHOURSSTUDY" target="_blank" rel="noopener">Noir Hours <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
             </p>
           </div>
           <div class="work-visual">
@@ -545,68 +288,43 @@
                   <span class="pl-thumb"><img src="https://i.ytimg.com/vi/MLlSEwQhaVY/mqdefault.jpg" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"></span>
                   <span class="pl-text"><b>Mammoth film</b><span class="mono">YouAreExtinct</span></span>
                 </button>
-                <button class="pl-item" type="button" data-yt="pXjGjmX3PgM" data-title="Story sample" aria-pressed="false">
-                  <span class="pl-thumb"><img src="https://i.ytimg.com/vi/pXjGjmX3PgM/mqdefault.jpg" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"></span>
-                  <span class="pl-text"><b>Story sample</b><span class="mono">YouAreExtinct</span></span>
+                <button class="pl-item" type="button" data-yt="8oM1BqovjiY" data-title="No Rush Tonight" aria-pressed="false">
+                  <span class="pl-thumb"><img src="https://i.ytimg.com/vi/8oM1BqovjiY/mqdefault.jpg" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"></span>
+                  <span class="pl-text"><b>No Rush Tonight</b><span class="mono">Noir Hours</span></span>
                 </button>
               </div>
             </div>
           </div>
         </article>
 
-        <!-- AI influencers -->
-        <article class="work-card work-feature work-reverse" id="work-influencers" data-reveal>
-          <div class="work-text">
-            <div class="work-meta"><span class="status status-progress">In production</span><span class="mono role">With two cofounders</span></div>
-            <h3 class="work-title">AI influencers</h3>
-            <p class="work-sub">Two kinds of AI talent, built for different jobs. One is funny and made to spread. The other is a classic influencer people follow for the long run.</p>
-            <dl class="types">
-              <div class="type type-funny">
-                <dt>Funny and viral</dt>
-                <dd>Big characters, quick gags and dance bits for TikTok and Reels. Short, loud and made to be shared.</dd>
-              </div>
-              <div class="type type-classic">
-                <dt>Traditional</dt>
-                <dd>Ariana is a consistent, polished persona for Instagram, posting street style, outfits and everyday moments that build a following over time.</dd>
-              </div>
-            </dl>
-            <ul class="ticks">
-              <li>Looks are trained on Higgsfield Soul 2.0, so each character stays the same person from post to post.</li>
-              <li>Kylie, an agent, plans and researches the content. My two cofounders and I make the final cuts.</li>
-            </ul>
-          </div>
-          <div class="work-visual">
-            <div class="clips">
-              <figure class="clip clip-funny">
-                <div class="clip-frame">
-                  <video class="clip-video" data-clip poster="assets/media/influencer-funny.jpg" muted loop playsinline preload="metadata" aria-label="Example clip of the funny and viral influencer: a mustached character in aviators dancing in an apartment">
-                    <source src="assets/media/influencer-funny.webm" type="video/webm">
-                    <source src="assets/media/influencer-funny.mp4" type="video/mp4">
-                  </video>
-                  <button class="clip-sound" type="button" aria-pressed="false" aria-label="Turn sound on">
-                    <svg class="i-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"></path><path d="M17 9l4 6M21 9l-4 6"></path></svg>
-                    <svg class="i-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"></path><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"></path></svg>
-                  </button>
+        <div class="work-trio">
+          <!-- WeChat mini program -->
+          <article class="work-card work-compact" id="work-court" data-spot data-reveal>
+            <div class="work-visual">
+              <div class="phone" data-play aria-hidden="true">
+                <div class="phone-notch"></div>
+                <p class="phone-h">Book a court</p>
+                <div class="slots">
+                  <span>18:00</span><i class="is-taken"></i><i></i><i class="is-taken"></i>
+                  <span>19:00</span><i></i><i class="is-mine"></i><i class="is-taken"></i>
+                  <span>20:00</span><i class="is-taken"></i><i class="is-taken"></i><i></i>
                 </div>
-                <figcaption><b>Funny and viral</b><span>TikTok and Reels</span></figcaption>
-              </figure>
-              <figure class="clip clip-classic">
-                <div class="clip-frame clip-gallery" data-gallery>
-                  <img class="clip-video is-on" src="assets/media/influencer-classic.jpg" width="720" height="960" loading="lazy" decoding="async" alt="Ariana, the traditional AI influencer, in a cropped denim jacket and cargo pants on a city street at night">
-                  <img class="clip-video" src="assets/media/influencer-classic-2.jpg" width="720" height="960" loading="lazy" decoding="async" alt="Ariana in a quilted denim jacket, khaki cargo pants and white sneakers on a sidewalk by a brick building">
-                  <div class="clip-dots" role="group" aria-label="Ariana's photos">
-                    <button type="button" aria-label="Photo 1" aria-pressed="true"></button>
-                    <button type="button" aria-label="Photo 2" aria-pressed="false"></button>
-                  </div>
+                <div class="qr-tile">
+                  <svg class="qr-ring" viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"></circle><circle class="qr-ring-fg" cx="22" cy="22" r="19" pathLength="100"></circle></svg>
+                  <div class="qr-code"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                  <span class="qr-t mono">Entry code · 30 s</span>
                 </div>
-                <figcaption><b>Ariana</b><span>Traditional · Instagram</span></figcaption>
-              </figure>
+                <p class="phone-btn">Booked · 19:00 · Court 2</p>
+              </div>
             </div>
-          </div>
-        </article>
+            <div class="work-text">
+              <div class="work-meta"><span class="status status-progress">In client testing</span><span class="mono role">Client work · WeChat</span></div>
+              <h3 class="work-title">Court booking mini program</h3>
+              <p class="work-sub">A WeChat mini program for a basketball venue in China: court and coach booking, pick-up games, memberships and staff tools. Entry codes expire in 30 seconds and work once. Built on Tencent CloudBase as a reusable template for other venues.</p>
+            </div>
+          </article>
 
-        <div class="work-pair">
-          <!-- Dui Yao -->
+          <!-- 對藥 -->
           <article class="work-card work-compact" id="work-duiyao" data-spot data-reveal>
             <div class="work-visual">
               <div class="rx" data-anim="rx">
@@ -623,12 +341,30 @@
                   <div class="rx-voice"><span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="mono rx-lang">粵語</span></div>
                 </div>
               </div>
-              <p class="visual-note mono">Illustrative example</p>
             </div>
             <div class="work-text">
-              <div class="work-meta"><span class="status status-done">Hackathon</span><span class="mono role">AIx Origin · Vital</span></div>
-              <h3 class="work-title">對藥</h3>
-              <p class="work-sub">A medication check I built solo at Cyberport with Claude Code. It photographs discharge sheets and medicine boxes, matches drugs by active ingredient with a deterministic rules engine, and reads the result aloud in Cantonese.</p>
+              <div class="work-meta"><span class="status status-done">Hackathon · 2026</span><span class="mono role">AIx Origin · Hong Kong</span></div>
+              <h3 class="work-title">對藥 medication check</h3>
+              <p class="work-sub">Built solo at Cyberport. It photographs discharge sheets and medicine boxes, matches drugs by active ingredient with a rules engine, and reads the result aloud in Cantonese.</p>
+            </div>
+          </article>
+
+          <!-- Games -->
+          <article class="work-card work-compact" id="work-games" data-spot data-reveal>
+            <div class="work-visual">
+              <div class="phone phone-game" data-play aria-hidden="true">
+                <div class="phone-notch"></div>
+                <div class="scene">
+                  <i class="stk stk-sun"></i><i class="stk stk-hill"></i><i class="stk stk-tree"></i><i class="stk stk-house"></i><i class="stk stk-cloud"></i>
+                </div>
+                <p class="stars"><i></i><i></i><i></i></p>
+                <p class="phone-btn">Scene 4 of 12 · Meadow</p>
+              </div>
+            </div>
+            <div class="work-text">
+              <div class="work-meta"><span class="status status-progress">In development</span><span class="mono role">iOS · Expo</span></div>
+              <h3 class="work-title">Sticker Scenes</h3>
+              <p class="work-sub">A calm, offline sticker-puzzle game for iPhone and iPad: 12 scenes in 4 worlds, one unlock, no ads. Launch planned for early 2027. Also built: One Too Far, a party game for one phone.</p>
             </div>
           </article>
 
@@ -639,12 +375,11 @@
                 <svg class="iso-svg" viewBox="0 0 320 200" aria-hidden="true"></svg>
                 <span class="iso-tag mono" aria-hidden="true"><i></i><b>render</b></span>
               </div>
-              <p class="visual-note mono">Model → render loop</p>
             </div>
             <div class="work-text">
-              <div class="work-meta"><span class="status status-done">Delivered</span><span class="mono role">Web + 3D</span></div>
+              <div class="work-meta"><span class="status status-done">Delivered</span><span class="mono role">Client work · Web + 3D</span></div>
               <h3 class="work-title">UHOME</h3>
-              <p class="work-sub">Student apartments near the University of Alberta in Edmonton. I built the real estate website and did the 3D modeling and renders for the tours.</p>
+              <p class="work-sub">Student apartments near the University of Alberta. I built the website and did the 3D models and renders for the tours.</p>
               <p class="links">
                 <a class="link-arrow" href="https://claude.ai/artifact/RjEb8CaEnokf4c2rQxTrQ6" target="_blank" rel="noopener">View the demo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"></path></svg></a>
               </p>
@@ -655,247 +390,301 @@
     </div>
   </section>
 
-  <!-- NOIR HOURS -->
-  <section class="section noir" id="noir" data-nav="work" aria-labelledby="noir-title">
+  <!-- RESUME -->
+  <section class="section resume" id="resume" aria-labelledby="resume-title">
     <div class="wrap">
-      <header class="section-head noir-head">
-        <div class="noir-head-main">
-          <p class="kicker">Study-with-me channel</p>
-          <h2 id="noir-title" data-split>Noir Hours</h2>
-          <p class="section-sub">Noir jazz for late-night studying and focused work.</p>
+      <header class="section-head section-head-row">
+        <div class="head-main">
+          <p class="kicker"><span class="kicker-n">02</span>Résumé</p>
+          <h2 id="resume-title" data-split>Experience, education and skills.</h2>
         </div>
-        <div class="noir-head-aside">
-          <p class="noir-note">Lyric-free, slow and smoky. Made with an AI-assisted production workflow.</p>
-          <p class="noir-status"><span class="noir-status-dot" aria-hidden="true"></span>Music is ready. The channel launches soon.</p>
-        </div>
+        <button class="btn btn-line" type="button" data-print>Print or save as PDF</button>
       </header>
 
-      <div class="noir-stage" data-reveal>
-        <div class="noir-scene" data-noir-scene role="img" aria-label="Illustration: a rainy city street at night. Lit windows, a street lamp and a neon sign reading Noir Hours glow on the wet pavement.">
-          <canvas class="noir-canvas" data-noir-bg aria-hidden="true"></canvas>
-          <canvas class="noir-canvas" data-noir-fx aria-hidden="true"></canvas>
+      <div class="cv">
+        <div class="cv-col">
+          <h3 class="cv-h">Experience</h3>
+          <ol class="cv-list" data-reveal-group>
+            <li class="cv-item">
+              <p class="cv-when mono">2026 – now</p>
+              <div class="cv-what">
+                <p class="cv-role">Co-founder &amp; CTO, <b>Hirvo</b></p>
+                <p>Lead the product and the build of a visa-aware job search and résumé tool. Wrote the specs, built the app, set up the engineering org and onboarded engineers.</p>
+              </div>
+            </li>
+            <li class="cv-item">
+              <p class="cv-when mono">Ongoing</p>
+              <div class="cv-what">
+                <p class="cv-role">Independent developer, <b>client work</b></p>
+                <p>A risk and outreach web app for an export manufacturer (live), a WeChat booking mini program for a sports venue (in testing), and a website with 3D renders for a student housing company (delivered).</p>
+              </div>
+            </li>
+            <li class="cv-item">
+              <p class="cv-when mono">Nov 2025 – now</p>
+              <div class="cv-what">
+                <p class="cv-role">Publisher, <b>Snuggle Crew</b></p>
+                <p>Nine children's books on Amazon, made with my own tool, Bookflow. I run the keyword research, ads and an iPad app.</p>
+              </div>
+            </li>
+            <li class="cv-item">
+              <p class="cv-when mono">Side roles</p>
+              <div class="cv-what">
+                <p class="cv-role">Project supervisor and startup advisor</p>
+                <p>Supervised a project for a US company and advised an MCN (creator network) startup.</p>
+              </div>
+            </li>
+            <li class="cv-item">
+              <p class="cv-when mono">2026</p>
+              <div class="cv-what">
+                <p class="cv-role">Healthcare AI hackathons</p>
+                <p>AIx Origin, Hong Kong (對藥 medication check). 复客松 · 华润三九杯, Shanghai (medication confirmation for older adults). Fudan, recognition certificate. Entered team events solo and shipped working demos.</p>
+              </div>
+            </li>
+          </ol>
         </div>
 
-        <div class="noir-player" data-noir-player>
-          <div class="noir-deck">
-            <div class="noir-now">
-              <span class="noir-cover" aria-hidden="true"><img data-noir-art alt="" width="56" height="56" loading="lazy" decoding="async" hidden></span>
-              <div class="noir-now-text">
-                <p class="noir-now-title" data-noir-title>Noir Hours</p>
-                <p class="noir-now-sub" data-noir-sub>Sample</p>
+        <div class="cv-col">
+          <h3 class="cv-h">Education</h3>
+          <ol class="cv-list" data-reveal-group>
+            <li class="cv-item">
+              <p class="cv-when mono">Now</p>
+              <div class="cv-what">
+                <p class="cv-role"><b>Purdue University</b></p>
+                <p>Biomedical engineering, with a background in statistics. On a gap year until spring 2027 to build full time.</p>
               </div>
-              <button class="noir-play" type="button" data-noir-play aria-label="Play">
-                <svg class="noir-ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5.8v12.4a.8.8 0 0 0 1.2.7l9.9-6.2a.8.8 0 0 0 0-1.4L9.7 5.1a.8.8 0 0 0-1.2.7z"></path></svg>
-                <svg class="noir-ico-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.8" height="14" rx="1"></rect><rect x="13.7" y="5" width="3.8" height="14" rx="1"></rect></svg>
-              </button>
-            </div>
-            <div class="noir-progress">
-              <span class="noir-time" data-noir-cur>0:00</span>
-              <input class="noir-seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Seek" aria-valuetext="0:00" data-noir-seek>
-              <span class="noir-time" data-noir-dur>0:00</span>
-            </div>
-          </div>
-
-          <!-- Tracks. Each <li> is one sample; adding or removing <li> items is all the player needs.
-               data-src and data-title are required. data-art (a square cover image) and
-               data-duration (like "3:12") are optional; the duration is read from the file when left out.
-               Keep the MP3s in assets/audio/ on this same site so the city can react to the music. -->
-          <ol class="noir-tracks" data-noir-tracks aria-label="Samples">
-            <li data-src="assets/audio/rain-soaked-streets.mp3" data-title="Rain-Soaked Streets" data-art="assets/audio/rain-soaked-streets.jpg"></li>
-            <!--
-              TODO(Kevin): to add the next samples, put the files in assets/audio/,
-              rename the titles and move each <li> above this comment.
-            <li data-src="assets/audio/noir-hours-02.mp3" data-title="Smoke and Streetlights"></li>
-            <li data-src="assets/audio/noir-hours-03.mp3" data-title="Last Call at the Blue Lamp"></li>
-            -->
+            </li>
+            <li class="cv-item">
+              <p class="cv-when mono">Class of 2024</p>
+              <div class="cv-what">
+                <p class="cv-role"><b>Shanghai American School</b></p>
+              </div>
+            </li>
           </ol>
 
-          <div class="noir-empty">
-            <span class="noir-record" aria-hidden="true"></span>
-            <div>
-              <p class="noir-empty-title">Samples drop here soon.</p>
-              <p class="noir-empty-sub">The first upload is coming to YouTube.</p>
-            </div>
-          </div>
-
-          <p class="noir-sr" aria-live="polite" data-noir-live></p>
-          <audio preload="none" data-noir-audio></audio>
+          <h3 class="cv-h">Skills</h3>
+          <dl class="skills" data-reveal-group>
+            <div><dt>Build</dt><dd>Next.js, TypeScript, Supabase, Cloudflare Workers, Expo / React Native, SwiftUI, WeChat mini programs, Vercel</dd></div>
+            <div><dt>AI</dt><dd>Claude Code, Codex, Anthropic API, agents and evals, Firecrawl, ComfyUI on a DGX Spark</dd></div>
+            <div><dt>Media</dt><dd>Higgsfield, ElevenLabs, CapCut, 3D modeling and renders</dd></div>
+            <div><dt>Founder ops</dt><dd>Product specs, cap tables, SAFEs, 83(b) elections, IP ownership</dd></div>
+            <div><dt>Languages</dt><dd>English and Mandarin. I've worked across Canada, the US, China and Hong Kong.</dd></div>
+            <div><dt>Learning now</dt><dd>Eval design, fine-tuning and running models locally</dd></div>
+          </dl>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- LANES -->
-  <section class="section lanes" id="lanes" aria-labelledby="lanes-title">
+  <!-- HOW I BUILD -->
+  <section class="section build" id="build" data-nav="resume" aria-labelledby="build-title">
+    <div class="wrap">
+      <header class="section-head">
+        <p class="kicker"><span class="kicker-n">03</span>How I build</p>
+        <h2 id="build-title" data-split>Plan carefully. Build with AI. Ship fast.</h2>
+        <p class="section-sub">One rule: if a general chatbot can already do it, I don't build it. Whatever passes that test, I spec carefully and ship.</p>
+      </header>
+      <ol class="loop" data-reveal-group>
+        <li class="loop-step">
+          <span class="loop-k">1 · Plan</span>
+          <h3>Spec first</h3>
+          <p>Every build starts as a written spec in Notion: who it's for, what done looks like and how I'll test it.</p>
+        </li>
+        <li class="loop-step loop-claude">
+          <span class="loop-k">2 · Build</span>
+          <h3>AI coding agents</h3>
+          <p>I direct Claude Code and Codex to write the code, and back it with tests and evals. A small team of AI agents handles research, marketing and publishing work.</p>
+        </li>
+        <li class="loop-step">
+          <span class="loop-k">3 · Ship</span>
+          <h3>Out the door</h3>
+          <p>Web apps go to Vercel or Cloudflare, mini programs to WeChat, films to YouTube and books to Amazon. Then I measure and repeat.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section lanes" id="projects" aria-labelledby="lanes-title">
     <div class="wrap">
       <header class="section-head section-head-row">
         <div class="head-main">
-          <p class="kicker">All my projects</p>
-          <h2 id="lanes-title" data-split>Everything I'm working on.</h2>
-          <p class="section-sub">Who each one is for, how it runs and where it stands. Open a row for the details.</p>
+          <p class="kicker"><span class="kicker-n">04</span>All projects</p>
+          <h2 id="lanes-title" data-split>Everything, and where it stands.</h2>
         </div>
-        <div class="filters" role="group" aria-label="Filter lanes by status">
-          <button class="filter is-on" type="button" data-filter="all" aria-pressed="true">All <span>10</span></button>
-          <button class="filter" type="button" data-filter="live" aria-pressed="false">Live <span>2</span></button>
-          <button class="filter" type="button" data-filter="progress" aria-pressed="false">In progress <span>6</span></button>
+        <div class="filters" role="group" aria-label="Filter projects by status">
+          <button class="filter is-on" type="button" data-filter="all" aria-pressed="true">All <span>12</span></button>
+          <button class="filter" type="button" data-filter="live" aria-pressed="false">Live <span>5</span></button>
+          <button class="filter" type="button" data-filter="progress" aria-pressed="false">In progress <span>5</span></button>
           <button class="filter" type="button" data-filter="done" aria-pressed="false">Done <span>2</span></button>
         </div>
       </header>
 
       <ul class="lane-list" data-reveal-group>
-        <li class="lane is-open" data-status="progress">
-          <button class="lane-row" type="button" aria-expanded="true" aria-controls="lane-hirvo">
-            <span class="status status-progress">Building</span>
+        <li class="lane" data-status="live">
+          <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-hirvo">
+            <span class="status status-live">Live</span>
             <span class="lane-name">Hirvo</span>
-            <span class="lane-one">Visa-aware US job and internship search</span>
-            <span class="lane-kind mono">SaaS</span>
+            <span class="lane-one">Visa-aware job search and honest résumé rewrites</span>
+            <span class="lane-kind mono">Startup</span>
             <span class="lane-plus" aria-hidden="true"></span>
           </button>
           <div class="lane-detail" id="lane-hirvo"><div class="lane-in">
             <dl>
-              <div><dt class="mono">Who it's for</dt><dd>International STEM students aiming at US roles, who need sponsorship clarity and honest, strong applications instead of spam-apply bots.</dd></div>
-              <div><dt class="mono">How it runs</dt><dd>I'm co-founder and CTO, building with Claude Code and Codex. In the agent team, James manages the Hirvo room, Cindy grades rewrites like a recruiter would, and Alan logs real role matches to tune it. The loop: rewrite system, eval sets, co-founder feedback, retune, pricing, sell.</dd></div>
-              <div><dt class="mono">Where it stands</dt><dd>In production build with no public URL yet. The repo is available on request.</dd></div>
+              <div><dt class="mono">For</dt><dd>International STEM students aiming at US roles.</dd></div>
+              <div><dt class="mono">Status</dt><dd>The first app is live. A bigger rewrite with a new writing engine is being tested before release.</dd></div>
             </dl>
           </div></div>
         </li>
-
+        <li class="lane" data-status="live">
+          <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-trade">
+            <span class="status status-live">Live</span>
+            <span class="lane-name">Export risk &amp; buyer finder</span>
+            <span class="lane-one">Sanctions checks, company research and outreach drafts</span>
+            <span class="lane-kind mono">Client</span>
+            <span class="lane-plus" aria-hidden="true"></span>
+          </button>
+          <div class="lane-detail" id="lane-trade"><div class="lane-in">
+            <dl>
+              <div><dt class="mono">For</dt><dd>The owners and sales team of a Chinese export manufacturer.</dd></div>
+              <div><dt class="mono">Status</dt><dd>Live since November 2026. The daily risk checks run on their own.</dd></div>
+            </dl>
+          </div></div>
+        </li>
         <li class="lane" data-status="live">
           <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-kdp">
             <span class="status status-live">Live</span>
-            <span class="lane-name">Bookflow + KDP</span>
-            <span class="lane-one">Coloring and story books, plus the tools that make them</span>
+            <span class="lane-name">Snuggle Crew + Bookflow</span>
+            <span class="lane-one">Children's books on Amazon and the tool that makes them</span>
             <span class="lane-kind mono">Publishing</span>
             <span class="lane-plus" aria-hidden="true"></span>
           </button>
           <div class="lane-detail" id="lane-kdp"><div class="lane-in">
             <dl>
-              <div><dt class="mono">Who it's for</dt><dd>Buyers of cozy, seasonal and wholesome coloring books. On the seller side, the pain is slow creation, keyword research, ads ops and art throughput.</dd></div>
-              <div><dt class="mono">How it runs</dt><dd>Tim manages the room. Agents research the topic and the backend keywords and put the brief in Notion. Bookflow, my own tool at bookflowai.site, builds the full KDP package. I approve the scenes and the cover, and the rest follows the data: one agent uploads the book to KDP and another creates the ad campaigns.</dd></div>
-              <div><dt class="mono">Where it stands</dt><dd>Nine books on Amazon, most recently Cozy Thanksgiving in October 2026. Now shifting from volume to quality and wholesome story IP. <a href="https://bookflowai.site" target="_blank" rel="noopener">bookflowai.site</a></dd></div>
+              <div><dt class="mono">For</dt><dd>Families who want cozy, seasonal coloring and story books.</dd></div>
+              <div><dt class="mono">Status</dt><dd>Nine books live. Now focused on quality and story over volume. <a href="https://bookflowai.site" target="_blank" rel="noopener">bookflowai.site</a></dd></div>
             </dl>
           </div></div>
         </li>
-
-        <li class="lane" data-status="progress">
-          <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-aigc">
-            <span class="status status-progress">First lead</span>
-            <span class="lane-name">AIGC video</span>
-            <span class="lane-one">Cinematic AI ads for brands, without a production crew</span>
-            <span class="lane-kind mono">Client work</span>
-            <span class="lane-plus" aria-hidden="true"></span>
-          </button>
-          <div class="lane-detail" id="lane-aigc"><div class="lane-in">
-            <dl>
-              <div><dt class="mono">Who it's for</dt><dd>Brands that want short AI-shot ads without hiring a full crew.</dd></div>
-              <div><dt class="mono">How it runs</dt><dd>Download a reference, have Claude write a shot-by-shot playbook, make the shots with Higgsfield through MCP, edit them with Claude Code or Codex in CapCut, then deliver to Drive. YouAreExtinct is the portfolio.</dd></div>
-              <div><dt class="mono">Where it stands</dt><dd>First paying lead in progress.</dd></div>
-            </dl>
-          </div></div>
-        </li>
-
         <li class="lane" data-status="live">
           <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-yae">
             <span class="status status-live">Live</span>
             <span class="lane-name">YouAreExtinct</span>
-            <span class="lane-one">Story-driven AI films about extinct animals</span>
+            <span class="lane-one">Cinematic AI stories about extinct animals</span>
             <span class="lane-kind mono">YouTube</span>
             <span class="lane-plus" aria-hidden="true"></span>
           </button>
           <div class="lane-detail" id="lane-yae"><div class="lane-in">
             <dl>
-              <div><dt class="mono">Who it's for</dt><dd>Viewers who like immersive “last of their kind” stories. It's also my AI video portfolio.</dd></div>
-              <div><dt class="mono">How it runs</dt><dd>Run solo on the AI video stack, from shot list to final cut.</dd></div>
-              <div><dt class="mono">Where it stands</dt><dd>Live. <a href="https://www.youtube.com/@YouAreExtinct" target="_blank" rel="noopener">youtube.com/@YouAreExtinct</a></dd></div>
+              <div><dt class="mono">For</dt><dd>Viewers who like immersive nature stories. It's also my AI video portfolio for brand work.</dd></div>
+              <div><dt class="mono">Status</dt><dd>Live, with a T. rex episode in production. <a href="https://www.youtube.com/@YouAreExtinct" target="_blank" rel="noopener">youtube.com/@YouAreExtinct</a></dd></div>
             </dl>
           </div></div>
         </li>
-
-        <li class="lane" data-status="progress">
+        <li class="lane" data-status="live">
           <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-noir">
-            <span class="status status-progress">Ready</span>
+            <span class="status status-live">Live</span>
             <span class="lane-name">Noir Hours</span>
-            <span class="lane-one">Noir jazz for studying and focused work</span>
+            <span class="lane-one">Noir jazz for late-night studying and focus</span>
             <span class="lane-kind mono">YouTube</span>
             <span class="lane-plus" aria-hidden="true"></span>
           </button>
           <div class="lane-detail" id="lane-noir"><div class="lane-in">
             <dl>
-              <div><dt class="mono">Who it's for</dt><dd>Students and focus workers who want lyric-free background music for long sessions.</dd></div>
-              <div><dt class="mono">How it runs</dt><dd>Run solo. The music is made with an AI-assisted production workflow.</dd></div>
-              <div><dt class="mono">Where it stands</dt><dd>Music is ready. The first upload is next.</dd></div>
+              <div><dt class="mono">For</dt><dd>Students and anyone who wants lyric-free music for long work sessions.</dd></div>
+              <div><dt class="mono">Status</dt><dd>First mix is live. <a href="https://youtu.be/8oM1BqovjiY" target="_blank" rel="noopener">Watch No Rush Tonight</a></dd></div>
             </dl>
           </div></div>
         </li>
-
+        <li class="lane" data-status="progress">
+          <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-court">
+            <span class="status status-progress">Testing</span>
+            <span class="lane-name">Court booking mini program</span>
+            <span class="lane-one">WeChat booking, memberships and check-in for a sports venue</span>
+            <span class="lane-kind mono">Client</span>
+            <span class="lane-plus" aria-hidden="true"></span>
+          </button>
+          <div class="lane-detail" id="lane-court"><div class="lane-in">
+            <dl>
+              <div><dt class="mono">For</dt><dd>A basketball venue in China, its members and staff. Built as a template other venues can reuse.</dd></div>
+              <div><dt class="mono">Status</dt><dd>Trial versions are in use. Public release waits for the client's sign-off.</dd></div>
+            </dl>
+          </div></div>
+        </li>
+        <li class="lane" data-status="progress">
+          <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-ipad">
+            <span class="status status-progress">Pre-launch</span>
+            <span class="lane-name">Snuggle Crew Coloring</span>
+            <span class="lane-one">An iPad coloring app for the Snuggle Crew books</span>
+            <span class="lane-kind mono">iOS</span>
+            <span class="lane-plus" aria-hidden="true"></span>
+          </button>
+          <div class="lane-detail" id="lane-ipad"><div class="lane-in">
+            <dl>
+              <div><dt class="mono">For</dt><dd>Kids who color on an iPad, with Apple Pencil or a finger.</dd></div>
+              <div><dt class="mono">Status</dt><dd>Built and tested in Swift, with 161 tests and in-app purchases. App Store submission is next.</dd></div>
+            </dl>
+          </div></div>
+        </li>
+        <li class="lane" data-status="progress">
+          <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-games">
+            <span class="status status-progress">Building</span>
+            <span class="lane-name">Sticker Scenes · One Too Far</span>
+            <span class="lane-one">A calm sticker puzzle game and a one-phone party game</span>
+            <span class="lane-kind mono">Games</span>
+            <span class="lane-plus" aria-hidden="true"></span>
+          </button>
+          <div class="lane-detail" id="lane-games"><div class="lane-in">
+            <dl>
+              <div><dt class="mono">For</dt><dd>Casual players on iPhone and iPad, and groups of 2 to 8 friends.</dd></div>
+              <div><dt class="mono">Status</dt><dd>Sticker Scenes has all 12 levels and aims to launch in early 2027. One Too Far is a complete test build.</dd></div>
+            </dl>
+          </div></div>
+        </li>
+        <li class="lane" data-status="progress">
+          <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-aigc">
+            <span class="status status-progress">First client</span>
+            <span class="lane-name">AI video ads</span>
+            <span class="lane-one">Cinematic AI ads for brands, without a production crew</span>
+            <span class="lane-kind mono">Client</span>
+            <span class="lane-plus" aria-hidden="true"></span>
+          </button>
+          <div class="lane-detail" id="lane-aigc"><div class="lane-in">
+            <dl>
+              <div><dt class="mono">For</dt><dd>Brands that want short AI-shot ads.</dd></div>
+              <div><dt class="mono">Status</dt><dd>First paying lead in progress. YouAreExtinct is the portfolio.</dd></div>
+            </dl>
+          </div></div>
+        </li>
         <li class="lane" data-status="progress">
           <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-pindou">
             <span class="status status-progress">Starting</span>
-            <span class="lane-name">拼豆 store</span>
-            <span class="lane-one">Social, a WeChat mini program and web for a Shanghai bead store</span>
+            <span class="lane-name">拼豆 bead store</span>
+            <span class="lane-one">Social, a mini program and web for a Shanghai store</span>
             <span class="lane-kind mono">Growth</span>
             <span class="lane-plus" aria-hidden="true"></span>
           </button>
           <div class="lane-detail" id="lane-pindou"><div class="lane-in">
             <dl>
-              <div><dt class="mono">Who it's for</dt><dd>People who already love 拼豆 (fuse beads) and need a store they can find and an easy way to visit.</dd></div>
-              <div><dt class="mono">How it runs</dt><dd>A team-owned store. I own growth and tech: social, the 小程序 and the websites, built with AI-assisted workflows.</dd></div>
-              <div><dt class="mono">Where it stands</dt><dd>Just started.</dd></div>
+              <div><dt class="mono">For</dt><dd>People who love 拼豆 (fuse beads) and want a store they can find and visit.</dd></div>
+              <div><dt class="mono">Status</dt><dd>Just started. I own growth and tech.</dd></div>
             </dl>
           </div></div>
         </li>
-
-        <li class="lane" data-status="progress">
-          <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-influ">
-            <span class="status status-progress">In production</span>
-            <span class="lane-name">AI influencers</span>
-            <span class="lane-one">Funny, viral characters and traditional influencers, made with AI</span>
-            <span class="lane-kind mono">Media</span>
-            <span class="lane-plus" aria-hidden="true"></span>
-          </button>
-          <div class="lane-detail" id="lane-influ"><div class="lane-in">
-            <dl>
-              <div><dt class="mono">Who it's for</dt><dd>Two audiences. The funny characters are built to go viral on TikTok and Reels. The traditional influencers grow a steady following on Instagram. Both are how my cofounders and I learn distribution by doing.</dd></div>
-              <div><dt class="mono">How it runs</dt><dd>Built with two cofounders. Kylie, an agent, plans and researches the content, the looks are trained on Higgsfield Soul 2.0, and my cofounders make the final cuts.</dd></div>
-              <div><dt class="mono">Where it stands</dt><dd>Training is done and the first funny clips are made. Public handles come later.</dd></div>
-            </dl>
-          </div></div>
-        </li>
-
         <li class="lane" data-status="done">
           <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-uhome">
             <span class="status status-done">Delivered</span>
             <span class="lane-name">UHOME</span>
-            <span class="lane-one">Website and 3D renders for student apartments in Edmonton</span>
-            <span class="lane-kind mono">Web + 3D</span>
+            <span class="lane-one">Website and 3D renders for student apartments</span>
+            <span class="lane-kind mono">Client</span>
             <span class="lane-plus" aria-hidden="true"></span>
           </button>
           <div class="lane-detail" id="lane-uhome"><div class="lane-in">
             <dl>
-              <div><dt class="mono">Who it's for</dt><dd>Students and families looking for clear listings and good visual tours near the University of Alberta.</dd></div>
-              <div><dt class="mono">How it runs</dt><dd>I built the real estate website and did the 3D modeling and rendering, using AI where it helped.</dd></div>
-              <div><dt class="mono">Where it stands</dt><dd>Delivered. <a href="https://claude.ai/artifact/RjEb8CaEnokf4c2rQxTrQ6" target="_blank" rel="noopener">View the demo</a></dd></div>
+              <div><dt class="mono">For</dt><dd>Students and families looking near the University of Alberta.</dd></div>
+              <div><dt class="mono">Status</dt><dd>Delivered. <a href="https://claude.ai/artifact/RjEb8CaEnokf4c2rQxTrQ6" target="_blank" rel="noopener">View the demo</a></dd></div>
             </dl>
           </div></div>
         </li>
-
-        <li class="lane" data-status="progress">
-          <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-x">
-            <span class="status status-progress">Planned</span>
-            <span class="lane-name">Build in public</span>
-            <span class="lane-one">Shipping every lane in public on X</span>
-            <span class="lane-kind mono">Distribution</span>
-            <span class="lane-plus" aria-hidden="true"></span>
-          </button>
-          <div class="lane-detail" id="lane-x"><div class="lane-in">
-            <dl>
-              <div><dt class="mono">Who it's for</dt><dd>People who want real build logs from Hirvo, Bookflow, AI video and the rest. For me, it's distribution practice.</dd></div>
-              <div><dt class="mono">How it runs</dt><dd>An X coach agent runs a daily routine: a topic bank, ready-to-post drafts, timing and reviews. I press publish.</dd></div>
-              <div><dt class="mono">Where it stands</dt><dd>Plan locked. The handle goes live soon.</dd></div>
-            </dl>
-          </div></div>
-        </li>
-
         <li class="lane" data-status="done">
           <button class="lane-row" type="button" aria-expanded="false" aria-controls="lane-hack">
             <span class="status status-done">Done</span>
@@ -906,9 +695,9 @@
           </button>
           <div class="lane-detail" id="lane-hack"><div class="lane-in">
             <dl>
-              <div><dt class="mono">AIx Origin · Vital</dt><dd>對藥, a medication check for patients and carers: same drug with two names, and leftover boxes turned into a card for the pharmacist.</dd></div>
-              <div><dt class="mono">复客松 · 华润三九杯</dt><dd>An AI healthcare build for elder medication confirmation. Finished in September 2026.</dd></div>
-              <div><dt class="mono">Fudan</dt><dd>Received a recognition certificate. I entered team events solo and still shipped working demos, built with Claude Code and Codex.</dd></div>
+              <div><dt class="mono">AIx Origin</dt><dd>對藥, a medication check for patients and carers.</dd></div>
+              <div><dt class="mono">复客松</dt><dd>Medication confirmation for older adults. Finished September 2026.</dd></div>
+              <div><dt class="mono">Fudan</dt><dd>Recognition certificate.</dd></div>
             </dl>
           </div></div>
         </li>
@@ -916,12 +705,13 @@
     </div>
   </section>
 
+
   <!-- NEWSLETTER:START (generated by tools/build_newsletter.py) -->
   <section class="section newsletter" id="newsletter" aria-labelledby="newsletter-title">
     <div class="wrap">
       <div class="section-head section-head-row">
         <div class="head-main">
-          <p class="kicker"><span class="kicker-n">04</span>What I write</p>
+          <p class="kicker"><span class="kicker-n">05</span>What I write</p>
           <h2 id="newsletter-title" data-split>Daily AI, in English and 中文.</h2>
           <p class="section-sub">Every morning Andrew, the news-desk agent on my team, files a short, sourced brief on what changed in AI. 42 issues so far, each with a link to every source.</p>
         </div>
@@ -956,86 +746,6 @@
     </div>
   </section>
   <!-- NEWSLETTER:END -->
-
-  <!-- STACK -->
-  <section class="section stack" id="stack" aria-labelledby="stack-title">
-    <div class="wrap">
-      <header class="section-head">
-        <p class="kicker"><span class="kicker-n">05</span>Toolbox</p>
-        <h2 id="stack-title" data-split>What I use, and what else I bring.</h2>
-      </header>
-      <div class="stack-grid" data-reveal-group>
-        <article class="stack-card" data-spot>
-          <h3>Build and ship</h3>
-          <ul class="chips"><li>Next.js</li><li>TypeScript</li><li>Supabase</li><li>Expo</li><li>VPS deploys</li><li>GitHub orgs</li></ul>
-          <p>Production repos with branch protection and engineer onboarding.</p>
-        </article>
-        <article class="stack-card" data-spot>
-          <h3>AI in the loop</h3>
-          <ul class="chips"><li>Claude Code</li><li>Codex</li><li>Higgsfield MCP</li><li>Notion</li><li>Custom Claude skills</li><li>Anthropic API</li><li>Grok Bot agents</li><li>Cursor</li></ul>
-          <p>I plan in Notion and build in Claude. Agents work inside every lane, with Notion scoreboards and handoffs.</p>
-        </article>
-        <article class="stack-card" data-spot>
-          <h3>Media and compute</h3>
-          <ul class="chips"><li>ComfyUI</li><li>DGX Spark</li><li>Tailscale</li><li>MiniMax TTS</li><li>Higgsfield Soul 2.0</li><li>CapCut</li></ul>
-          <p>ComfyUI runs on a DGX Spark that I reach over Tailscale.</p>
-        </article>
-        <article class="stack-card" data-spot>
-          <h3>Founder operations</h3>
-          <ul class="chips"><li>Cap tables</li><li>IP ownership</li><li>SAFEs</li><li>83(b) elections</li></ul>
-          <p>Handled myself, alongside the product work.</p>
-        </article>
-        <article class="stack-card" data-spot>
-          <h3>Experience</h3>
-          <ul class="chips"><li>Co-founder &amp; CTO, Hirvo</li><li>Project supervisor</li><li>Startup advisor</li></ul>
-          <p>Supervised a project for a US company and advised an MCN startup.</p>
-        </article>
-        <article class="stack-card" data-spot>
-          <h3>Range</h3>
-          <ul class="chips"><li>Biomedical engineering</li><li>Statistics</li><li>Healthcare AI</li><li>English</li><li>Mandarin</li></ul>
-          <p>Working across Canada, the US, China and Hong Kong.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- LEARNING -->
-  <section class="section learning" id="learning" data-nav="stack" aria-labelledby="learning-title">
-    <div class="wrap">
-      <header class="section-head">
-        <p class="kicker">Learning now</p>
-        <h2 id="learning-title" data-split>What I'm getting better at.</h2>
-        <p class="section-sub">The gap year is for building, and for going deeper on the parts of AI I want to work in.</p>
-      </header>
-      <div class="learn-grid" data-reveal-group>
-        <article class="learn-card" data-spot>
-          <div class="learn-art learn-evals" aria-hidden="true">
-            <span class="ev-row"><i></i><b class="ev-pass"></b></span>
-            <span class="ev-row"><i></i><b class="ev-pass"></b></span>
-            <span class="ev-row"><i></i><b class="ev-fail"></b></span>
-            <span class="ev-row"><i></i><b class="ev-pass"></b></span>
-            <span class="ev-row"><i></i><b class="ev-pass"></b></span>
-          </div>
-          <h3>Evaluation sets and tasks</h3>
-          <p>How to design eval tasks and build datasets that catch real failures, then score them the same way every time. Hirvo's rewrite engine is my test bed: every retune starts from an eval set.</p>
-        </article>
-        <article class="learn-card" data-spot>
-          <div class="learn-art learn-tune" aria-hidden="true">
-            <svg viewBox="0 0 200 90"><path class="tune-grid" d="M10 80H190M10 55H190M10 30H190"></path><path class="tune-curve" pathLength="100" d="M12 14 C40 18 52 52 80 60 S130 72 188 74"></path><circle class="tune-dot" r="4" cx="188" cy="74"></circle></svg>
-          </div>
-          <h3>Fine-tuning LLMs</h3>
-          <p>When fine-tuning beats a better prompt, how to prepare training data, and how to tell whether a tuned model actually got better.</p>
-        </article>
-        <article class="learn-card" data-spot>
-          <div class="learn-art learn-local" aria-hidden="true">
-            <svg viewBox="0 0 200 90"><path class="chip-trace" d="M20 25H70M20 45H70M20 65H70M130 25H180M130 45H180M130 65H180"></path><path class="chip-pulse" pathLength="100" d="M20 25H70M130 45H180M20 65H70"></path><rect class="chip-body" x="70" y="12" width="60" height="66" rx="8"></rect><rect class="chip-core" x="86" y="28" width="28" height="34" rx="4"></rect></svg>
-          </div>
-          <h3>Local AI</h3>
-          <p>Running and serving models on my own hardware. My image pipeline already runs in ComfyUI on a DGX Spark that I reach over Tailscale.</p>
-        </article>
-      </div>
-    </div>
-  </section>
 
   <!-- CONTACT -->
   <section class="contact" id="contact" aria-labelledby="contact-title">
@@ -1082,7 +792,7 @@
     <footer class="site-footer">
       <div class="wrap foot">
         <span>Kevin Yu · Peiyuan Yu · 余佩远</span>
-        <span class="mono">Updated October 2026</span>
+        <span class="mono">Updated November 2026</span>
         <a href="#top" class="mono">Back to top ↑</a>
       </div>
     </footer>
@@ -1095,7 +805,8 @@
 <script src="assets/vendor/lenis.min.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/contact.js"></script>
-<script src="assets/js/noir.js"></script>
 <script src="assets/js/newsletter.js"></script>
+<script src="assets/js/designs.js"></script>
+<script src="designs/shared/switcher.js" data-root="./" data-current="auto" defer></script>
 </body>
 </html>
